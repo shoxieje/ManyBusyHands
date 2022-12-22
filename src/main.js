@@ -8,24 +8,17 @@ import store from "./store/store.js";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 import "./assets/styles/styles.sass";
 import vueCountryRegionSelect from "vue-country-region-select";
-import VueAnalytics from "vue-analytics";
+import vuetify from '@/plugins/vuetify'
 
-// The below declaration is where to set the server address that is to be used in conjunction with this front end
-Vue.prototype.$BaseURI =
-    "https://webhook.site/e8c214e7-725b-4b97-bfe5-28372fa1e41c";
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VueAxios, axios);
 Vue.use(vueCountryRegionSelect);
 
-// Google Analytics tracking
-Vue.use(VueAnalytics, {
-    id: "UA-206693788-1",
-    router
-});
 
 new Vue({
     router,
     store,
+    vuetify,
     render: h => h(App)
 }).$mount("#app");

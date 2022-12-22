@@ -5,76 +5,100 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/Business',
+    name: 'BusinessHome',
+    component: () => import('../views/Business/Home.vue')
+  },
+  {
+    path: '/Business/Signin',
+    name: 'BusinessSignin',
+    component: () => import('../views/Business/Signin.vue')
+  },
+  {
+    path: '/Business/Signup',
+    name: 'BusinessSignup',
+    component: () => import('../views/Business/Signup.vue')
+  },
+  {
     path: '/',
     name: 'Landing',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Landing.vue')
+    component: () => import('../views/Landing.vue')
   },
   {
     path: '/Login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import('../views/Login.vue')
   },
+  {
+    path: '/Signup',
+    name: 'Signup',
+    component: () => import('../views/Signup.vue')
+  },
+  // {
+
+  // },
   {
     path: '/About-Us',
     name: 'AboutUs',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutUs.vue')
+    component: () => import('../views/AboutUs.vue')
   },
   {
     path: '/Contact-Us',
     name: 'ContactUs',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ContactUs.vue')
+    component: () => import('../views/ContactUs.vue')
   },
   {
     path: '/Seasonality',
     name: 'Seasonality',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Seasonality.vue')
+    component: () => import('../views/Seasonality.vue')
   },
   {
     path: '/Terms-and-Conditions',
     name: 'TermsAndConditions',
-    component: () => import(/* webpackChunkName: "about" */ '../views/TermsAndConditions.vue')
+    component: () => import('../views/TermsAndConditions.vue')
   },
   {
     path: '/Business-Signup',
     name: 'BusinessSignup',
-    component: () => import(/* webpackChunkName: "about" */ '../views/BusinessSignup.vue')
+    component: () => import('../views/BusinessSignup.vue')
   },
   {
     path: '/JobSeeker-Signup',
     name: 'JobSeekerSignup',
-    component: () => import(/* webpackChunkName: "about" */ '../views/JobSeekerSignup.vue')
+    component: () => import('../views/JobSeekerSignup.vue')
   },
   {
     path: '/Search',
     name: 'Search',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Search.vue')
+    component: () => import('../views/Search.vue')
   },
   {
     path: '/Subscribe',
     name: 'Subscribe',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Subscribe.vue')
+    component: () => import('../views/Subscribe.vue')
   },
   {
     path: '/JobSeeker-Payment',
     name: 'JobSeekerPayment',
-    component: () => import(/* webpackChunkName: "about" */ '../views/JobSeekerPayment.vue')
+    component: () => import('../views/JobSeekerPayment.vue')
   },
   {
     path: '/Add-Company',
     name: 'AddCompany',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AddCompany.vue')
+    component: () => import('../views/AddCompany.vue')
   },
   {
     path: '/My-Companies',
     name: 'MyCompanies',
-    component: () => import(/* webpackChunkName: "about" */ '../views/MyCompanies.vue')
+    component: () => import('../views/MyCompanies.vue')
   },
   {
     path: '/Business-View',
     name: 'BusinessView',
-    component: () => import(/* webpackChunkName: "about" */ '../views/BusinessView.vue'),
+    component: () => import('../views/BusinessView.vue'),
     props: true
   },
+  
 ]
 
 const router = new VueRouter({
