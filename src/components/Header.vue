@@ -1,28 +1,34 @@
 <template>
     <b-navbar type="primary" variant="light" sticky>
-            <!-- BRANDING -->
-            <b-navbar-brand :to="{ name: '/Business' }">
-                <img
-                    src="@/assets/img/logo2.jpeg"
-                    alt="ManyBusyHands Logo"
-                />
-            </b-navbar-brand>
-            <!-- PUBLIC NAVBAR -->
-            <b-navbar-nav id="publicNavbar" class="header-container">   
-                <b-nav-item class="nav-item" to="/Business">Home</b-nav-item>
-                <b-nav-item class="nav-item" to="/Jobs">Jobs</b-nav-item>
-                <b-nav-item class="nav-item" to="/Ads">Ads</b-nav-item>
-                <b-nav-item class="nav-item" to="/Seasonality">Seasonality</b-nav-item>
+        <!-- BRANDING -->
+        <b-navbar-brand :to="{ name: '/Business' }">
+            <img src="@/assets/img/logo2.png" alt="ManyBusyHands Logo" />
+        </b-navbar-brand>
+        <!-- PUBLIC NAVBAR -->
+        <b-navbar-nav id="publicNavbar" class="header-container">
+            <b-nav-item class="nav-item" to="/Business">Home</b-nav-item>
+            <b-nav-item class="nav-item" to="/Jobs">Jobs</b-nav-item>
+            <b-nav-item class="nav-item" to="/Ads">Ads</b-nav-item>
+            <b-nav-item class="nav-item" to="/Seasonality"
+                >Seasonality</b-nav-item
+            >
 
-                <!-- <div class="header-button">
+            <!-- <div class="header-button">
                     
                 </div> -->
-            </b-navbar-nav>
+        </b-navbar-nav>
 
-            <b-navbar-nav class="ml-auto">
-                <b-button class="nav-btn" variant="light" to="/Business/Signin">Sign in</b-button>
-                <b-button class="nav-btn ml-2" variant="dark" to="/Business/Signup">Sign up</b-button>
-            </b-navbar-nav>
+        <b-navbar-nav class="ml-auto">
+            <b-button class="nav-btn" variant="light" to="/Business/Signin"
+                >Sign in</b-button
+            >
+            <b-button
+                class="nav-btn ml-2"
+                variant="primary"
+                to="/Business/Signup"
+                >Sign up</b-button
+            >
+        </b-navbar-nav>
     </b-navbar>
 </template>
 <script>
@@ -67,19 +73,22 @@ export default {
 </script>
 
 <style>
-    .nav-item a {
-        color: #1c1d1f !important;
-        font-size: 16pt;
-    }
+.nav-item a {
+    /* color: #1c1d1f !important; */
 
-    .nav-item {
-        margin: auto;
-        padding: 1em
-    }
-	
+    /* $mbh-navy */
+    color: #25274d !important;
+    font-weight: bold;
+    font-size: 16pt;
+}
 
-    .nav-btn {
-        font-size: 16pt !important;
-    }
-    
+.nav-item {
+    margin: auto;
+    padding: 1em;
+}
+
+.nav-btn {
+    font-size: 16pt !important;
+    font-weight: bold;
+}
 </style>

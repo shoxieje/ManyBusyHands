@@ -8,17 +8,18 @@ import store from "./store/store.js";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 import "./assets/styles/styles.sass";
 import vueCountryRegionSelect from "vue-country-region-select";
-import vuetify from '@/plugins/vuetify'
+import vuetify from "@/plugins/vuetify";
+import VueLazyload from "vue-lazyload";
 
+Vue.use(VueLazyload); //For vue-upload-multiple-image
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VueAxios, axios);
 Vue.use(vueCountryRegionSelect);
 
-
 new Vue({
     router,
     store,
     vuetify,
-    render: h => h(App)
+    render: (h) => h(App),
 }).$mount("#app");
