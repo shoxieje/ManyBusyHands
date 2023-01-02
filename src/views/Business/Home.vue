@@ -657,6 +657,7 @@ h3
     // background-color: $mbh-white
 
 .business-home-video__container
+    text-align: center
     // background-color: pink
 
 .bh-video__container
