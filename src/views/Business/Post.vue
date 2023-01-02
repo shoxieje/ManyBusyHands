@@ -65,14 +65,23 @@
 </template>
 
 <script>
+<<<<<<<< HEAD:src/views/Business/CreateJob.vue
 import CreateJob1 from "./components/CreateJob1.vue";
 import CreateJob2 from "./components/CreateJob2.vue";
+========
+import BusinessPost1 from "./components/postjob-component/Post-1.vue";
+import BusinessPost2 from "./components/postjob-component/Post-2.vue";
+>>>>>>>> master:src/views/Business/createJob.vue
 export default {
     components: {
         CreateJob1,
         CreateJob2,
     },
+<<<<<<<< HEAD:src/views/Business/CreateJob.vue
     name: "CreateJob",
+========
+    name: "BusinessJobPost",
+>>>>>>>> master:src/views/Business/createJob.vue
     data() {
         return {
             e1: 1,

@@ -18,6 +18,7 @@ app.use(
 
 const userRouter = require("./routes/user");
 const businessUserRouter = require('./routes/businessUser')
+const activityRouter = require('./routes/activity')
 
 app.get("/", (req, res) => {
     res.json({ message: "ok" });
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 
 app.use('/user', userRouter);
 app.use('/businessUser', businessUserRouter)
+app.use('/activity', activityRouter)
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

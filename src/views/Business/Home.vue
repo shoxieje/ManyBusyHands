@@ -22,7 +22,7 @@
                         <b-button
                             class="nav-btn text-white"
                             variant="primary"
-                            to="/Job/ManageJob/Create"
+                            to="/jobs/manage/create"
                             >Post a job ad</b-button
                         >
                     </div>
@@ -496,11 +496,10 @@ export default {
             this.$store.dispatch("authUserLoggingIn", false);
         };
 
-        notUserLoggingIn();
-
-        this.passMockData();
-    },
-};
+            notUserLoggingIn();
+            
+        }
+    };
 </script>
 
 <style lang="sass">

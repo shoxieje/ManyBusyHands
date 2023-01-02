@@ -37,7 +37,7 @@
                     </ul>
                 </div>
                 <!-- ACCOUNT -->
-                <div class="col-lg-2 col-md-6 mb-3 mb-lg-0" v-show="noLogin">
+                <div class="col-lg-2 col-md-6 mb-3 mb-lg-0">
                     <h5 class="text-uppercase font-weight-bold mb-4">
                         Account
                     </h5>
@@ -89,12 +89,7 @@ export default {
     name: "Footer",
 
     computed: {
-        // Computed boolean variable returning whether the user is not logged in
-        noLogin() {
-            return !this.loggedInUser;
-        },
 
-        ...mapGetters(["loggedInUser"]),
     },
 };
 </script>
