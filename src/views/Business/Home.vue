@@ -14,7 +14,14 @@
                 
             }
 
-        }
+        },
+        created() {
+            const notUserLoggingIn = async () =>  {
+                this.$store.dispatch("authUserLoggingIn", false)
+            }
+
+            notUserLoggingIn();
+        },
 
     }
 

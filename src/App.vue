@@ -22,86 +22,20 @@ export default {
 
     data() {
         return {
-        //     // Array of page names that specify which sites a NON LOGGED IN VISITOR can visit (router protection)
-        //     publicSites: [
-        //         "Landing",
-        //         "Login",
-        //         "AboutUs",
-        //         "ContactUs",
-        //         "TermsAndConditions",
-        //         "BusinessSignup",
-        //         "JobSeekerSignup",
-        //         "AccommodationSignup",
-        //         "Subscribe",
-        //         "Signup"
-        //     ],
-
-        //     // Array of page names that specify which sites a LOGGED IN USER (JobSeeker) can visit (router protection)
-        //     jobSeekerSites: [
-        //         "Landing",
-        //         "AboutUs",
-        //         "ContactUs",
-        //         "TermsAndConditions",
-        //         "Search",
-        //         "Seasonality",
-        //         "MyAccount",
-        //         "ResetPassword",
-        //         "Subscribe",
-        //         "JobSeekerPayment",
-        //         "BusinessView",
-        //     ],
-
-        //     // Array of page names that specify which sites a LOGGED IN USER (Business) can visit (router protection)
-        //     businessSites: [
-        //         "Landing",
-        //         "AboutUs",
-        //         "ContactUs",
-        //         "TermsAndConditions",
-        //         "Search",
-        //         "Seasonality",
-        //         "MyAccount",
-        //         "MyCompanies",
-        //         "ResetPassword",
-        //         "AddCompany",
-        //         "Subscribe",
-        //         "BusinessView",
-        //     ],
-
-        //     // Array of page names that specify which sites a LOGGED IN USER (Accommodation) can visit (router protection)
-        //     accommodationSites: [
-        //         "Landing",
-        //         "AboutUs",
-        //         "ContactUs",
-        //         "TermsAndConditions",
-        //         "Search",
-        //         "Seasonality",
-        //         "MyAccount",
-        //         "MyCompanies",
-        //         "ResetPassword",
-        //         "AddCompany",
-        //         "Subscribe",
-        //         "BusinessView",
-        //     ],
+       
         };
     },
 
     computed: {
-        // Computed value that returns the current route page name
-        // pageName() {
-        //     return this.$route.name;
-        // },
 
-        // // Computed boolean value that determines if the current page is the 'Landing' page (used for background image carousel)
-        // isLandingPage() {
-        //     return this.pageName == "Landing";
-        // },
+    },
 
-        // // Computed boolean value returning whether or not this page is publicly accessible for non-logged in vistors
-        // isPublicPage() {
-        //     return this.publicSites.indexOf(this.pageName) !== -1;
-        // },
+    created() {
+        const retrieveActivityData = async () => {
+            this.$store.dispatch("setActivityData")
+        }
 
-        // ...mapGetters(["loggedInUser", "accountType"]),
+        retrieveActivityData();
     },
 
     methods: {
