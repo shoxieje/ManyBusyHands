@@ -7,10 +7,10 @@
         <!-- PUBLIC NAVBAR -->
         
         <b-navbar-nav id="publicNavbar" class="header-container" v-show="!this.$store.state.isUserLoggingIn">
-            <b-nav-item class="nav-item" to="/Business">Home</b-nav-item>
-            <b-nav-item class="nav-item" to="/Jobs">Jobs</b-nav-item>
-            <b-nav-item class="nav-item" to="/Ads">Ads</b-nav-item>
-            <b-nav-item class="nav-item" to="/Seasonality"
+            <b-nav-item class="nav-item" to="/business">Home</b-nav-item>
+            <b-nav-item class="nav-item" to="/jobs">Jobs</b-nav-item>
+            <b-nav-item class="nav-item" to="/ads">Ads</b-nav-item>
+            <b-nav-item class="nav-item" to="/seasonality"
                 >Seasonality</b-nav-item
             >
 
@@ -20,7 +20,7 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto"  v-show="!this.$store.state.isUserLoggingIn">
-            <b-button class="nav-btn" variant="light" to="/Business/Signin"
+            <b-button class="nav-btn" variant="light" to="/business/signin"
                 >Sign in</b-button>
                 
             <b-button

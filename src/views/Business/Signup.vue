@@ -74,9 +74,9 @@
 </template>
 
 <script>
-    import BusinessSignup1 from "./components/Signup-1.vue";
-    import BusinessSignup2 from "./components/Signup-2.vue";
-    import BusinessSignup3 from "./components/Signup-3.vue";
+    import BusinessSignup1 from "./components/signup-component/Signup-1.vue";
+    import BusinessSignup2 from "./components/signup-component/Signup-2.vue";
+    import BusinessSignup3 from "./components/signup-component/Signup-3.vue";
     import router from "../../router/index"
 
 

@@ -69,14 +69,14 @@
 </template>
 
 <script>
-import BusinessPost1 from "./components/Post-1.vue";
-import BusinessPost2 from "./components/Post-2.vue";
+import BusinessPost1 from "./components/postjob-component/Post-1.vue";
+import BusinessPost2 from "./components/postjob-component/Post-2.vue";
 export default {
     components: {
         BusinessPost1,
         BusinessPost2,
     },
-    name: "BusinessPost",
+    name: "BusinessJobPost",
     data() {
         return {
             e1: 1,

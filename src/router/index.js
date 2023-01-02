@@ -5,17 +5,17 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/Business',
+    path: '/business',
     name: 'BusinessHome',
     component: () => import('../views/Business/Home.vue')
   },
   {
-    path: '/Business/Signin',
+    path: '/business/signin',
     name: 'BusinessSignin',
     component: () => import('../views/Business/Signin.vue')
   },
   {
-    path: '/Business/Signup',
+    path: '/business/signup',
     name: 'BusinessSignup',
     component: () => import('../views/Business/Signup.vue')
   },
@@ -23,6 +23,11 @@ const routes = [
     path: '/',
     name: 'Landing',
     component: () => import('../views/Business/Home.vue')
+  },
+  {
+    path: '/jobs/manage/create',
+    name: 'BusinessJobPost',
+    component: () => import('../views/Business/createJob.vue')
   }
 ]
 

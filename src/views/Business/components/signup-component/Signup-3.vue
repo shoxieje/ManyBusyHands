@@ -140,7 +140,7 @@
 
     import "vue-phone-number-input/dist/vue-phone-number-input.css";
     import axios from "axios";
-    import { config } from "../../../utils/constant";
+    // import { config } from "../../../utils/constant";
     import VueUploadMultipleImage from "vue-upload-multiple-image";
     const bcrypt = require("bcryptjs");
     import Multiselect from "vue-multiselect";

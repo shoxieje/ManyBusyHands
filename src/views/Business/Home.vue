@@ -12,7 +12,7 @@
                         <b-button
                             class="nav-btn text-white"
                             variant="primary"
-                            to="/Business/Post"
+                            to="/jobs/manage/create"
                             >Post a job ad</b-button
                         >
                     </div>

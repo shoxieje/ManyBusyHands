@@ -239,7 +239,7 @@
     import Multiselect from "vue-multiselect";
     import { onMounted, onUnmounted, ref } from "vue";
     import axios from "axios";
-    import { config } from "../../../utils/constant";
+    // import { config } from "../../../utils/constant";
     import VueGoogleAutocomplete from "vue-google-autocomplete";
     const bcrypt = require("bcryptjs");
 
