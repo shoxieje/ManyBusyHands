@@ -87,7 +87,7 @@
                     <div
                         v-for="(job, key) in activeJobList.slice(0, 5)"
                         v-bind:class="[
-                            pageItemClass,
+                            job,
                             key % 2 == 1 ? 'background-gray-0' : '',
                         ]"
                     >
@@ -97,7 +97,7 @@
                                     <div
                                         class="status-active"
                                         v-bind:class="[
-                                            pageItemClass,
+                                            job,
                                             key % 2 == 1
                                                 ? 'background-white-2'
                                                 : '',
@@ -155,7 +155,7 @@
                     <div
                         v-for="(job, key) in disabledJobList.slice(0, 5)"
                         v-bind:class="[
-                            pageItemClass,
+                            job,
                             key % 2 == 1 ? 'background-gray-0' : '',
                         ]"
                     >
@@ -165,7 +165,7 @@
                                     <div
                                         class="status-active"
                                         v-bind:class="[
-                                            pageItemClass,
+                                            job,
                                             key % 2 == 1
                                                 ? 'background-white-2'
                                                 : '',
@@ -221,7 +221,7 @@
                     <div
                         v-for="(job, key) in draftJobList.slice(0, 5)"
                         v-bind:class="[
-                            pageItemClass,
+                            job,
                             key % 2 == 1 ? 'background-gray-0' : '',
                         ]"
                     >
@@ -231,7 +231,7 @@
                                     <div
                                         class="status-active"
                                         v-bind:class="[
-                                            pageItemClass,
+                                            job,
                                             key % 2 == 1
                                                 ? 'background-white-2'
                                                 : '',
@@ -481,6 +481,7 @@ export default {
             draftJobList: [],
             disabledJobList: [],
             businessData: {},
+            test: [],
         };
     },
     methods: {
@@ -489,6 +490,7 @@ export default {
             this.draftJobList = draftJobList;
             this.disabledJobList = disabledJobList;
             this.businessData = businessData;
+            this.test = activeJobList;
         },
     },
     created() {
@@ -496,10 +498,11 @@ export default {
             this.$store.dispatch("authUserLoggingIn", false);
         };
 
-            notUserLoggingIn();
-            
-        }
-    };
+        notUserLoggingIn();
+
+        this.passMockData();
+    },
+};
 </script>
 
 <style lang="sass">
@@ -689,4 +692,5 @@ h3
 
 .bh-support__logo
     min-width: 250px
+    margin: auto 0
 </style>
