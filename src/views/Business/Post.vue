@@ -31,7 +31,7 @@
                 <v-stepper-items class="mw-60">
                     <v-stepper-content step="1">
                         <v-card class="mb-12" color="grey lighten-1">
-                            <CreateJob1 />
+                            <Post1 />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-secondary">
@@ -47,7 +47,7 @@
                 <v-stepper-items class="mw-60">
                     <v-stepper-content step="2">
                         <v-card class="mb-12" color="grey lighten-1">
-                            <CreateJob2 />
+                            <Post2 />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-secondary">
@@ -65,23 +65,14 @@
 </template>
 
 <script>
-<<<<<<<< HEAD:src/views/Business/CreateJob.vue
-import CreateJob1 from "./components/CreateJob1.vue";
-import CreateJob2 from "./components/CreateJob2.vue";
-========
-import BusinessPost1 from "./components/postjob-component/Post-1.vue";
-import BusinessPost2 from "./components/postjob-component/Post-2.vue";
->>>>>>>> master:src/views/Business/createJob.vue
+import Post1 from "./components/postjob-component/Post-1.vue";
+import Post2 from "./components/postjob-component/Post-2.vue";
 export default {
     components: {
-        CreateJob1,
-        CreateJob2,
+        Post1,
+        Post2,
     },
-<<<<<<<< HEAD:src/views/Business/CreateJob.vue
-    name: "CreateJob",
-========
     name: "BusinessJobPost",
->>>>>>>> master:src/views/Business/createJob.vue
     data() {
         return {
             e1: 1,
