@@ -1,46 +1,65 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
-
 export default new Vuex.Store({
+    
     state: {
-        // State for Logged in User
-        loggedInUser: false, // Boolean for if a user is logged in
-        accountType: null,   // String accountType: 'USER' or 'BUSINESS'
-        accountId: null      // Int accountId
+        isUserLoggingIn: false,
+        user: {},
+        activity: []
     },
-    getters: {
-        // State getters
-        loggedInUser: state => state.loggedInUser,
-        accountType: state =>state.accountType,
-        accountId: state => state.accountId
+    mutations: {
+        SET_USER_LOGGING_IN(state, x) {
+            state.isUserLoggingIn = x
+        },
+        SET_USER_DATA(state, x) {
+            state.user = x
+        },
+        SET_ACTIVITY_DATA(state, x) {
+            state.activity = x
+        }
     },
     actions: {
         // This action commits the setLoggedInUser mutation, updating the store state with the 'account' object passed through
-        loginUser({commit}, account) {
-            commit('setLoggedInUser', account)
+        authUserLoggingIn({commit}, value) {
+            commit("SET_USER_LOGGING_IN", value)
         },
 
-        // This action commits the removeLoggedInUser mutation
-        logoutUser({ commit }) {
-            commit('removeLoggedInUser')
+        setUserData({commit}, userEmail) {
+            axios.get(`http://localhost:8081/businessUser/searchByEmail/${userEmail}`).then(
+                result => {
+                    commit("SET_USER_DATA", result.data[0])
+                }
+            )
+        },
+
+        setActivityData({commit}) {
+            axios.get(`http://localhost:8081/activity`).then(
+                result => {
+
+                    let activityName = [];
+                    for(let x of result.data) {
+                        activityName.push(x.activity_name)
+                    }
+
+                    commit("SET_ACTIVITY_DATA", activityName)
+                }
+            )
         }
     },
-    mutations: {
-        // Set loggedInUser
-        setLoggedInUser(state, account) {
-            state.loggedInUser = true
-            state.accountType = account.accountType
-            state.accountId = account.accountId
+
+    getters: {
+        userLogging: (state) => {
+            return state.isUserLoggingIn
         },
-        
-        // Remove account from loggedInUser state
-        removeLoggedInUser(state) {
-            state.loggedInUser = false
-            state.accountType = null
-            state.accountId = null
+        getUserData: (state) => {
+            return state.user
+        },
+        getActivityData: (state) => {
+            return state.activity
         }
     }
 })
