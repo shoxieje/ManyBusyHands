@@ -244,7 +244,7 @@
                 </div>
             </div>
         </div>
-        aaaaaa
+
         <div
             class="bh-job-card"
             v-for="job in mockData.slice(0, 3)"
@@ -262,31 +262,31 @@
 </template>
 
 <script>
-import { config } from "../../utils/constant";
-const mockData = config.mockData.jobListing;
-console.log(mockData);
+    import { config } from "../../utils/constant";
+    const mockData = config.mockData.jobListing;
+    console.log(mockData);
 
-export default {
-    name: "BusinessHome",
-    data() {
-        return {
-            mockData: [],
-        };
-    },
-    methods: {
-        passMockData() {
-            this.mockData = mockData;
+    export default {
+        name: "BusinessHome",
+        data() {
+            return {
+                mockData: [],
+            };
         },
-    },
-    created() {
-        const notUserLoggingIn = async () => {
-            this.$store.dispatch("authUserLoggingIn", false);
-        };
+        methods: {
+            passMockData() {
+                this.mockData = mockData;
+            },
+        },
+        created() {
+            const notUserLoggingIn = async () => {
+                this.$store.dispatch("authUserLoggingIn", false);
+            };
 
-        notUserLoggingIn();
-        
-    }
-};
+            notUserLoggingIn();
+            
+        }
+    };
 </script>
 
 <style lang="sass">

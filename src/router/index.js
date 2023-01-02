@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/',
     name: 'Landing',
-    component: () => import('../views/Landing.vue')
+    component: () => import('../views/Business/Home.vue')
   }
 ]
 
