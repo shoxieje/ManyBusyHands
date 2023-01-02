@@ -20,9 +20,9 @@ const routes = [
         component: () => import("../views/Business/Signup.vue"),
     },
     {
-        path: "/Business/Post",
-        name: "BusinessPost",
-        component: () => import("../views/Business/Post.vue"),
+        path: "/Job/ManageJob/Create",
+        name: "CreateJob",
+        component: () => import("../views/Business/CreateJob.vue"),
     },
     {
         path: "/",

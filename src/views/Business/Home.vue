@@ -4,15 +4,25 @@
         <div class="bottom-border">
             <div class="business-home-header mw-80">
                 <div class="business-home-header__left">
-                    <h3>Hi, Shox</h3>
-                    <p>Get started by creating your first job ad!</p>
+                    <h3>Hi, {{ businessData.businessName }}</h3>
+
+                    <p v-if="!activeJobList.length && !draftJobList.length">
+                        Get started by creating your first job ad!
+                    </p>
+
+                    <p v-if="!activeJobList.length && draftJobList.length">
+                        You are almost there! Continue your job ad draft!
+                    </p>
+                    <p v-if="activeJobList.length">
+                        Check the best candidates for your active job ads!
+                    </p>
                 </div>
                 <div class="business-home-header__right">
                     <div class="float-ver">
                         <b-button
                             class="nav-btn text-white"
                             variant="primary"
-                            to="/Business/Post"
+                            to="/Job/ManageJob/Create"
                             >Post a job ad</b-button
                         >
                     </div>
@@ -25,7 +35,11 @@
             <div class="business-home-find-role__container mw-80">
                 <h3>Find the person for your role</h3>
                 <div class="bh-find-role__container">
-                    <b-button variant="light" class="bh-find-role__content">
+                    <b-button
+                        variant="light"
+                        class="bh-find-role__content text-primary"
+                        to="/Job/ManageJob/Create"
+                    >
                         <img
                             class="find-role-icon"
                             src="@/assets/img/icons/post-2-icon.png"
@@ -34,7 +48,10 @@
                         <h4>Post a job ad</h4>
                         <p>Posting your job ad was never this easy!</p>
                     </b-button>
-                    <b-button variant="light" class="bh-find-role__content">
+                    <b-button
+                        variant="light"
+                        class="bh-find-role__content text-primary"
+                    >
                         <img
                             class="find-role-icon"
                             src="@/assets/img/icons/choose-ads-2-icon.png"
@@ -43,7 +60,10 @@
                         <h4>Choose your ad type</h4>
                         <p>Choose the perfect type for your job ad!</p>
                     </b-button>
-                    <b-button variant="light" class="bh-find-role__content">
+                    <b-button
+                        variant="light"
+                        class="bh-find-role__content text-primary"
+                    >
                         <img
                             class="find-role-icon"
                             src="@/assets/img/icons/candidate-2-icon-no-stroke.png"
@@ -58,7 +78,206 @@
             </div>
         </div>
 
-        <!-- JOB LIST SECTION -->
+        <!-- ACTIVE JOB LIST SECTION -->
+        <div v-if="activeJobList.length" class="business-home-job-list">
+            <div class="business-home-job-list__container mw-80">
+                <h3 class="background-gray-0">My active job ads</h3>
+
+                <div class="bh-job-list__container">
+                    <div
+                        v-for="(job, key) in activeJobList.slice(0, 5)"
+                        v-bind:class="[
+                            pageItemClass,
+                            key % 2 == 1 ? 'background-gray-0' : '',
+                        ]"
+                    >
+                        <div class="bh-job-card">
+                            <div class="bh-job-card__content">
+                                <div class="bh-job-card__status">
+                                    <div
+                                        class="status-active"
+                                        v-bind:class="[
+                                            pageItemClass,
+                                            key % 2 == 1
+                                                ? 'background-white-2'
+                                                : '',
+                                        ]"
+                                    >
+                                        {{ job.status }}
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <h5>{{ job.jobTitle }}</h5>
+                                    <div>
+                                        {{ job.location }} <br />
+                                        <!-- {{ job.category }} <br />
+                                    {{ job.hourlyRate }} <br /> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bh-job-card__btn-container">
+                                <b-button
+                                    class="bh-job-card__btn text-white"
+                                    variant="primary"
+                                    >Edit job ad</b-button
+                                >
+                                <b-button
+                                    class="bh-job-card__btn"
+                                    variant="light"
+                                    style="
+                                        border-style: solid;
+                                        border-color: #b7b9be;
+                                    "
+                                    >Disable ad</b-button
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <p
+                    style="font-size: 20px !important"
+                    v-if="activeJobList.length > 1"
+                >
+                    <a href="#" style="color: #29648a">Click here</a>
+                    to see more of your active job ads!
+                </p>
+            </div>
+        </div>
+
+        <!-- DISABLED JOB LIST SECTION -->
+
+        <div v-if="disabledJobList.length" class="business-home-job-list">
+            <div class="business-home-job-list__container mw-80">
+                <h3 class="background-gray-0">My disabled job ads</h3>
+                <div class="bh-job-list__container">
+                    <div
+                        v-for="(job, key) in disabledJobList.slice(0, 5)"
+                        v-bind:class="[
+                            pageItemClass,
+                            key % 2 == 1 ? 'background-gray-0' : '',
+                        ]"
+                    >
+                        <div class="bh-job-card">
+                            <div class="bh-job-card__content">
+                                <div class="bh-job-card__status">
+                                    <div
+                                        class="status-active"
+                                        v-bind:class="[
+                                            pageItemClass,
+                                            key % 2 == 1
+                                                ? 'background-white-2'
+                                                : '',
+                                        ]"
+                                    >
+                                        {{ job.status }}
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <h5>{{ job.jobTitle }}</h5>
+                                    <div>
+                                        {{ job.location }} <br />
+                                        <!-- {{ job.category }} <br />
+                                    {{ job.hourlyRate }} <br /> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bh-job-card__btn-container">
+                                <b-button
+                                    class="bh-job-card__btn text-white"
+                                    variant="primary"
+                                    >Edit job ad</b-button
+                                >
+                                <b-button
+                                    class="bh-job-card__btn"
+                                    variant="light"
+                                    style="
+                                        border-style: solid;
+                                        border-color: #b7b9be;
+                                    "
+                                    >Enable ad</b-button
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <p
+                    style="font-size: 20px !important"
+                    v-if="activeJobList.length > 1"
+                >
+                    <a href="#" style="color: #29648a">Click here</a>
+                    to see more of your disabled job ads!
+                </p>
+            </div>
+        </div>
+
+        <!-- DRAFT JOB LIST SECTION -->
+        <div v-if="draftJobList.length" class="business-home-job-list">
+            <div class="business-home-job-list__container mw-80">
+                <h3 class="background-gray-0">My draft job ads</h3>
+                <div class="bh-job-list__container">
+                    <div
+                        v-for="(job, key) in draftJobList.slice(0, 5)"
+                        v-bind:class="[
+                            pageItemClass,
+                            key % 2 == 1 ? 'background-gray-0' : '',
+                        ]"
+                    >
+                        <div class="bh-job-card">
+                            <div class="bh-job-card__content">
+                                <div class="bh-job-card__status">
+                                    <div
+                                        class="status-active"
+                                        v-bind:class="[
+                                            pageItemClass,
+                                            key % 2 == 1
+                                                ? 'background-white-2'
+                                                : '',
+                                        ]"
+                                    >
+                                        {{ job.status }}
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <h5>{{ job.jobTitle }}</h5>
+                                    <div>
+                                        {{ job.location }} <br />
+                                        <!-- {{ job.category }} <br />
+                                    {{ job.hourlyRate }} <br /> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bh-job-card__btn-container">
+                                <!-- <b-button
+                                    class="bh-job-card__btn text-white"
+                                    variant="primary"
+                                    >Edit job ad</b-button
+                                > -->
+                                <b-button
+                                    class="bh-job-card__btn"
+                                    variant="light"
+                                    style="
+                                        border-style: solid;
+                                        border-color: #b7b9be;
+                                    "
+                                    >Edit draft</b-button
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <p
+                    style="font-size: 20px !important"
+                    v-if="activeJobList.length > 1"
+                >
+                    <a href="#" style="color: #29648a">Click here</a>
+                    to see more of your draft job ad!
+                </p>
+            </div>
+        </div>
 
         <!-- PANEL SECTION -->
         <div class="business-home-info">
@@ -155,7 +374,7 @@
                         <img
                             class="bh-video-image"
                             alt="Video 2"
-                            src="@/assets/img/icons/Video-3.jpg"
+                            src="@/assets/img/icons/Video-2.jpg"
                         />
                         <div class="bh-video-content text-primary">
                             <h5>Types of Employment Contracts in Australia</h5>
@@ -175,7 +394,7 @@
                         <img
                             class="bh-video-image"
                             alt="Video 1"
-                            src="@/assets/img/icons/Video-1.jpg"
+                            src="@/assets/img/icons/Video-3.jpg"
                         />
 
                         <div class="bh-video-content text-primary">
@@ -196,7 +415,6 @@
         </div>
 
         <!-- SUPPORT -->
-
         <div class="business-home-support">
             <div class="business-home-support__container mw-80">
                 <h3>
@@ -244,38 +462,33 @@
                 </div>
             </div>
         </div>
-        aaaaaa
-        <div
-            class="bh-job-card"
-            v-for="job in mockData.slice(0, 3)"
-            :key="job.jobTitle"
-        >
-            <div></div>
-            <p>{{ job.jobTitle }}</p>
-            <!-- <p>{{ job.businessName }}</p>
-            <p>{{ job.location }}</p>
-            <p>{{ job.hourlyRate }}</p>
-            <p>{{ job.workType }}</p>
-            <p>{{ job.timeStamp }}</p> -->
-        </div>
     </section>
 </template>
 
 <script>
 import { config } from "../../utils/constant";
-const mockData = config.mockData.jobListing;
-console.log(mockData);
+const businessData = config.mockData.businessDetails;
+const activeJobList = config.mockData.activeJoblist;
+const draftJobList = config.mockData.draftJoblist;
+const disabledJobList = config.mockData.disabledJoblist;
+console.log(activeJobList);
 
 export default {
     name: "BusinessHome",
     data() {
         return {
-            mockData: [],
+            activeJobList: [],
+            draftJobList: [],
+            disabledJobList: [],
+            businessData: {},
         };
     },
     methods: {
         passMockData() {
-            this.mockData = mockData;
+            this.activeJobList = activeJobList;
+            this.draftJobList = draftJobList;
+            this.disabledJobList = disabledJobList;
+            this.businessData = businessData;
         },
     },
     created() {
@@ -293,8 +506,66 @@ export default {
 <style lang="sass">
 @import '../../assets/styles/custom-variables.sass'
 
+h3
+    margin: 0
+    padding: 1rem 0
+
+.background-gray-0
+    background-color: $mbh-gray-0 !important
+.background-white-2
+    background-color: $mbh-white-2 !important
+
+.business-home-job-list
+    background-color: $mbh-white
+    // padding: 1rem 0
+
+.business-home-job-list__container
+    text-align: center
+    border-radius: 2rem
+    // background-color: $mbh-white-2
+    padding: 2rem
+
+.bh-job-list__container
+    background-color: $mbh-white-2
+    // margin: 1rem 0
+
 .bh-job-card
-    background-color: red
+    text-align: left
+    display: flex
+    justify-content: space-between
+    padding: 0.5rem 0
+
+.bh-job-card__content
+    display: flex
+
+.bh-job-card__status
+    display: flex
+    justify-content: center
+    margin: auto 0
+
+.status-active
+    margin-inline: 15px
+    background-color: $mbh-gray-0
+    font-weight: bold
+    font-size: 18px
+    width: 100px
+    text-align: center
+    border-radius: 10px
+    padding: 2px 0
+    font-style: italic
+    color: $mbh-blue-2
+
+
+.bh-job-card__btn-container
+    display: flex
+    justify-content: right
+    margin: auto 0
+
+.bh-job-card__btn
+    min-width: 120px
+    margin-inline: 5px
+    width: 100%
+
 //-----  Header Section  -----
 .business-home-top
     // background-color: $mbh-blue-1
@@ -403,6 +674,7 @@ export default {
 
 .bh-video-image
     width: 100%
+    height: 50%
 
 //----- Logo -----
 .business-home-support
