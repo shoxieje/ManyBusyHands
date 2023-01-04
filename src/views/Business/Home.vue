@@ -26,7 +26,7 @@
                             class="nav-btn text-white"
                             variant="primary"
                             to="/jobs/manage/create"
-                            >Post a job ad</b-button
+                            >Create a job ad</b-button
                         >
                     </div>
                 </div>
@@ -41,15 +41,15 @@
                     <b-button
                         variant="light"
                         class="bh-find-role__content text-primary"
-                        to="/Job/ManageJob/Create"
+                        to="jobs/manage/create"
                     >
                         <img
                             class="find-role-icon"
                             src="@/assets/img/icons/post-2-icon.png"
-                            alt="Post job ad icon"
+                            alt="Create job ad icon"
                         />
-                        <h4>Post a job ad</h4>
-                        <p>Posting your job ad was never this easy!</p>
+                        <h4>Create a job ad</h4>
+                        <p>Creating your job ad was never this easy!</p>
                     </b-button>
                     <b-button
                         variant="light"
@@ -242,7 +242,7 @@
                             class="nav-btn text-white"
                             variant="primary"
                             to="/jobs/manage/create"
-                            >Post a job ad</b-button
+                            >Create a job ad</b-button
                         >
                     </div>
                 </div>
@@ -382,7 +382,6 @@ const businessData = config.mockData.businessDetails;
 const activeJobList = config.mockData.activeJoblist;
 const draftJobList = config.mockData.draftJoblist;
 const disabledJobList = config.mockData.disabledJoblist;
-console.log(activeJobList);
 
 export default {
     name: "BusinessHome",
@@ -392,7 +391,6 @@ export default {
             draftJobList: [],
             disabledJobList: [],
             businessData: {},
-            test: [],
         };
     },
     methods: {
@@ -401,11 +399,11 @@ export default {
             this.draftJobList = draftJobList;
             this.disabledJobList = disabledJobList;
             this.businessData = businessData;
-            this.test = activeJobList;
         },
     },
     created() {
         const notUserLoggingIn = async () => {
+            console.log();
             this.$store.dispatch("authUserLoggingIn", false);
         };
 
