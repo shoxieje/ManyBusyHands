@@ -4,32 +4,32 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/business',
-    name: 'BusinessHome',
-    component: () => import('../views/Business/Home.vue')
-  },
-  {
-    path: '/business/signin',
-    name: 'BusinessSignin',
-    component: () => import('../views/Business/Signin.vue')
-  },
-  {
-    path: '/business/signup',
-    name: 'BusinessSignup',
-    component: () => import('../views/Business/Signup.vue')
-  },
-  {
-    path: '/',
-    name: 'Landing',
-    component: () => import('../views/Business/Home.vue')
-  },
-  {
-    path: '/jobs/manage/create',
-    name: 'BusinessJobPost',
-    component: () => import('../views/Business/createJob.vue')
-  }
-]
+    {
+        path: "/business",
+        name: "BusinessHome",
+        component: () => import("../views/Business/Home.vue"),
+    },
+    {
+        path: "/business/signin",
+        name: "BusinessSignin",
+        component: () => import("../views/Business/Signin.vue"),
+    },
+    {
+        path: "/business/signup",
+        name: "BusinessSignup",
+        component: () => import("../views/Business/Signup.vue"),
+    },
+    {
+        path: "/",
+        name: "Landing",
+        component: () => import("../views/Business/Home.vue"),
+    },
+    {
+        path: "/jobs/manage/create",
+        name: "CreateJob",
+        component: () => import("../views/Business/Createjob.vue"),
+    },
+];
 
 const router = new VueRouter({
     routes,
