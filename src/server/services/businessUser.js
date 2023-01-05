@@ -70,9 +70,9 @@ async function updateBusinessUserDetails(userEmail, info) {
 
         `UPDATE business_user_detail SET first_name = '${info.firstName}', last_name = '${info.lastName}', business_name = '${info.businessName}',
         ABN = '${info.ABN}', title = '${info.title}', address = '${info.address}', user_role = '${info.userRole}', landline_number = '${info.landlineNumber}',
-        phone_number = '${info.phoneNumber}', website = '${info.website}', activity_1_id = '${info.activity1}', activity_2_id = '${info.activity2}', 
-        activity_3_id = '${info.activity3}', activity_4_id = '${info.activity4}', activity_5_id = '${info.activity5}', main_activities = '${info.mainActivities}', 
-        photos = '${info.photos}', busiest_months = '${info.busiestMonths}' WHERE userEmail = '${userEmail}';`
+        phone_number = '${info.phoneNumber}', website = '${info.website}', activity_1_id = ${info.activity1}, activity_2_id = ${info.activity2}, 
+        activity_3_id = ${info.activity3}, activity_4_id = ${info.activity4}, activity_5_id = ${info.activity5}, main_activities = '${info.mainActivities}', 
+        photos = '${info.photos}', busiest_months = '${info.busiestMonths}' WHERE user_email = '${userEmail}';`
 
     )
 

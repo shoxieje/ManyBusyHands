@@ -196,23 +196,45 @@
             },
 
             emitActivity1() {
-                this.$emit('activity_1', this.activities.indexOf(this.activity_1));
+                if(this.activity_1 == null || this.activity_1 == "") {
+                    this.$emit('activity_1', 0);
+                } else {
+                    this.$emit('activity_1', this.activities.indexOf(this.activity_1) + 1);
+                }
+                
             },
 
             emitActivity2() {
-                this.$emit('activity_2', this.activity_2)
+                if(this.activity_2 == null || this.activity_2 == "") {
+                    this.$emit('activity_2', 0);
+                } else {
+                    this.$emit('activity_2', this.activities.indexOf(this.activity_2) + 1);
+                }
+                
             },
 
             emitActivity3() {
-                this.$emit('activity_3', this.activity_3)
+                if(this.activity_3 == null || this.activity_3 == "") {
+                    this.$emit('activity_3', 0);
+                } else {
+                    this.$emit('activity_3', this.activities.indexOf(this.activity_3) + 1);
+                }
             },
 
             emitActivity4() {
-                this.$emit('activity_4', this.activity_4)
+                if(this.activity_4 == null || this.activity_4 == "") {
+                    this.$emit('activity_4', 0);
+                } else {
+                    this.$emit('activity_4', this.activities.indexOf(this.activity_4) + 1);
+                }
             },
 
             emitActivity5() {
-                this.$emit('activity_5', this.activity_5)
+                if(this.activity_5 == null || this.activity_5 == "") {
+                    this.$emit('activity_5', 0);
+                } else {
+                    this.$emit('activity_5', this.activities.indexOf(this.activity_5) + 1);
+                }
             },
 
             emitActivityDescription() {

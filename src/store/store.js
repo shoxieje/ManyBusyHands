@@ -31,6 +31,7 @@ export default new Vuex.Store({
         setUserData({commit}, userEmail) {
             axios.get(`http://localhost:8081/businessUser/searchByEmail/${userEmail}`).then(
                 result => {
+                    console.log(result.data[0])
                     commit("SET_USER_DATA", result.data[0])
                 }
             )
@@ -44,6 +45,8 @@ export default new Vuex.Store({
                     for(let x of result.data) {
                         activityName.push(x.activity_name)
                     }
+
+                    activityName.shift();
 
                     commit("SET_ACTIVITY_DATA", activityName)
                 }

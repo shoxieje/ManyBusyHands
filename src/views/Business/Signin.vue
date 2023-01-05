@@ -121,9 +121,10 @@
             // Computed boolean variable returning whether the 'loginEmail' input is a valid email address by testing a regular expression
             validLoginEmail() {
                 if (!this.firstTimeLogin)
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
                         this.loginEmail
-                    );
+                    )) return null 
+                    else return false
             },
 
             // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars

@@ -5,7 +5,7 @@ async function addUser(user) {
 
     const result = await db.query( 
 
-        `INSERT INTO user (userEmail, userPassword, userType) VALUES 
+        `INSERT INTO user (user_email, user_password, user_type) VALUES 
         ('${user.userEmail}', '${user.userPassword}', '${user.userType}');`
 
     );
@@ -40,7 +40,7 @@ async function retrieveUserByEmail(userEmail) {
 
     const result = await db.query(
 
-        `SELECT * FROM user WHERE userEmail='${userEmail}';`
+        `SELECT * FROM user WHERE user_email='${userEmail}';`
 
     )
 
@@ -52,7 +52,7 @@ async function retrieveUserByType(type) {
 
     const result = await db.query(
 
-        `SELECT * FROM user WHERE userType='${type}';`
+        `SELECT * FROM user WHERE user_type='${type}';`
 
     )
 
@@ -64,7 +64,7 @@ async function remove(userEmail) {
 
     const result = await db.query(
 
-        `DELETE FROM user WHERE userEmail = '${userEmail}'`
+        `DELETE FROM user WHERE user_email = '${userEmail}'`
 
     )
 
@@ -76,8 +76,8 @@ async function updateUserPassword(userEmail, info) {
 
     const result = await db.query(
 
-        `UPDATE user SET userPassword = '${info.password}'
-        WHERE userEmail = '${userEmail}';`
+        `UPDATE user SET user_password = '${info.password}'
+        WHERE user_email = '${userEmail}';`
 
     )
 

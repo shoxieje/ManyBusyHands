@@ -41,6 +41,14 @@
                         /></v-card>
 
                         <div class="stepper-btn-container">
+                            <v-btn
+                                text
+                                class="stepper-btn-secondary"
+                                @click="e1 = 1"
+                            >
+                                Back
+                            </v-btn>
+
                             <v-btn class="stepper-btn-primary" @click="secondRegister">
                                 Continue
                             </v-btn>
@@ -77,7 +85,14 @@
     import BusinessSignup1 from "./components/signup-component/Signup-1.vue";
     import BusinessSignup2 from "./components/signup-component/Signup-2.vue";
     import BusinessSignup3 from "./components/signup-component/Signup-3.vue";
+    import { config } from '../../utils/constant.js'
+    import axiosRetry from 'axios-retry';
+
     import router from "../../router/index"
+    import axios from "axios";
+    import bcrypt from "bcryptjs"
+
+    // const axiosRetry = require('axios-retry');
 
 
     export default {
@@ -100,14 +115,15 @@
                 landlineNumber: "",
                 mobileNumber: "",
                 website: "",
-                activity_1: "",
-                activity_2: "",
-                activity_3: "",
-                activity_4: "",
-                activity_5: "",
+                activity_1: 0,
+                activity_2: 0,
+                activity_3: 0,
+                activity_4: 0,
+                activity_5: 0,
                 activityDescription: "",
                 images: [],
                 months: [],
+                hashedPassword: "",
                 e1: 1,
             };
         },
@@ -116,17 +132,8 @@
             const userLoggingIn = async () =>  {
                 this.$store.dispatch("authUserLoggingIn", true)
             }
-
-            // add user to datasbase
-            // after that retrieve the user
-            const createUser = async () => {
-                // this.$store.dispatch("setUserData", "mbh@gmail.com")
-                // console.log(this.$store.state.activity);
-            }
             
             userLoggingIn();
-            createUser();
-
         },
 
         methods: {
@@ -211,32 +218,26 @@
 
                 
                 if(this.validEmail() && this.validPassword()) {
-                    this.e1 = 2;
+                    this.hashedPassword = bcrypt.hashSync(this.password, 10)
 
                     // find if email exist
-                    // axios.get(`http://localhost:8081/user/searchByEmail/${this.loginEmail}`).then(
-                    //     result => {
-                            
-                    //         if(result.data.length == 0) {
-                    //             this.noLoginError = false;
-                    //             this.loginError = "Invalid Email or Password"
+                    axios.get(`http://localhost:8081/user/searchByEmail/${this.email}`).then(
+                        result => {
 
-                    //         } else {
-                    //             let userData = result.data[0];
-                    //             let matchedPassword = bcrypt.compareSync(this.loginPassword, userData.userPassword);
+                            if(result.data.length > 0) {
 
-                    //             if(!matchedPassword) {
-                    //                 this.noLoginError = false;
-                    //                 this.loginError = "Invalid Email or Password"
-                    //             } else {
-                    //                 console.log("SUCESSFULLY LOGGED IN")
-                    //             }
+                                this.$refs.firstPage.setSignUpError(true, "This email is already registered. Sign in or use a different email.")
+
+                            } else {
                                 
-                    //         }
+                                this.$refs.firstPage.setSignUpError(false, "");
+                                this.e1 = 2
+                                
+                            }
                             
 
-                    //     }
-                    // )
+                        }
+                    )
                 }
             },
             secondRegister() {
@@ -265,10 +266,60 @@
 
             finalRegister() {
                 console.log(this.$data);
-                // router.push('/Business')
+
+                let businessUser = axios.create({baseURL: `http://localhost:8081/businessUser/searchByEmail/${this.email}`})
+
+                axios.post(`http://localhost:8081/user`, new URLSearchParams({
+                    userEmail: this.email,
+                    userPassword: this.hashedPassword,
+                    userType: "BUSINESS"
+                }), config).then(
+
+                    // wait for data to get to database
+                    axiosRetry(businessUser, { 
+                        retries: 5,
+                        retryDelay: (retryCount) => {
+                            return retryCount * 2000; // time interval between retries
+                        },
+                        retryCondition: (error) => {
+                            return true
+                        }
+                    }),
+
+                    businessUser.get('').then(result => console.log(result.data)).then(
+                        // second call
+                        axios.post(`http://localhost:8081/businessUser`, new URLSearchParams({
+                                                    userEmail: this.email,
+                                                    firstName: this.firstName,
+                                                    lastName: this.lastName,
+                                                    businessName: this.businessName,
+                                                    ABN: this.abn,
+                                                    title: this.title,
+                                                    address: this.address,
+                                                    userRole: this.role,
+                                                    landlineNumber: this.landlineNumber,
+                                                    phoneNumber: this.mobileNumber,
+                                                    website: this.website,
+                                                    activity1: this.activity_1,
+                                                    activity2: this.activity_2,
+                                                    activity3: this.activity_3,
+                                                    activity4: this.activity_4,
+                                                    activity5: this.activity_5,
+                                                    mainActivities: this.activityDescription,
+                                                    photos: "",
+                                                    busiestMonths: ""
+                                            }), config)).
+                                            then(
+                                                this.$store.dispatch("setUserData", this.email),
+                                                router.push('/business')
+
+                                            )
+                            )
+
+                    
+                }
             }
-        }
-    };
+        };
 </script>
 
 <style>
