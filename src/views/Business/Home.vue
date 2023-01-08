@@ -11,8 +11,15 @@
                         </p>
 
                         <p v-if="draftJobList.length">
-                            You left a job ad unfinished.
-                            <a href="#" class="text-red">Continue draft?</a>
+                            You left a job ad unfinished,
+                            <span class="text-red">{{
+                                draftJobList[0].jobTitle
+                            }}</span>
+                            at
+                            <span class="text-red">{{
+                                draftJobList[0].location
+                            }}</span
+                            >. <a href="#">Continue draft?</a>
                         </p>
 
                         <p v-if="activeJobList.length && !draftJobList.length">
@@ -23,6 +30,13 @@
                 <div class="business-home-header__right">
                     <div class="float-ver">
                         <b-button
+                            v-if="draftJobList.length"
+                            class="nav-btn text-white"
+                            variant="warning"
+                            to="#"
+                            style="margin-right: 1rem"
+                            >Continue Draft</b-button
+                        ><b-button
                             class="nav-btn text-white"
                             variant="primary"
                             to="/jobs/manage/create"
@@ -82,112 +96,74 @@
         </div>
 
         <!-- ACTIVE JOB LIST SECTION -->
-        <div v-if="activeJobList.length" class="business-home-job-list">
-            <div class="business-home-job-list__container mw-80">
-                <h2
-                    style="
-                        border-style: solid;
-                        border-width: 1px;
-                        border-color: #29648a;
-                    "
-                    class="background-inverse text-white border-primary"
+        <div class="business-home-job-list mw-80">
+            <h2>My active job ads</h2>
+            <carousel
+                :per-page="1"
+                :navigate-to="someLocalProperty"
+                :mouse-drag="false"
+            >
+                <slide
+                    class="carousel-slide"
+                    v-for="(job, key) in activeJobList.slice(0, 5)"
+                    :key="key"
                 >
-                    My active job ads
-                </h2>
-
-                <div class="bh-job-list__container">
-                    <div
-                        v-for="(job, key) in activeJobList.slice(0, 5)"
-                        v-bind:class="[
-                            job,
-                            key % 2 == 1
-                                ? 'background-inverse text-white border-primary'
-                                : '',
-                        ]"
-                    >
-                        <div class="bh-job-card border-primary">
-                            <div class="bh-job-card__content">
-                                <div class="bh-job-card__status">
-                                    <div
-                                        class="status-active"
-                                        v-bind:class="[
-                                            job,
-                                            key % 2 == 1
-                                                ? 'background-white-2'
-                                                : '',
-                                        ]"
-                                    >
-                                        {{ job.status }}
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <h5>{{ job.jobTitle }}</h5>
-                                    <div>{{ job.location }} <br /></div>
-                                </div>
+                    <div class="carousel-image__container">
+                        <img
+                            src="@/assets/img/icons/grapes-picking.jpg"
+                            alt="Share icon"
+                            class="carousel-image"
+                        />
+                        <!-- <img :src="job.imgPath" alt="Share icon" /> -->
+                    </div>
+                    <div class="carousel-content__container">
+                        <div class="carousel-content">
+                            <div>
+                                <h4>
+                                    {{ job.jobTitle }}
+                                    <img
+                                        src="@/assets/img/icons/open-link-icon.png"
+                                        alt="Open job icon"
+                                        class="open-link-icon"
+                                    />
+                                </h4>
+                                {{ job.location }} <br />
+                                {{ job.activity }} <br />
+                                {{ job.payRange }} <br />
                             </div>
-
-                            <div class="bh-job-card__btn-container">
+                            <div>
                                 <b-button
-                                    class="bh-job-card__btn"
-                                    variant="primary"
-                                    v-bind:class="[
-                                        job,
-                                        key % 2 == 1
-                                            ? 'background-white-2 text-dark'
-                                            : 'text-white',
-                                    ]"
+                                    class="carousel-button"
+                                    variant="primary text-white"
                                     >Manage job ad</b-button
+                                >
+                                <b-button
+                                    class="carousel-button"
+                                    variant="light"
+                                    >Disable job ad</b-button
                                 >
                             </div>
                         </div>
+                        <div
+                            variant="light"
+                            class="carousel-right text-primary"
+                            href="#"
+                        >
+                            <b-button
+                                variant="light"
+                                class="share-button text-primary"
+                            >
+                                <img
+                                    src="@/assets/img/icons/share-icon.png"
+                                    alt="Share icon"
+                                    class="open-link-icon"
+                                />
+                                Share</b-button
+                            >
+                        </div>
                     </div>
-                </div>
-
-                <!-- <br />
-                <p
-                    style="font-size: 20px !important"
-                    v-if="activeJobList.length > 1"
-                >
-                    <a href="#" class="text-red">Click here</a>
-                    to see more of your active job ads!
-                </p> -->
-
-                <br />
-                <div class="bh-job-list__manage-job mw-80">
-                    <b-button variant="primary" class="manage-job-btn" to="#">
-                        <img
-                            class="manage-job-icon text-white"
-                            src="@/assets/img/icons/active-2-icon.png"
-                            alt="Manage active job ads"
-                        />
-                        <h5>Manage active<br />job ads</h5>
-                    </b-button>
-                    <b-button
-                        variant="light"
-                        class="manage-job-btn text-primary"
-                        to="#"
-                    >
-                        <img
-                            class="manage-job-icon"
-                            src="@/assets/img/icons/disable-2-icon.png"
-                            alt="Manage disabled job ads"
-                        />
-                        <h5>Manage disabled<br />job ads</h5>
-                    </b-button>
-                    <b-button
-                        variant="secondary"
-                        class="manage-job-btn text-white"
-                        to="#"
-                    >
-                        <img
-                            class="manage-job-icon"
-                            src="@/assets/img/icons/draft-1-icon.png"
-                            alt="Manage draft job ads"
-                        />
-                        <h5>Manage<br />drafts</h5>
-                    </b-button>
-                </div>
-            </div>
+                </slide>
+            </carousel>
         </div>
 
         <!-- PANEL SECTION -->
@@ -378,6 +354,11 @@
 
 <script>
 import { config } from "../../utils/constant";
+import Vue from "vue";
+import VueCarousel from "vue-carousel";
+import { Carousel, Slide } from "vue-carousel";
+
+Vue.use(VueCarousel);
 const businessData = config.mockData.businessDetails;
 const activeJobList = config.mockData.activeJoblist;
 const draftJobList = config.mockData.draftJoblist;
@@ -392,6 +373,10 @@ export default {
             disabledJobList: [],
             businessData: {},
         };
+    },
+    components: {
+        Carousel,
+        Slide,
     },
     methods: {
         passMockData() {
@@ -416,6 +401,7 @@ export default {
 
 <style lang="sass">
 @import '../../assets/styles/custom-variables.sass'
+
 
 h2
     margin: 0
@@ -476,67 +462,63 @@ h2
 
 //----- JOB LIST -----
 .business-home-job-list
-    background-color: $mbh-white-2
-    padding: 4rem 0
-
-.business-home-job-list__container
     text-align: center
-    border-radius: 2rem
+
+.open-link-icon
+    width: 20px
+    height: auto
+
+.carousel-slide
+    padding: 2rem
+    display: flex
+    border-radius: 1rem
+    flex-wrap: wrap
+    justify-content: space-between
     background-color: $mbh-white
-    // background-color: $mbh-orange-4
-    padding: 4rem 4rem 2rem 4rem
-
-.bh-job-list__container
-    background-color: $mbh-white
-    // margin: 1rem 0
-
-
-.bh-job-card
     text-align: left
+    // background: green
+
+.carousel-image__container
+    width: 30%
+    min-width: 300px
+    background: pink
+    text-align: center
+    margin-top: auto
+    margin-bottom: auto
+
+.carousel-image
+    max-width: 500px
+    min-width: 300px
+    width: 100%
+    height: auto
+    object-fit: cover
+
+.carousel-content__container
+    height: 100%
+    // min-width: 300px
+    // background: yellow
     display: flex
     justify-content: space-between
-    padding: 0.5rem 0
+    width: 67%
+    min-width: 50%
+    padding: 0 0 0 1rem
 
-.border-primary
-    border-style: none solid solid solid
-    border-width: 1px
-    border-color: $mbh-blue-2
-
-.background-inverse
-    background-color: $mbh-blue-2 !important
-
-.background-white-2
-    background-color: $mbh-white-2 !important
-
-.bh-job-card__content
+.carousel-content
+    font-size: 20px
     display: flex
+    flex-direction: column
+    justify-content: space-between
 
-.bh-job-card__status
-    display: flex
-    justify-content: center
-    margin: auto 0
+.carousel-right
+    min-width: 50px
 
-.status-active
-    margin-inline: 15px
-    background-color: $mbh-gray-0
-    font-weight: bold
-    font-size: 18px
-    width: 100px
-    text-align: center
-    border-radius: 10px
-    padding: 2px 0
-    font-style: italic
-    color: $mbh-blue-2
+.carousel-button
+    margin-right: 1rem
+    min-width: 10rem
 
-.bh-job-card__btn-container
-    display: flex
-    justify-content: right
-    margin: auto 0
-
-.bh-job-card__btn
-    min-width: 150px
-    margin-inline: 15px
-    width: 100%
+.share-button
+    background-color: $mbh-white
+    border-style: none
 
 //----- Manage ads -----
 

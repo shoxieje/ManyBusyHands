@@ -2,7 +2,7 @@
     <section class="create-job-top">
         <div class="stepper-container mw-60">
             <h1 class="title">Post a job ad</h1>
-
+            <!-- HEADER -->
             <v-stepper v-model="e1">
                 <v-stepper-header>
                     <v-stepper-step :complete="e1 > 1" step="1">
@@ -23,15 +23,21 @@
 
                     <v-divider></v-divider>
 
-                    <v-stepper-step :complete="e1 > 4" step="4">
-                        Manage
-                    </v-stepper-step>
+                    <v-stepper-step step="4"> Manage </v-stepper-step>
                 </v-stepper-header>
 
+                <!-- CONTENT -->
                 <v-stepper-items class="mw-60">
                     <v-stepper-content step="1">
                         <v-card class="mb-12" color="grey lighten-1">
-                            <Createjob1 />
+                            <Createjob1
+                                ref="firstPage"
+                                @jobTitle="getJobTitle"
+                                @activity="getActivity"
+                                @location="getLocation"
+                                @payRangeFrom="getPayRangeFrom"
+                                @payRangeTo="getPayRangeTo"
+                            />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
@@ -40,7 +46,7 @@
                             <div>
                                 <v-btn
                                     class="stepper-btn-primary"
-                                    @click="e1 = 2"
+                                    @click="firstCreateJob"
                                 >
                                     Continue
                                 </v-btn>
@@ -52,7 +58,7 @@
                 <v-stepper-items class="mw-60">
                     <v-stepper-content step="2">
                         <v-card class="mb-12" color="grey lighten-1">
-                            <Createjob2 />
+                            <Createjob2 ref="secondPage" @adType="getAdType" />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
@@ -67,7 +73,7 @@
                                 </v-btn>
                                 <v-btn
                                     class="stepper-btn-primary"
-                                    @click="e1 = 3"
+                                    @click="secondCreateJob"
                                 >
                                     Continue
                                 </v-btn>
@@ -79,7 +85,12 @@
                 <v-stepper-items class="mw-60">
                     <v-stepper-content step="3">
                         <v-card class="mb-12" color="grey lighten-1">
-                            <Createjob3 />
+                            <Createjob3
+                                ref="thirdPage"
+                                @jobSummary="getJobSummary"
+                                @jobDescription="getJobDescription"
+                                @jobImage="getJobImage"
+                            />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
@@ -94,7 +105,7 @@
                                 </v-btn>
                                 <v-btn
                                     class="stepper-btn-primary"
-                                    @click="e1 = 4"
+                                    @click="thirdCreateJob"
                                 >
                                     Continue
                                 </v-btn>
@@ -106,7 +117,30 @@
                 <v-stepper-items class="mw-60">
                     <v-stepper-content step="4">
                         <v-card class="mb-12" color="grey lighten-1">
-                            <Createjob4 />
+                            <Createjob4
+                                ref="fourthPage"
+                                :jobTitle="this.jobTitle"
+                                :activity="this.activity"
+                                :location="this.location"
+                                :payRangeFrom="this.payRangeFrom"
+                                :payRangeTo="this.payRangeTo"
+                                :adType="this.adType"
+                                :jobSummary="this.jobSummary"
+                                :jobDescription="this.jobDescription"
+                            />
+                            <!-- <Createjob4
+                                ref="fourthPage"
+                                jobTitle="Grape picker, packing, and delivery"
+                                activity="Fruit farming"
+                                location="Burwood, NSW, 2134"
+                                payRangeFrom="25.5"
+                                payRangeTo="29.5"
+                                adType="basic"
+                                jobSummary="This is an easy grape picking job. Helping with packing and delivery."
+                                jobDescription="About the roles
+We are looking for enthusiastic people who are interested in working in a variety of roles available in our glasshouse operations located in the heart of the beautiful NSW Northern Tablelands.
+These entry level positions are a great starting point for a variety of opportunities in our team. Learn the basics before progressing to team leader or supervisory positions, or branching out into other departments or specialists functions such as maintenance, plant health, quality control, despatch, agronomy, supply and administration.   "
+                            /> -->
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
@@ -152,42 +186,109 @@ export default {
         return {
             e1: 1,
             jobTitle: "",
+            activity: "",
             location: "",
-            payRangeTo: 0,
-            payRangeFrom: 0,
-            category: "",
-            categories: ["Mr", "Mrs", "Miss", "Ms", "Dr", "Others"],
+            payRangeFrom: 0.0,
+            payRangeTo: 0.0,
             adType: "",
             jobSummary: "",
             jobDescription: "",
-            video: "",
-            radioQuestion0: "",
-            radioQuestion1: "",
-            radioQuestion2: "",
-            radioQuestion3: "",
-            radioQuestion4: "",
-            radioQuestion5: "",
-            radioQuestion6: "",
-            radioQuestion7: "",
-            radioQuestion8: "",
-            radioQuestion9: "",
-            checkBoxQuestion0: "",
-            checkBoxQuestion1: "",
-            checkBoxQuestion2: "",
-            checkBoxQuestion3: "",
-            checkBoxQuestion4: "",
-            checkBoxQuestion6: "",
-            checkBoxQuestion6: "",
-            checkBoxQuestion7: "",
-            checkBoxQuestion8: "",
-            checkBoxQuestion9: "",
+            jobImage: "",
+            jobImageSrc: "",
         };
     },
     methods: {
-        // passMockData() {
-        //     this.checkBoxQuestions = checkBoxQuestions;
-        //     this.radioQuestions = radioQuestions;
-        // },
+        // ---------------- GET DATA FROM CHILD --------------
+        getJobTitle(value) {
+            this.jobTitle = value;
+        },
+        getActivity(value) {
+            this.activity = value;
+        },
+        getLocation(value) {
+            this.location = value;
+        },
+        getPayRangeFrom(value) {
+            this.payRangeFrom = value;
+        },
+        getPayRangeTo(value) {
+            this.payRangeTo = value;
+        },
+        getAdType(value) {
+            this.adType = value;
+        },
+        getJobSummary(value) {
+            this.jobSummary = value;
+        },
+        getJobDescription(value) {
+            this.jobDescription = value;
+        },
+        getJobImage(value) {
+            this.jobImage = value;
+        },
+        getJobImageSrc(value) {
+            this.jobImageSrc = value;
+        },
+
+        checkEmpty(value) {
+            return value.length === 0;
+        },
+
+        // ---------------- BUTTON METHODS --------------
+        firstCreateJob() {
+            this.$refs.firstPage.emitJobTitle();
+            this.$refs.firstPage.emitActivity();
+            this.$refs.firstPage.emitLocation();
+            this.$refs.firstPage.payRangeFromOnBlur();
+            this.$refs.firstPage.payRangeToOnBlur();
+
+            if (
+                !this.checkEmpty(this.jobTitle) &&
+                !this.checkEmpty(this.activity) &&
+                !this.checkEmpty(this.location) &&
+                this.payRangeFrom != 0 &&
+                this.payRangeTo != 0
+            ) {
+                console.log("Move to 2nd page");
+                console.log(
+                    this.jobTitle +
+                        ", " +
+                        this.activity +
+                        ", " +
+                        this.location +
+                        ", " +
+                        this.payRangeFrom +
+                        ", " +
+                        this.payRangeTo
+                );
+
+                this.e1 = 2;
+            }
+        },
+
+        secondCreateJob() {
+            this.$refs.secondPage.emitAdType();
+            if (!this.checkEmpty(this.adType)) {
+                this.e1 = 3;
+                console.log("Move to 3rd page");
+                console.log("AdType = " + this.adType);
+            }
+        },
+
+        thirdCreateJob() {
+            this.$refs.thirdPage.emitJobSummary();
+            this.$refs.thirdPage.emitJobDescription();
+            this.$refs.thirdPage.emitJobImage();
+
+            if (
+                !this.checkEmpty(this.jobSummary) &&
+                !this.checkEmpty(this.jobDescription)
+                // && !this.checkEmpty(this.jobImage)
+                // && !this.checkEmpty(this.jobImageSrc)
+            ) {
+                this.e1 = 4;
+            }
+        },
     },
     created() {
         const notUserLoggingIn = async () => {
@@ -195,7 +296,6 @@ export default {
         };
 
         notUserLoggingIn();
-        this.passMockData();
     },
 };
 </script>
