@@ -21,6 +21,7 @@
                             id="ad-basic-btn"
                             class="ad-style ad-btn"
                             variant="light"
+                            @click="selectBasic"
                             >Select</b-button
                         >
                         <div class="ad-style ad-text">
@@ -40,16 +41,14 @@
                     >
                         <div class="ad-style ad-type">Premium</div>
                         <div class="ad-style ad-price">$249.95</div>
-                        <div
-                            class="ad-style ad-text text-red"
-                            style="font-weight: bold"
-                        >
+                        <div class="ad-style ad-text">
                             Attract more candidates with a featured listing!
                         </div>
                         <b-button
                             id="ad-premium-btn"
                             class="ad-style ad-btn"
                             variant="light"
+                            @click="selectPremium"
                             >Select</b-button
                         >
                         <div class="ad-style ad-text">
@@ -65,26 +64,26 @@
                         </div>
                     </b-button>
                 </div>
+
                 <br />
             </div>
         </b-form>
     </b-container>
 </template>
 <script>
-import VueGoogleAutocomplete from "vue-google-autocomplete";
-import Multiselect from "vue-multiselect";
-
 export default {
     data() {
         return {
             adType: "",
         };
     },
-    components: {
-        VueGoogleAutocomplete,
-        Multiselect,
-    },
+    components: {},
     methods: {
+        emitAdType() {
+            if (this.adType.length != 0) {
+                this.$emit("adType", this.adType);
+            }
+        },
         selectBasic() {
             var basic = document.getElementById("ad-basic");
             var basicBtn = document.getElementById("ad-basic-btn");
@@ -94,6 +93,8 @@ export default {
             basicBtn.classList.add("selected");
             premium.classList.remove("selected");
             premiumBtn.classList.remove("selected");
+            this.adType = "basic";
+            this.emitAdType();
         },
         selectPremium() {
             var basic = document.getElementById("ad-basic");
@@ -104,6 +105,8 @@ export default {
             basicBtn.classList.remove("selected");
             premium.classList.add("selected");
             premiumBtn.classList.add("selected");
+            this.adType = "premium";
+            this.emitAdType();
         },
     },
 };
@@ -119,9 +122,9 @@ ul
 	justify-content: space-between
 
 .ad-type-box
-	background-color: $mbh-white-2
+	background-color: $mbh-white
 	// background-color: pink
-	width: 42%
+	width: 43%
 	// min-height: 400px
 	padding: 2.5rem 5%
 	border-style: solid
@@ -131,32 +134,34 @@ ul
 	display: flex
 	flex-direction: column
 
-
 .ad-style
 	font-weight: bold
 	text-align: left
 	margin: 0.5rem 0
 	width: 100%
+
 .ad-type
 	font-size: 1.2rem
+
 .ad-price
 	font-size: 2rem
+
 .ad-btn
 	margin: 1rem 0
 	font-size: 1.2rem
 	text-align: center
 	border-style: solid
 	border-color: $mbh-blue-2
-	border-width: 0.5px
-
+	border-width: 3px
 
 .ad-text
 	font-size: 1rem
 	font-weight: 300
 
-
 .ad-type-box.selected
-	background-color: $mbh-orange-1
+	background-color: $mbh-white-3
+	border-color: $mbh-blue-1
+	border-width: 3px
 
 .ad-btn.selected
 	background-color: $mbh-blue-2
