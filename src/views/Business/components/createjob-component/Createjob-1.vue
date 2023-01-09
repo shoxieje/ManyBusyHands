@@ -100,9 +100,15 @@ export default {
             payRangeTo: 0,
             payRangeFrom: 0,
             category: "",
-            categories: ["Mr", "Mrs", "Miss", "Ms", "Dr", "Others"],
         };
     },
+
+    computed: {
+        ...mapGetters({
+            categories: "getActivityData",
+        }),
+    },
+
     methods: {
         getLocationData(addressData, placeResultData, id) {
             this.location = locationData;

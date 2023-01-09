@@ -184,18 +184,15 @@ export default {
         };
     },
     methods: {
-        // passMockData() {
-        //     this.checkBoxQuestions = checkBoxQuestions;
-        //     this.radioQuestions = radioQuestions;
-        // },
+
     },
+    
     created() {
         const notUserLoggingIn = async () => {
             this.$store.dispatch("authUserLoggingIn", false);
         };
 
         notUserLoggingIn();
-        this.passMockData();
     },
 };
 </script>
