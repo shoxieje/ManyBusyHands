@@ -100,7 +100,6 @@
             <h2>My active job ads</h2>
             <carousel
                 :per-page="1"
-                :navigate-to="someLocalProperty"
                 :mouse-drag="false"
             >
                 <slide

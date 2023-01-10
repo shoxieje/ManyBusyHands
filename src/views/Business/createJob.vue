@@ -187,7 +187,7 @@ export default {
             e1: 1,
             jobTitle: "",
             activity: "",
-            location: "",
+            location: [],
             payRangeFrom: 0.0,
             payRangeTo: 0.0,
             adType: "",
@@ -238,7 +238,9 @@ export default {
         firstCreateJob() {
             this.$refs.firstPage.emitJobTitle();
             this.$refs.firstPage.emitActivity();
-            this.$refs.firstPage.emitLocation();
+            this.$refs.firstPage.emitLocState();
+            this.$refs.firstPage.emitLocPostcode();
+            this.$refs.firstPage.emitLocSuburb();
             this.$refs.firstPage.payRangeFromOnBlur();
             this.$refs.firstPage.payRangeToOnBlur();
 

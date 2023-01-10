@@ -38,7 +38,7 @@
                             style="border: 1px solid #ced4da"
                             placeholder="Select an activity"
                             v-model="activity"
-                            :options="mockActivities"
+                            :options= this.$store.state.activity
                             :show-labels="false"
                             :searchable="true"
                             @input="emitActivity"
@@ -144,6 +144,7 @@
                                     {{ errPayRangeFrom }}
                                 </b-form-invalid-feedback>
                             </b-col>
+                            
                             <b-col sm="6">
                                 <label for="payRangeTo" class="required-field"
                                     >To
@@ -188,17 +189,14 @@ export default {
         return {
             jobTitle: "",
             activity: "",
-            mockActivities: ["Grape", "Strawberry"],
             locState: "",
             locSuburb: "",
             locPostcode: "",
             location: "",
-            payRangeFrom: 0.0,
-            payRangeTo: 0.0,
-
-            // firstOnBlurJt: false,
-            // firstOnBlurPRF: false,
-            // firstOnBlurPRT: false,
+            activityOptions: [""],
+            payRangeFrom: "",
+            payRangeTo: "",
+            isFirstPayRange: false,
 
             errJobTitle: "",
             errPayRangeFrom: "",
@@ -215,6 +213,37 @@ export default {
             checkedLocPostcode: null,
         };
     },
+
+    computed: {
+        // ...mapGetters({
+        //     activityOptions: "getActivityData",
+        // }),
+    },
+
+    mounted() {
+
+        const setFilter = async () => {
+            this.setInputFilter(
+                document.getElementById("payRangeFrom"),
+                function (value) {
+                    return /^-?\d*[.,]?\d{0,2}$/.test(value);
+                },
+                "Must be a currency value"
+            );
+
+            this.setInputFilter(
+                document.getElementById("payRangeTo"),
+                function (value) {
+                    return /^-?\d*[.,]?\d{0,2}$/.test(value);
+                },
+                "Must be a currency value"
+            );
+        }
+
+        setFilter()
+
+    },
+
     computed: {
         ...mapGetters({
             activities: "getActivityData",
@@ -256,30 +285,6 @@ export default {
 
         // ----- location validation -----------
 
-        // getLocationData(locationData, placeResultData, id) {
-        //     this.location = locationData;
-        // },
-
-        // locationOnBlur() {
-        //     if (this.checkEmpty(document.getElementById("location").value)) {
-        //         this.styleToRequiredField("rloc", "location");
-        //     } else {
-        //         this.styleToNormal("rloc", "location");
-        //     }
-        // },
-
-        // emitLocation() {
-        //     if (this.checkEmpty(document.getElementById("location").value)) {
-        //         this.styleToRequiredField("rloc", "location");
-        //     } else {
-        //         this.styleToNormal("rloc", "location");
-        //         this.$emit(
-        //             "location",
-        //             document.getElementById("location").value
-        //         );
-        //     }
-        // },
-
         emitLocState() {
             if (this.checkEmpty(this.locState)) {
                 this.checkedLocState = false;
@@ -311,14 +316,11 @@ export default {
         },
 
         emitLocation() {
-            this.location =
-                this.locSuburb + ", " + this.locState + ", " + this.locPostcode;
-            if (
-                !this.checkEmpty(this.locSuburb) &&
+            if (!this.checkEmpty(this.locSuburb) &&
                 !this.checkEmpty(this.locState) &&
-                !this.checkEmpty(this.locPostcode)
-            ) {
-                this.$emit("location", this.location);
+                !this.checkEmpty(this.locPostcode)) {
+
+                this.$emit("location", [ this.locSuburb,  this.locState, this.locPostcode ]);
             }
         },
 
@@ -370,20 +372,14 @@ export default {
         },
 
         payRangeFromOnBlur() {
-            this.setInputFilter(
-                document.getElementById("payRangeFrom"),
-                function (value) {
-                    return /^-?\d*[.,]?\d{0,2}$/.test(value);
-                },
-                "Must be a currency value"
-            );
+            
 
             // Minimum pay must be greater than $0.
             // Minimum pay must be lesser than Maximum pay
             // Minimum pay and Maximum pay differences should not be more than 10$ diff
 
-            var min = this.payRangeFrom;
-            var max = this.payRangeTo;
+            var min = parseFloat(this.payRangeFrom);
+            var max = parseFloat(this.payRangeTo);
 
             // this.payRangeToOnBlur();
 
@@ -409,7 +405,7 @@ export default {
         },
 
         emitPayRangeFrom() {
-            var min = this.payRangeFrom;
+            var min = parseFloat(this.payRangeFrom);
             // if (this.firstOnBlurPRF) {
             if (min == 0 || min == 0.0) {
                 this.checkedPayRangeFrom = false;
@@ -422,21 +418,12 @@ export default {
         },
 
         payRangeToOnBlur() {
-            this.setInputFilter(
-                document.getElementById("payRangeTo"),
-                function (value) {
-                    return /^-?\d*[.,]?\d{0,2}$/.test(value);
-                },
-                "Must be a currency value"
-            );
-
+            
             // Maximum pay must be greater than $0.
             // Maximum pay must be greater than minimum pay
             // Minimum pay and Maximum pay differences should not be more than 10$ diff
-            var min = this.payRangeFrom;
-            var max = this.payRangeTo;
-
-            // this.payRangeFromOnBlur();
+            var min = parseFloat(this.payRangeFrom);
+            var max = parseFloat(this.payRangeTo);
 
             if (max == 0 || max == 0.0) {
                 this.errPayRangeTo = "Maximum pay is required";
@@ -460,7 +447,7 @@ export default {
         },
 
         emitPayRangeTo() {
-            var max = this.payRangeTo;
+            var max = parseFloat(this.payRangeTo);
             // if (this.firstOnBlurPRF) {
             if (max == 0 || max == 0.0) {
                 this.checkedPayRangeTo = false;
