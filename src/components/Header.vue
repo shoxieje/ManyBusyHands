@@ -189,6 +189,7 @@ export default {
     width: 100%
     text-align: right !important
     color: $mbh-blue-2 !important
+    font-size: 14px !important
 
 .hdr-secondary
     display: none !important
