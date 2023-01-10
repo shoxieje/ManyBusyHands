@@ -68,11 +68,11 @@ async function updateBusinessUserDetails(userEmail, info) {
 
     const result = await db.query(
 
-        `UPDATE business_user_detail SET first_name = '${info.firstName}', last_name = '${info.lastName}', business_name = '${info.businessName}',
-        ABN = '${info.ABN}', title = '${info.title}', address = '${info.address}', user_role = '${info.userRole}', landline_number = '${info.landlineNumber}',
-        phone_number = '${info.phoneNumber}', website = '${info.website}', activity_1_id = ${info.activity1}, activity_2_id = ${info.activity2}, 
-        activity_3_id = ${info.activity3}, activity_4_id = ${info.activity4}, activity_5_id = ${info.activity5}, main_activities = '${info.mainActivities}', 
-        photos = '${info.photos}', busiest_months = '${info.busiestMonths}' WHERE user_email = '${userEmail}';`
+        `UPDATE businessUserDetails SET firstName = '${info.firstName}', lastName = '${info.lastName}', businessName = '${info.businessName}',
+        ABN = '${info.ABN}', title = '${info.title}', address = '${info.address}', userRole = '${info.userRole}', phoneNumber = '${info.phoneNumber}',
+        website = '${info.website}', mainActivities = '${info.mainActivities}', photos = '${info.photos}', busiestMonths = '${info.busiestMonths}',
+        casualLabors = '${info.casualLabors}', promotion = '${info.promotion}', postJob = '${info.postJob}'
+        WHERE userEmail = '${userEmail}';`
 
     )
 

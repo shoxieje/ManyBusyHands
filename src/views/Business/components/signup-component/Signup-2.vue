@@ -24,7 +24,6 @@
                                 :show-labels="false"
                                 :searchable="false"
                                 @input="emitTitle"
-
                             >
                             </multiselect>
 

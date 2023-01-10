@@ -29,6 +29,7 @@ export default new Vuex.Store({
         },
 
         setUserData({commit}, userEmail) {
+            console.log(userEmail)
             axios.get(`http://localhost:8081/businessUser/searchByEmail/${userEmail}`).then(
                 result => {
                     console.log(result.data[0])

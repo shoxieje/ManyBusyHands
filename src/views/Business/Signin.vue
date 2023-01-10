@@ -91,8 +91,8 @@
 </template>
 
 <script>
-    import axios from "axios";
-    const bcrypt = require("bcryptjs");
+import axios from "axios";
+const bcrypt = require("bcryptjs");
 
     export default {
         name: "BusinessSignin",
