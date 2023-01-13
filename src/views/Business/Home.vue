@@ -120,12 +120,13 @@
                         <div class="carousel-content">
                             <div class="carousel-content-text">
                                 <h4>
-                                    {{ job.jobTitle }}
-                                    <img
-                                        src="@/assets/img/icons/open-link-icon.png"
-                                        alt="Open job icon"
-                                        class="open-link-icon"
-                                    />
+                                    <a href="#"
+                                        >{{ job.jobTitle }}
+                                        <img
+                                            src="@/assets/img/icons/open-link-icon.png"
+                                            alt="Open job icon"
+                                            class="open-link-icon"
+                                    /></a>
                                 </h4>
                                 {{ job.location }} <br />
                                 {{ job.activity }} <br />
@@ -139,6 +140,7 @@
                                 <b-button
                                     variant="light"
                                     class="share-button text-primary"
+                                    to="#"
                                 >
                                     <img
                                         src="@/assets/img/icons/share-icon.png"
@@ -153,10 +155,10 @@
                             <b-button
                                 class="carousel-button"
                                 variant="primary text-white"
-                                >Manage job ad</b-button
+                                >Manage this job ad</b-button
                             >
                             <b-button class="carousel-button" variant="light"
-                                >Disable job ad</b-button
+                                >Edit this job ad</b-button
                             >
                         </div>
                     </div>
@@ -166,7 +168,11 @@
 
         <!-- MANAGE JOBS BUTTONS -->
         <div class="bh-job-list__manage-job mw-80">
-            <b-button variant="primary" class="manage-job-btn" to="#">
+            <b-button
+                variant="primary"
+                class="manage-job-btn"
+                to="/jobs/manage"
+            >
                 <img
                     class="manage-job-icon text-white"
                     src="@/assets/img/icons/active-2-icon.png"
@@ -177,7 +183,7 @@
             <b-button
                 variant="light"
                 class="manage-job-btn text-primary"
-                to="#"
+                to="/jobs/manage"
             >
                 <img
                     class="manage-job-icon"
@@ -189,7 +195,7 @@
             <b-button
                 variant="secondary"
                 class="manage-job-btn text-white"
-                to="#"
+                to="/jobs/manage"
             >
                 <img
                     class="manage-job-icon"

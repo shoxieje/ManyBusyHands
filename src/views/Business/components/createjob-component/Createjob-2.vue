@@ -63,6 +63,39 @@
                             </ul>
                         </div>
                     </b-button>
+                    <b-button
+                        id="ad-ultra"
+                        variant="light"
+                        class="ad-type-box"
+                        @click="selectUltra"
+                    >
+                        <div class="ad-style ad-type">Ultra</div>
+                        <div class="ad-style ad-price">$399.95</div>
+                        <div class="ad-style ad-text">
+                            Guaranteed to hire the best possible candidate!
+                        </div>
+                        <b-button
+                            id="ad-ultra-btn"
+                            class="ad-style ad-btn"
+                            variant="light"
+                            @click="selectUltra"
+                            >Select</b-button
+                        >
+                        <div class="ad-style ad-text">
+                            <ul>
+                                <li>
+                                    Guaranteed to hire the best possible
+                                    candidate
+                                </li>
+                                <li>
+                                    Your job ad emailed to relevant candidates
+                                </li>
+                                <li>Priority listing in search</li>
+                                <li>Priority listing in candidate emails</li>
+                                <li>Get candidates faster</li>
+                            </ul>
+                        </div>
+                    </b-button>
                 </div>
 
                 <br />
@@ -89,10 +122,14 @@ export default {
             var basicBtn = document.getElementById("ad-basic-btn");
             var premium = document.getElementById("ad-premium");
             var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
             basic.classList.add("selected");
             basicBtn.classList.add("selected");
             premium.classList.remove("selected");
             premiumBtn.classList.remove("selected");
+            ultra.classList.remove("selected");
+            ultraBtn.classList.remove("selected");
             this.adType = "basic";
             this.emitAdType();
         },
@@ -101,11 +138,31 @@ export default {
             var basicBtn = document.getElementById("ad-basic-btn");
             var premium = document.getElementById("ad-premium");
             var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
             basic.classList.remove("selected");
             basicBtn.classList.remove("selected");
             premium.classList.add("selected");
             premiumBtn.classList.add("selected");
+            ultra.classList.remove("selected");
+            ultraBtn.classList.remove("selected");
             this.adType = "premium";
+            this.emitAdType();
+        },
+        selectUltra() {
+            var basic = document.getElementById("ad-basic");
+            var basicBtn = document.getElementById("ad-basic-btn");
+            var premium = document.getElementById("ad-premium");
+            var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
+            basic.classList.remove("selected");
+            basicBtn.classList.remove("selected");
+            premium.classList.remove("selected");
+            premiumBtn.classList.remove("selected");
+            ultra.classList.add("selected");
+            ultraBtn.classList.add("selected");
+            this.adType = "ultra";
             this.emitAdType();
         },
     },
@@ -124,9 +181,9 @@ ul
 .ad-type-box
 	background-color: $mbh-white
 	// background-color: pink
-	width: 43%
+	width: 32%
 	// min-height: 400px
-	padding: 2.5rem 5%
+	padding: 2.5rem 3%
 	border-style: solid
 	border-color: $mbh-gray-0
 	border-width: 1px

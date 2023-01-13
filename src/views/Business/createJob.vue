@@ -348,7 +348,7 @@ export default {
 
 .container-job-ad
 	text-align: left
-	padding: 0 15%
+	padding: 0 5%
 
 .create-job-box
 	// background-color: #f1f1f1

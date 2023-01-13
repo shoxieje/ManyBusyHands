@@ -158,10 +158,6 @@ export default {
     font-weight: bold
     font-size: 22px !important
 
-.nav-item
-    margin: auto
-    padding: 1em
-
 .nav-btn
     font-size: 24px !important
     font-weight: bold
@@ -171,7 +167,6 @@ export default {
     height: auto
 
 .dropdown-right
-// btn dropdown-toggle btn-light
 
 .dropdown-toggle
     font-size: 22px !important

@@ -308,58 +308,52 @@ export default {
 };
 </script>
 
-<style>
-.mw-60 {
-    max-width: 60rem;
-    margin-inline: auto;
-}
+<style lang="sass">
+@import '../../assets/styles/custom-variables.sass'
+.mw-60
+    max-width: 60rem
+    margin-inline: auto
 
 /* Stepper */
-.stepper-container {
-    padding: 3rem;
-}
-.stepper-btn-container {
-    text-align: right;
-}
-.stepper-btn-primary {
-    /* blue mbh-blue-2 */
-    background-color: #29648a !important;
-    color: white !important;
-}
-.stepper-btn-secondary {
-    /* navy mbh-navy */
-    color: #25274d !important;
-}
+.stepper-container
+    padding: 3rem
+
+.stepper-btn-container
+    text-align: right
+
+.stepper-btn-primary
+    background-color: $mbh-blue-2 !important
+    color: white !important
+
+.stepper-btn-secondary
+    color: $mbh-navy !important
 
 /*Sign up*/
-.container-signup {
-    text-align: left;
-}
-.business-signup-box {
-    background-color: #f1f1f1;
-    border-radius: 10px;
-    padding: 3rem;
-    margin: 1rem 0;
-}
-.title-signup {
-    /* $mbh-navy */
-    color: #25274d;
-    padding-bottom: 1rem;
-}
-.subtitle-signup {
-    /* $mbh-blue-2 */
-    color: #29648a;
-    font-size: 1.5rem;
-    padding-bottom: 1rem;
-}
-.business-signup-btn {
-    color: white;
-    font-weight: bold;
-    font-size: 20px !important;
-}
-.required-field::after {
-    content: "*";
-    color: red;
-    margin-left: 2px;
-}
+.container-signup
+    text-align: left
+
+.business-signup-box
+    background-color: #f1f1f1
+    border-radius: 10px
+    padding: 3rem
+    margin: 1rem 0
+
+.title-signup
+    color: $mbh-navy
+    padding-bottom: 1rem
+
+.subtitle-signup
+    color: $mbh-blue-2
+    font-size: 1.5rem
+    padding-bottom: 1rem
+
+.business-signup-btn
+    color: white
+    font-weight: bold
+    font-size: 20px !important
+
+.required-field::after
+    content: "*"
+    color: red
+    margin-left: 2px
 </style>

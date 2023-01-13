@@ -1,9 +1,10 @@
 <template>
     <div class="manage-job-top">
+        <h1 class="title">Manage your job ads</h1>
         <div class="manage-job-box mw-60" style="background-color: white">
             <b-card no-body>
-                <b-tabs align="left">
-                    <b-tab active>
+                <b-tabs>
+                    <b-tab>
                         <template #title
                             ><span class="b-tab-title">Active</span></template
                         >
@@ -13,7 +14,7 @@
                             </div>
                         </div>
                     </b-tab>
-                    <b-tab active>
+                    <b-tab>
                         <template #title
                             ><span class="b-tab-title">Disabled</span></template
                         >
@@ -27,7 +28,7 @@
                             </div>
                         </div>
                     </b-tab>
-                    <b-tab active>
+                    <b-tab>
                         <template #title
                             ><span class="b-tab-title">Draft</span></template
                         >
@@ -81,21 +82,10 @@ export default {
 .manage-job-top
     text-align: center
     padding: 2rem 0
-// .nav-item
-//     margin: unset
-//     padding: 0
-//     width: 15%
 .job-preview-card__container
     background-color: $mbh-white-2
     padding: 1rem
 @media only screen and (max-width: $laptop-max)
-    // .nav-item
-        // width: 33%
     .b-tab-title
         font-size: medium !important
-    // .nav-link
-    //     padding: 0.25rem
-@media only screen and (max-width: $mobile-max)
-    // .nav-link
-    //     padding: 0
 </style>
