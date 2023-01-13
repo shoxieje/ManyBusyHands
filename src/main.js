@@ -10,12 +10,16 @@ import "./assets/styles/styles.sass";
 import vueCountryRegionSelect from "vue-country-region-select";
 import vuetify from "@/plugins/vuetify";
 import VueLazyload from "vue-lazyload";
+import VueToastify from "vue-toastify";
+import VueCarousel from "vue-carousel";
 
 Vue.use(VueLazyload); //For vue-upload-multiple-image
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VueAxios, axios);
 Vue.use(vueCountryRegionSelect);
+Vue.use(VueToastify);
+Vue.use(VueCarousel);
 
 new Vue({
     router,

@@ -397,10 +397,8 @@
 <script>
 import { config } from "../../utils/constant";
 import Vue from "vue";
-import VueCarousel from "vue-carousel";
 import { Carousel, Slide } from "vue-carousel";
 
-Vue.use(VueCarousel);
 const businessData = config.mockData.businessDetails;
 const activeJobList = config.mockData.activeJoblist;
 const draftJobList = config.mockData.draftJoblist;
@@ -443,127 +441,6 @@ export default {
 
 <style lang="sass">
 @import '../../assets/styles/custom-variables.sass'
-
-
-//----- Manage ads -----
-
-.bh-job-list__manage-job
-    display: flex
-    justify-content: space-evenly
-
-.manage-job-btn
-    margin: 1rem 0
-    width: 30%
-    border-radius: 1rem
-
-.manage-job-icon
-    width: 25%
-    height: auto
-    margin: 1rem
-
-@media only screen and (max-width: $laptop-max)
-    .manage-job-icon
-        width: 20%
-    .bh-job-btn
-        font-size: medium
-
-@media only screen and (max-width: $mobile-max)
-    .manage-job-icon
-        width: 10%
-    .bh-job-list__manage-job
-        flex-wrap: wrap
-    .bh-job-btn
-        font-size: small
-    .manage-job-btn
-        width: 80%
-        margin: 0.5rem
-
-//----- Video -----
-.business-home-video
-    padding: 4rem
-    // background-color: $mbh-white
-
-.business-home-video__container
-    text-align: center
-    // background-color: pink
-
-.bh-video__container
-    // background-color: yellow
-    display: flex
-    justify-content: space-between
-    flex-wrap: wrap
-
-.bh-video-card
-    min-width: 250px
-    background-color: $mbh-white
-    // background-color: green
-    width: 30%
-    padding: 0
-    margin-top: 1rem
-    margin-bottom: 1rem
-
-.bh-video-content
-    padding: 1rem
-    // background-color: pink
-
-.bh-video-image
-    width: 100%
-    // height: 50%
-
-
-
-@media only screen and (max-width: $screen-max)
-    .bh-video-title
-        font-size: large
-
-@media only screen and (max-width: 900px)
-    .bh-video__container
-        justify-content: space-around
-    .bh-video-title
-        font-size: large
-    .bh-video-card
-        width: 45%
-
-
-@media only screen and (max-width: 650px)
-    .bh-video-card
-        width: 100%
-    .bh-video-title
-        font-size: medium
-    .bh-video-content p
-        font-size: small
-
-//----- Logo -----
-.business-home-support
-    background-color: $mbh-white
-    text-align: center
-    padding: 2rem
-
-.bh-support__container
-    padding: 1rem
-    display: flex
-    justify-content: space-evenly
-    flex-wrap: wrap
-
-.bh-support__logo
-    min-width: 250px
-    margin: auto 0
-
-@media only screen and (max-width: $tablet-max)
-    .bh-support__logo
-        min-width: 150px
-
-
-
-
-
-
-
-
-
-
-
-
 
 h2
     margin: 0
@@ -840,4 +717,113 @@ h2
     .info-icon
         width: 30%
         margin-inline: auto
+
+
+//----- Manage ads -----
+
+.bh-job-list__manage-job
+    display: flex
+    justify-content: space-evenly
+
+.manage-job-btn
+    margin: 1rem 0
+    width: 30%
+    border-radius: 1rem
+
+.manage-job-icon
+    width: 25%
+    height: auto
+    margin: 1rem
+
+@media only screen and (max-width: $laptop-max)
+    .manage-job-icon
+        width: 20%
+    .bh-job-btn
+        font-size: medium
+
+@media only screen and (max-width: $mobile-max)
+    .manage-job-icon
+        width: 10%
+    .bh-job-list__manage-job
+        flex-wrap: wrap
+    .bh-job-btn
+        font-size: small
+    .manage-job-btn
+        width: 80%
+        margin: 0.5rem
+
+//----- Video -----
+.business-home-video
+    padding: 4rem
+    // background-color: $mbh-white
+
+.business-home-video__container
+    text-align: center
+    // background-color: pink
+
+.bh-video__container
+    // background-color: yellow
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+
+.bh-video-card
+    min-width: 250px
+    background-color: $mbh-white
+    // background-color: green
+    width: 30%
+    padding: 0
+    margin-top: 1rem
+    margin-bottom: 1rem
+
+.bh-video-content
+    padding: 1rem
+    // background-color: pink
+
+.bh-video-image
+    width: 100%
+    // height: 50%
+
+
+
+@media only screen and (max-width: $screen-max)
+    .bh-video-title
+        font-size: large
+
+@media only screen and (max-width: 900px)
+    .bh-video__container
+        justify-content: space-around
+    .bh-video-title
+        font-size: large
+    .bh-video-card
+        width: 45%
+
+
+@media only screen and (max-width: 650px)
+    .bh-video-card
+        width: 100%
+    .bh-video-title
+        font-size: medium
+    .bh-video-content p
+        font-size: small
+
+//----- Logo -----
+.business-home-support
+    background-color: $mbh-white
+    text-align: center
+    padding: 2rem
+
+.bh-support__container
+    padding: 1rem
+    display: flex
+    justify-content: space-evenly
+    flex-wrap: wrap
+
+.bh-support__logo
+    min-width: 250px
+    margin: auto 0
+
+@media only screen and (max-width: $tablet-max)
+    .bh-support__logo
+        min-width: 150px
 </style>

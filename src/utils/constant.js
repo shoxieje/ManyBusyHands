@@ -20,6 +20,8 @@ export const config = {
                 status: "Draft",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.jpg",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
         ],
         disabledJoblist: [
@@ -35,6 +37,8 @@ export const config = {
                 status: "Disabled",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
             {
                 joblistId: "1293801288",
@@ -48,6 +52,8 @@ export const config = {
                 status: "Disabled",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
         ],
         activeJoblist: [
@@ -62,6 +68,8 @@ export const config = {
                 timeStamp: "just now",
                 status: "Active",
                 imgPath: "@/assets/img/icons/grapes-picking.jpg",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
             {
                 joblistId: "1293801284",
@@ -75,6 +83,8 @@ export const config = {
                 status: "Active",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
             {
                 joblistId: "1293801285",
@@ -88,6 +98,8 @@ export const config = {
                 status: "Active",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
             {
                 joblistId: "1293801286",
@@ -101,6 +113,8 @@ export const config = {
                 status: "Active",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
             {
                 joblistId: "1293801287",
@@ -114,6 +128,8 @@ export const config = {
                 status: "Active",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
             {
                 joblistId: "1293801288",
@@ -127,6 +143,8 @@ export const config = {
                 status: "Active",
                 imgPath:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
+                payRangeFrom: "25",
+                payRangeTo: "28",
             },
         ],
         radioQuestions: [

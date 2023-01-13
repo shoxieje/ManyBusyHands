@@ -302,10 +302,6 @@ export default {
 <style lang="sass">
 @import '../../assets/styles/custom-variables.sass'
 
-
-
-
-
 /* Stepper */
 
 .v-stepper__label
@@ -374,4 +370,59 @@ export default {
 	content: "*"
 	color: red
 	margin-left: 2px
+
+
+@media only screen and (max-width: $laptop-max)
+	.title
+		font-size: xx-large
+		font-weight: bolder
+	.subtitle
+		font-size: large !important
+		margin-left: -0.8rem
+	span
+		font-size: small !important
+	label
+		font-size: small
+	input
+		font-size: small !important
+	.v-stepper__step.v-stepper__step--inactive
+		display: none !important
+	hr
+		display: none !important
+	.v-stepper__step.v-stepper__step--active
+		width: 100%
+		padding: 0
+	.v-stepper__step.v-stepper__step--active div
+		display: block !important
+		font-weight: bolder
+		color: $mbh-blue-2 !important
+	.v-stepper__header
+		// background-color: pink
+	.v-stepper__step.v-stepper__step--complete
+		display: none !important
+	.container-job
+		padding: 0 2rem
+		// background: red
+	.col-sm-12
+		padding: 0 !important
+	.col-sm-4
+		padding: 0 !important
+	.stepper-btn-container
+		flex-wrap: wrap
+		justify-content: space-around
+		padding: 0 0.5rem 1rem
+
+
+@media only screen and (max-width: $mobile-max)
+	.stepper-btn-primary.v-btn.v-btn--is-elevated.v-btn--has-bg.theme--light.v-size--default
+		// padding: 0.5rem !important// width: 100% !important
+		margin-bottom: 0.5rem !important
+		// min-width: 80px !important
+		// width: 100%
+	.v-btn__content
+		font-size: smaller !important
+
+@media only screen and (max-width: $tablet-max)
+	.title
+		font-size: large
 </style>

@@ -29,6 +29,11 @@ const routes = [
         name: "CreateJob",
         component: () => import("../views/Business/CreateJob.vue"),
     },
+    {
+        path: "/jobs/manage",
+        name: "ManageJob",
+        component: () => import("../views/Business/ManageJob.vue"),
+    },
 ];
 
 const router = new VueRouter({
