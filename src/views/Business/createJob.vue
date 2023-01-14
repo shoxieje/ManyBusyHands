@@ -153,7 +153,7 @@ These entry level positions are a great starting point for a variety of opportun
                                 >
                                     Back
                                 </v-btn>
-                                <v-btn class="stepper-btn-primary">
+                                <v-btn class="stepper-btn-primary" @click="checkOut">
                                     Create a job ad
                                 </v-btn>
                             </div>
@@ -170,6 +170,8 @@ import Createjob1 from "./components/createjob-component/Createjob-1.vue";
 import Createjob2 from "./components/createjob-component/Createjob-2.vue";
 import Createjob3 from "./components/createjob-component/Createjob-3.vue";
 import Createjob4 from "./components/createjob-component/Createjob-4.vue";
+import axios from "axios";
+
 // import { config } from "../../utils/constant";
 
 // const radioQuestions = config.mockData.radioQuestions;
@@ -291,6 +293,10 @@ export default {
                 this.e1 = 4;
             }
         },
+
+        checkOut() {
+            axios.post(`http://localhost:8081/create-checkout-session`)
+        }
     },
     
     created() {

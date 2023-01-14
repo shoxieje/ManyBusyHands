@@ -26,9 +26,9 @@
                         >
                         <div class="ad-style ad-text">
                             <ul>
-                                <li>30 days listing</li>
+                                <li>30 days listing on our website and our facebook page</li>
                                 <li>
-                                    Your job ad emailed to relevant candidates
+                                    Your job ad is searchable and visible to subscribers
                                 </li>
                             </ul>
                         </div>
@@ -53,13 +53,12 @@
                         >
                         <div class="ad-style ad-text">
                             <ul>
-                                <li>30 days listing</li>
+                                <li>30 days listing on website and our facebook page</li>
                                 <li>
-                                    Your job ad emailed to relevant candidates
+                                    Your job ad is emailed to relevant candidates
                                 </li>
-                                <li>Priority listing in search</li>
-                                <li>Priority listing in candidate emails</li>
-                                <li>Get candidates faster</li>
+                                <li>Priority listing</li>
+                                <li>Get workers faster</li>
                             </ul>
                         </div>
                     </b-button>

@@ -28,7 +28,7 @@
                 <b-row class="my-1">
                     <b-col sm="12">
                         <label for="activity" class="required-field"
-                            >Activity
+                            >Industry
                         </label>
 
                         <!-- replace line 42 with code below
@@ -54,7 +54,7 @@
                 <b-row class="my-1">
                     <b-col sm="4">
                         <label for="location" class="required-field"
-                            >States
+                            >State
                         </label>
                         <!-- <vue-google-autocomplete
                             id="location"
@@ -83,7 +83,7 @@
                     </b-col>
                     <b-col sm="4">
                         <label for="location" class="required-field"
-                            >Suburb
+                            >Town / Suburb
                         </label>
 
                         <b-form-input
@@ -123,7 +123,7 @@
 
                 <b-row class="my-1">
                     <b-col sm="12">
-                        <label for="payRange">Pay range </label>
+                        <label for="payRange">Applicable Award Payment </label>
                         <b-row>
                             <b-col sm="6">
                                 <label for="payRangeFrom" class="required-field"
@@ -372,8 +372,6 @@ export default {
         },
 
         payRangeFromOnBlur() {
-            
-
             // Minimum pay must be greater than $0.
             // Minimum pay must be lesser than Maximum pay
             // Minimum pay and Maximum pay differences should not be more than 10$ diff
@@ -383,7 +381,7 @@ export default {
 
             // this.payRangeToOnBlur();
 
-            if (min == 0 || min == 0.0) {
+            if (min == 0 || min == 0.0 || Number.isNaN(min)) {
                 this.errPayRangeFrom = "Minimum pay is required";
                 this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
             } else if (min < 0) {
@@ -425,7 +423,7 @@ export default {
             var min = parseFloat(this.payRangeFrom);
             var max = parseFloat(this.payRangeTo);
 
-            if (max == 0 || max == 0.0) {
+            if (max == 0 || max == 0.0 || Number.isNaN(max)) {
                 this.errPayRangeTo = "Maximum pay is required";
                 this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
             } else if (max < 0) {

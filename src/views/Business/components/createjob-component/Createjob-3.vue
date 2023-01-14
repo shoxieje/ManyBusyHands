@@ -7,7 +7,7 @@
                 <b-row class="my-1">
                     <b-col sm="12">
                         <label for="jobSummary" class="required-field"
-                            >Job Summary</label
+                            >Job Headline</label
                         >
                         <b-form-textarea
                             id="jobSummary"

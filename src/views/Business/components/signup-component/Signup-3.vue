@@ -41,7 +41,7 @@
                                     @input="emitActivity2"
                                 >
                                 </multiselect>
-
+                                
                                 <multiselect
                                     style="border: 1px solid #ced4da"
                                     id="activity_3"
@@ -137,124 +137,152 @@
 </template>
 
 <script>
-import "vue-phone-number-input/dist/vue-phone-number-input.css";
-import axios from "axios";
-// import { config } from "../../../utils/constant";
-import VueUploadMultipleImage from "vue-upload-multiple-image";
-const bcrypt = require("bcryptjs");
-import Multiselect from "vue-multiselect";
-import { mapGetters } from "vuex";
 
-export default {
-    components: {
-        VueUploadMultipleImage,
-        Multiselect,
-    },
-    data() {
-        return {
-            images: [],
-            activityDescription: "",
-            activityPlaceholder: `E.g it could be 'Flour Miller' another could be Angus cattle, merino sheep, wool, grains and mention if you are a stud stock producer. Write about your business in 500 words.`,
-            activity_1: "",
-            activity_2: "",
-            activity_3: "",
-            activity_4: "",
-            activity_5: "",
-            months: [],
-        };
-    },
+    import "vue-phone-number-input/dist/vue-phone-number-input.css";
+    import axios from "axios";
+    // import { config } from "../../../utils/constant";
+    import VueUploadMultipleImage from "vue-upload-multiple-image";
+    const bcrypt = require("bcryptjs");
+    import Multiselect from "vue-multiselect";
+    import { mapGetters } from 'vuex'
 
-    computed: {
-        ...mapGetters({
-            activities: "getActivityData",
-        }),
-    },
-
-    methods: {
-        uploadImageSuccess(formData, index, fileList) {
-            console.log("data", formData, index, fileList);
-            // Upload image api
-            // axios.post('http://your-url-upload', formData).then(response => {
-            //   console.log(response)
-            // })
+    export default {
+        components: { 
+            VueUploadMultipleImage,
+            Multiselect
         },
-        beforeRemove(index, done, fileList) {
-            console.log("index", index, fileList);
-            var r = confirm("remove image");
-            if (r == true) {
-                done();
-            } else {
+        data() {
+            return {
+                images: [],
+                activityDescription: "",
+                activityPlaceholder:
+                    `E.g it could be 'Flour Miller' another could be Angus cattle, merino sheep, wool, grains and mention if you are a stud stock producer. Write about your business in 500 words.`,
+                activity_1: "",
+                activity_2: "",
+                activity_3: "",
+                activity_4: "",
+                activity_5: "",
+                months: [],
+
+            };
+        },
+
+        computed: {
+
+            ...mapGetters({
+                activities: 'getActivityData',
+            }),
+
+        },
+
+        methods: {
+            uploadImageSuccess(formData, index, fileList) {
+                console.log("data", formData, index, fileList);
+                // Upload image api
+                // axios.post('http://your-url-upload', formData).then(response => {
+                //   console.log(response)
+                // })
+            },
+            beforeRemove(index, done, fileList) {
+                console.log("index", index, fileList);
+                var r = confirm("remove image");
+                if (r == true) {
+                    done();
+                } else {
+                }
+            },
+            editImage(formData, index, fileList) {
+                console.log("edit data", formData, index, fileList);
+            },
+
+            emitActivity1() {
+                if(this.activity_1 == null || this.activity_1 == "") {
+                    this.$emit('activity_1', 0);
+                } else {
+                    this.$emit('activity_1', this.activities.indexOf(this.activity_1) + 1);
+                }
+                
+            },
+
+            emitActivity2() {
+                if(this.activity_2 == null || this.activity_2 == "") {
+                    this.$emit('activity_2', 0);
+                } else {
+                    this.$emit('activity_2', this.activities.indexOf(this.activity_2) + 1);
+                }
+                
+            },
+
+            emitActivity3() {
+                if(this.activity_3 == null || this.activity_3 == "") {
+                    this.$emit('activity_3', 0);
+                } else {
+                    this.$emit('activity_3', this.activities.indexOf(this.activity_3) + 1);
+                }
+            },
+
+            emitActivity4() {
+                if(this.activity_4 == null || this.activity_4 == "") {
+                    this.$emit('activity_4', 0);
+                } else {
+                    this.$emit('activity_4', this.activities.indexOf(this.activity_4) + 1);
+                }
+            },
+
+            emitActivity5() {
+                if(this.activity_5 == null || this.activity_5 == "") {
+                    this.$emit('activity_5', 0);
+                } else {
+                    this.$emit('activity_5', this.activities.indexOf(this.activity_5) + 1);
+                }
+            },
+
+            emitActivityDescription() {
+                this.$emit('activity_description', this.activityDescription)
+                console.log(this.months)
+            },
+
+            emitMonths() {
+                this.$emit('busiest_months', this.months)
+                console.log(this.months)
             }
-        },
-        editImage(formData, index, fileList) {
-            console.log("edit data", formData, index, fileList);
-        },
 
-        emitActivity1() {
-            this.$emit("activity_1", this.activities.indexOf(this.activity_1));
         },
-
-        emitActivity2() {
-            this.$emit("activity_2", this.activity_2);
-        },
-
-        emitActivity3() {
-            this.$emit("activity_3", this.activity_3);
-        },
-
-        emitActivity4() {
-            this.$emit("activity_4", this.activity_4);
-        },
-
-        emitActivity5() {
-            this.$emit("activity_5", this.activity_5);
-        },
-
-        emitActivityDescription() {
-            this.$emit("activity_description", this.activityDescription);
-            console.log(this.months);
-        },
-
-        emitMonths() {
-            this.$emit("busiest_months", this.months);
-            console.log(this.months);
-        },
-    },
-};
+    };
 </script>
 
 <style>
-/* Image uploader */
-.text-small.mark-text-primary.cursor-pointer {
-    display: none;
-}
-.image-primary.display-flex.align-items-center {
-    display: none;
-}
-.image-icon-info {
-    display: none;
-}
-.image-icon-drag {
-    margin-top: 2rem;
-    width: 6rem !important;
-    height: 6rem !important;
-}
-.drag-text {
-    display: none;
-}
-.browse-text {
-    display: none;
-}
-/* Date Picker Edits*/
-.v-btn__content {
-    font-size: 1rem !important;
-}
-.v-date-picker-header {
-    display: none;
-}
-.theme--dark.v-picker__body {
-    /* blue mbh-blue-2 */
-    background: #29648a !important;
-}
+    /* Image uploader */
+    .text-small.mark-text-primary.cursor-pointer {
+        display: none;
+    }
+    .image-primary.display-flex.align-items-center {
+        display: none;
+    }
+    .image-icon-info {
+        display: none;
+    }
+    .image-icon-drag {
+        margin-top: 2rem;
+        width: 6rem !important;
+        height: 6rem !important;
+    }
+    .drag-text {
+        display: none;
+    }
+    .browse-text {
+        display: none;
+    }
+    /* Date Picker Edits*/
+    .v-btn__content {
+        font-size: 1rem !important;
+    }
+    .v-date-picker-header {
+        display: none;
+    }
+    .theme--dark.v-picker__body {
+        /* blue mbh-blue-2 */
+        background: #29648a !important;
+    }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
