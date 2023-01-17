@@ -72,7 +72,7 @@
                         <div class="ad-style ad-type">Ultra</div>
                         <div class="ad-style ad-price">$399.95</div>
                         <div class="ad-style ad-text">
-                            Guaranteed to hire the best possible candidate!
+                            Guaranteed to hire the best candidate!
                         </div>
                         <b-button
                             id="ad-ultra-btn"
@@ -83,10 +83,7 @@
                         >
                         <div class="ad-style ad-text">
                             <ul>
-                                <li>
-                                    Guaranteed to hire the best possible
-                                    candidate
-                                </li>
+                                <li>Guaranteed to hire the best candidate</li>
                                 <li>
                                     Your job ad emailed to relevant candidates
                                 </li>

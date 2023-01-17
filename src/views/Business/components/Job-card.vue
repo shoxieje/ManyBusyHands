@@ -36,46 +36,70 @@
                 <b-button
                     v-if="!showBottomBar"
                     class="preview-button"
-                    variant="warning text-white"
+                    variant="primary text-white"
                     @click="toggleBar"
                     >Manage</b-button
                 >
             </div>
         </div>
-        <div v-if="showBottomBar" class="pop-up-btn__container">
-            <div class="pop-up-btn__container-2">
-                <div class="pop-up-btn__container-3">
-                    <b-button class="pop-up-btn text-white" variant="secondary"
-                        >Edit</b-button
-                    >
+        <transition name="slide">
+            <div v-if="showBottomBar" class="pop-up-btn__container">
+                <div>
+                    <b-button class="pop-up-btn text-white" variant="primary"
+                        ><img
+                            src="@/assets/img/icons/edit-w-icon.png"
+                            alt="Edit"
+                            class="pop-up-icon"
+                    /></b-button>
                     <b-button
+                        v-if="type == 'active' || type == 'draft'"
                         class="pop-up-btn"
-                        variant="quaternary"
+                        variant="primary"
                         @click="toast"
-                        >{{
-                            type == "disabled" ? "Enable" : "Disable"
-                        }}</b-button
-                    >
-                </div>
-                <div class="pop-up-btn__container-3">
-                    <b-button class="pop-up-btn text-white" variant="tertiary"
-                        >Candidate</b-button
-                    >
+                        ><img
+                            src="@/assets/img/icons/disable-w-icon.png"
+                            alt="Disable"
+                            class="pop-up-icon"
+                    /></b-button>
+                    <b-button
+                        v-if="type == 'disabled'"
+                        class="pop-up-btn"
+                        variant="primary"
+                        @click="toast"
+                        ><img
+                            src="@/assets/img/icons/check-w-icon.png"
+                            alt="Enable"
+                            class="pop-up-icon"
+                    /></b-button>
+                    <b-button class="pop-up-btn text-white" variant="primary"
+                        ><img
+                            src="@/assets/img/icons/candidate-w-icon.png"
+                            alt="Candidate"
+                            class="pop-up-icon"
+                    /></b-button>
                     <b-button
                         class="pop-up-btn"
-                        variant="warning"
+                        variant="primary"
                         @click="toastPrompt"
-                        >Delete</b-button
-                    >
+                        ><img
+                            src="@/assets/img/icons/trash-w-icon.png"
+                            alt="Delete"
+                            class="pop-up-icon"
+                    /></b-button>
+                </div>
+                <div>
+                    <b-button
+                        class="pop-up-btn text-white"
+                        variant="primary"
+                        @click="toggleBar"
+                        ><img
+                            src="@/assets/img/icons/close-w-icon.png"
+                            alt="Close"
+                            class="pop-up-icon"
+                    /></b-button>
                 </div>
             </div>
-            <b-button
-                class="pop-up-btn sm text-white"
-                variant="primary"
-                @click="toggleBar"
-                >X</b-button
-            >
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -90,9 +114,7 @@ export default {
     },
     methods: {
         toggleBar() {
-            this.showBottomBar
-                ? (this.showBottomBar = false)
-                : (this.showBottomBar = true);
+            this.showBottomBar = !this.showBottomBar;
         },
         toast() {
             this.type == "disabled"
@@ -167,24 +189,23 @@ export default {
 .pop-up-btn__container
     margin-top: -0.5rem
     display: flex
-.pop-up-btn__container-2
-    display: flex
-    width: 100%
-.pop-up-btn__container-3
-    width: 50%
+    justify-content: space-between
+    padding: 0 1rem
 .pop-up-btn
-    width: 50%
-    min-width: 90px
-.pop-up-btn.sm
-    max-width: 40px
-    min-width: 30px
+    height: 40px
+    width: 50px
+    margin: 0 2px 2px 2px
+    border-radius: 0 0 8px 8px
+.pop-up-icon
+    margin: auto
+    width: 20px
+    height: 20px
 
 @media only screen and (max-width: $tablet-max)
     .sr-content__container
         font-size: small
     .pop-up-btn
         font-size: small
-
 @media only screen and (max-width: 550px)
     .job-preview-card
         flex-wrap: wrap
@@ -195,18 +216,46 @@ export default {
         max-width: unset
     .sr-image__container
         margin: unset
-    .pop-up-btn__container-2
-        flex-wrap: wrap
-    .pop-up-btn__container-3
-        width: 100%
-@media only screen and (max-width: 300px)
     .pop-up-btn
-        width: 100%
-
-
+        height: 32px
+        width: 40px
+    .pop-up-icon
+        width: 15px
+        height: 15px
 @media only screen and (max-width: 400px)
     .sr-content__container
         margin-top: 1rem
         width: 100%
         padding: 0
+
+
+
+/* SLIDE ANIMATION*/
+.slide-enter-active
+   -moz-transition-duration: 0.3s
+   -webkit-transition-duration: 0.3s
+   -o-transition-duration: 0.3s
+   transition-duration: 0.3s
+   -moz-transition-timing-function: ease-in
+   -webkit-transition-timing-function: ease-in
+   -o-transition-timing-function: ease-in
+   transition-timing-function: ease-in
+
+.slide-leave-active
+   -moz-transition-duration: 0.3s
+   -webkit-transition-duration: 0.3s
+   -o-transition-duration: 0.3s
+   transition-duration: 0.3s
+   -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+   -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+   -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+   transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+
+.slide-enter-to, .slide-leave
+   max-height: 100px
+   overflow: hidden
+
+.slide-enter, .slide-leave-to
+   overflow: hidden
+   max-height: 0
 </style>
