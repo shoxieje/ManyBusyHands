@@ -356,4 +356,52 @@ export default {
     content: "*"
     color: red
     margin-left: 2px
+
+@media only screen and (max-width: $laptop-max)
+    .v-stepper__step.v-stepper__step--inactive
+        display: none !important
+    .v-stepper__step.v-stepper__step--active
+        width: 100%
+        padding: 0
+    .v-stepper__step.v-stepper__step--active div
+        display: block !important
+        font-weight: bolder
+        color: $mbh-blue-2 !important
+    .v-stepper__step.v-stepper__step--complete
+        display: none !important
+    .stepper-btn-container
+        flex-wrap: wrap
+        padding: 0 0.5rem 1rem
+
+@media only screen and (max-width: $mobile-max)
+    .v-btn__content
+        font-size: smaller !important
+    .v-btn:not(.v-btn--round).v-size--default
+        padding: 5px !important
+
+@media only screen and (max-width: $tablet-max)
+    .stepper-container
+        padding: 3rem 0.5rem
+    .v-stepper__content
+        padding: 0.5rem
+    .business-signup-box
+        padding: 2rem 1rem
+    .title-signup
+        font-size: x-large
+    .subtitle-signup
+        font-size: large
+        margin-left: -0.5rem !important
+    label
+        font-size: medium
+    .col-sm-3
+        padding: 3px !important
+    .col-sm-9
+        padding: 3px !important
+
+    .col div
+        padding: 3px !important
+
+@media only screen and (max-width: 576px)
+    .v-picker__body.v-picker__body--no-title.theme--dark
+        width: unset !important
 </style>

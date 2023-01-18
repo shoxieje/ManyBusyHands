@@ -65,8 +65,12 @@
                                 variant="warning"
                                 class="ml-3 text-white"
                                 @click="clearImage"
-                                >Clear image</b-button
                             >
+                                <span class="span-hidden">Clear image</span>
+                                <img
+                                    src="@/assets/img/icons/close-w-icon.png"
+                                    class="stepper-btn-icon"
+                            /></b-button>
                         </div>
                     </b-col>
                     <b-col sm="12">

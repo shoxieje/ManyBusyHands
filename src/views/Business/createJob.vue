@@ -41,14 +41,22 @@
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                Save Draft
+                                <span class="span-hidden">Save Draft</span>
+                                <img
+                                    src="@/assets/img/icons/save-w-icon.png"
+                                    class="stepper-btn-icon"
+                                />
                             </v-btn>
                             <div>
                                 <v-btn
                                     class="stepper-btn-primary"
                                     @click="firstCreateJob"
                                 >
-                                    Continue
+                                    <span class="span-hidden">Continue</span>
+                                    <img
+                                        src="@/assets/img/icons/right-arrow-w-icon.png"
+                                        class="stepper-btn-icon"
+                                    />
                                 </v-btn>
                             </div>
                         </div>
@@ -62,20 +70,32 @@
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                Save Draft
+                                <span class="span-hidden">Save Draft</span>
+                                <img
+                                    src="@/assets/img/icons/save-w-icon.png"
+                                    class="stepper-btn-icon"
+                                />
                             </v-btn>
                             <div>
                                 <v-btn
                                     class="stepper-btn-secondary"
                                     @click="e1 = 1"
                                 >
-                                    Back
+                                    <span class="span-hidden">Back</span>
+                                    <img
+                                        src="@/assets/img/icons/back-b-icon.png"
+                                        class="stepper-btn-icon"
+                                    />
                                 </v-btn>
                                 <v-btn
                                     class="stepper-btn-primary"
                                     @click="secondCreateJob"
                                 >
-                                    Continue
+                                    <span class="span-hidden">Continue</span>
+                                    <img
+                                        src="@/assets/img/icons/right-arrow-w-icon.png"
+                                        class="stepper-btn-icon"
+                                    />
                                 </v-btn>
                             </div>
                         </div>
@@ -94,20 +114,32 @@
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                Save Draft
+                                <span class="span-hidden">Save Draft</span>
+                                <img
+                                    src="@/assets/img/icons/save-w-icon.png"
+                                    class="stepper-btn-icon"
+                                />
                             </v-btn>
                             <div>
                                 <v-btn
                                     class="stepper-btn-secondary"
                                     @click="e1 = 2"
                                 >
-                                    Back
+                                    <span class="span-hidden">Back</span>
+                                    <img
+                                        src="@/assets/img/icons/back-b-icon.png"
+                                        class="stepper-btn-icon"
+                                    />
                                 </v-btn>
                                 <v-btn
                                     class="stepper-btn-primary"
                                     @click="thirdCreateJob"
                                 >
-                                    Continue
+                                    <span class="span-hidden">Continue</span>
+                                    <img
+                                        src="@/assets/img/icons/right-arrow-w-icon.png"
+                                        class="stepper-btn-icon"
+                                    />
                                 </v-btn>
                             </div>
                         </div>
@@ -128,33 +160,37 @@
                                 :jobSummary="this.jobSummary"
                                 :jobDescription="this.jobDescription"
                             />
-                            <!-- <Createjob4
-                                ref="fourthPage"
-                                jobTitle="Grape picker, packing, and delivery"
-                                activity="Fruit farming"
-                                location="Burwood, NSW, 2134"
-                                payRangeFrom="25.5"
-                                payRangeTo="29.5"
-                                adType="basic"
-                                jobSummary="This is an easy grape picking job. Helping with packing and delivery."
-                                jobDescription="About the roles
-We are looking for enthusiastic people who are interested in working in a variety of roles available in our glasshouse operations located in the heart of the beautiful NSW Northern Tablelands.
-These entry level positions are a great starting point for a variety of opportunities in our team. Learn the basics before progressing to team leader or supervisory positions, or branching out into other departments or specialists functions such as maintenance, plant health, quality control, despatch, agronomy, supply and administration.   "
-                            /> -->
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                Save Draft
+                                <span class="span-hidden">Save Draft</span>
+                                <img
+                                    src="@/assets/img/icons/save-w-icon.png"
+                                    class="stepper-btn-icon"
+                                />
                             </v-btn>
                             <div>
                                 <v-btn
                                     class="stepper-btn-secondary"
                                     @click="e1 = 3"
                                 >
-                                    Back
+                                    <span class="span-hidden">Back</span>
+                                    <img
+                                        src="@/assets/img/icons/back-b-icon.png"
+                                        class="stepper-btn-icon"
+                                    />
                                 </v-btn>
-                                <v-btn class="stepper-btn-primary">
-                                    Create a job ad
+                                <v-btn
+                                    class="stepper-btn-primary"
+                                    style="background-color: #4b8a54 !important"
+                                >
+                                    <span class="span-hidden"
+                                        >Create a job ad</span
+                                    >
+                                    <img
+                                        src="@/assets/img/icons/right-arrow-w-icon-2.png"
+                                        class="stepper-btn-icon"
+                                    />
                                 </v-btn>
                             </div>
                         </div>
@@ -336,22 +372,40 @@ export default {
 .v-stepper__content
 	padding: 0 !important
 
+.span-hidden
+	margin: 2px
+
+.stepper-btn-icon
+	width: 20px
+	height: 20px
+	margin-inline: 5px
+
+
+@media only screen and (max-width: 600px)
+	.span-hidden
+		display: none
+	.v-btn:not(.v-btn--round).v-size--default
+		min-width: unset !important
+		margin-bottom: 0 !important
+	.v-stepper__label
+		margin-left: 0
+		min-width: unset
+	.v-stepper__step__step
+		display: none
 
 /*Post*/
 .create-job-top
 	text-align: center
-	// background-color: pink
+
 .container-job
 	text-align: left
 	padding: 0 3rem
-	// background-color: yellow
 
 .container-job-ad
 	text-align: left
 	padding: 0 5%
 
 .create-job-box
-	// background-color: #f1f1f1
 	// border-radius: 10px
 	// padding: 1rem
 	margin: 1rem 0
@@ -371,56 +425,63 @@ export default {
 	color: red
 	margin-left: 2px
 
-
 @media only screen and (max-width: $laptop-max)
 	.title
 		font-size: xx-large
 		font-weight: bolder
+
 	.subtitle
 		font-size: large !important
 		margin-left: -0.8rem
+
 	span
 		font-size: small !important
+
 	label
 		font-size: small
+
 	input
 		font-size: small !important
+
 	.v-stepper__step.v-stepper__step--inactive
 		display: none !important
+
 	hr
 		display: none !important
+
 	.v-stepper__step.v-stepper__step--active
 		width: 100%
 		padding: 0
+
 	.v-stepper__step.v-stepper__step--active div
 		display: block !important
 		font-weight: bolder
 		color: $mbh-blue-2 !important
+
 	.v-stepper__header
-		// background-color: pink
+
 	.v-stepper__step.v-stepper__step--complete
 		display: none !important
+
 	.container-job
 		padding: 0 2rem
-		// background: red
+
 	.col-sm-12
 		padding: 0 !important
+
 	.col-sm-4
 		padding: 0 !important
+
 	.stepper-btn-container
 		flex-wrap: wrap
-		justify-content: space-around
 		padding: 0 0.5rem 1rem
 
-
 @media only screen and (max-width: $mobile-max)
-	.stepper-btn-primary.v-btn.v-btn--is-elevated.v-btn--has-bg.theme--light.v-size--default
-		// padding: 0.5rem !important// width: 100% !important
-		margin-bottom: 0.5rem !important
-		// min-width: 80px !important
-		// width: 100%
 	.v-btn__content
 		font-size: smaller !important
+
+	.v-btn:not(.v-btn--round).v-size--default
+		padding: 5px !important
 
 @media only screen and (max-width: $tablet-max)
 	.title

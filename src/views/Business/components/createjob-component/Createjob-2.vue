@@ -4,7 +4,9 @@
             <!-- YOUR DETAILS -->
             <div class="create-job-box">
                 <br />
-                <h3 class="subtitle">Select an ad type</h3>
+                <h3 class="subtitle" style="margin-left: 0 !important">
+                    Select an ad type
+                </h3>
                 <div class="ad-type-box__container">
                     <b-button
                         id="ad-basic"
@@ -14,7 +16,7 @@
                     >
                         <div class="ad-style ad-type">Basic</div>
                         <div class="ad-style ad-price">$149.45</div>
-                        <div class="ad-style ad-text">
+                        <div class="ad-style ad-text sub">
                             Find great candidates with our basic ad
                         </div>
                         <b-button
@@ -41,7 +43,7 @@
                     >
                         <div class="ad-style ad-type">Premium</div>
                         <div class="ad-style ad-price">$249.95</div>
-                        <div class="ad-style ad-text">
+                        <div class="ad-style ad-text sub">
                             Attract more candidates with a featured listing!
                         </div>
                         <b-button
@@ -71,7 +73,7 @@
                     >
                         <div class="ad-style ad-type">Ultra</div>
                         <div class="ad-style ad-price">$399.95</div>
-                        <div class="ad-style ad-text">
+                        <div class="ad-style ad-text sub">
                             Guaranteed to hire the best candidate!
                         </div>
                         <b-button
@@ -188,6 +190,9 @@ ul
 	display: flex
 	flex-direction: column
 
+.ad-style.ad-text.sub
+	min-height: 75px
+
 .ad-style
 	font-weight: bold
 	text-align: left
@@ -195,21 +200,21 @@ ul
 	width: 100%
 
 .ad-type
-	font-size: 1.2rem
+	font-size: large
 
 .ad-price
-	font-size: 2rem
+	font-size: xx-large
 
 .ad-btn
-	margin: 1rem 0
-	font-size: 1.2rem
+	// margin: 1rem 0
+	font-size: large
 	text-align: center
 	border-style: solid
 	border-color: $mbh-blue-2
 	border-width: 3px
 
 .ad-text
-	font-size: 1rem
+	font-size: medium
 	font-weight: 300
 
 .ad-type-box.selected
@@ -220,5 +225,29 @@ ul
 .ad-btn.selected
 	background-color: $mbh-blue-2
 	color: $mbh-white
+
+@media only screen and (max-width: $tablet-max)
+	.ad-type-box__container
+		display: flex
+		flex-wrap: wrap
+	.ad-type-box
+		width: 100%
+		padding: 1rem 1.5rem
+		// max-width: 300px !important
+	.ad-style
+		margin: 0.2rem 0
+	.ad-style.ad-text.sub
+		min-height: unset
+	ul
+		margin-left: 0
+	li::marker
+		display: none !important
+	.ad-price
+		font-size: x-large
+	.ad-text
+		font-size: small
+	.ad-btn
+		font-size: medium
+		padding: 0
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
