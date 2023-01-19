@@ -98,6 +98,7 @@ const base64Encode = (data) =>
     });
 
 export default {
+    props: ["type", "data"],
     components: {},
     data() {
         return {
@@ -176,6 +177,21 @@ export default {
                 // this.$emit("jobImageSrc", this.imageSrc);
             }
         },
+        fillData() {
+            if (this.type === "edit") {
+                this.jobSummary = this.data.jobSummary;
+                this.jobDescription = this.data.jobDescription;
+            }
+        },
+    },
+    created() {
+        const notUserLoggingIn = async () => {
+            this.$store.dispatch("authUserLoggingIn", false);
+        };
+
+        notUserLoggingIn();
+
+        this.fillData();
     },
 };
 </script>

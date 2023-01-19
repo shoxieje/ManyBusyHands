@@ -180,6 +180,7 @@ import { mapGetters } from "vuex";
 const bcrypt = require("bcryptjs");
 
 export default {
+    props: ["type", "data"],
     components: {
         VueGoogleAutocomplete,
         Multiselect,
@@ -222,12 +223,6 @@ export default {
     },
     methods: {
         // ----- Job Title validation -----------
-        
-        // jobTitleOnBlur() {
-        //     this.firstOnBlurJt = true;
-        //     this.emitJobTitle();
-        // },
-
         emitJobTitle() {
             // if (this.firstOnBlurJt) {
             if (this.jobTitle.length === 0) {
@@ -430,13 +425,8 @@ export default {
                 "Must be a currency value"
             );
 
-            // Maximum pay must be greater than $0.
-            // Maximum pay must be greater than minimum pay
-            // Minimum pay and Maximum pay differences should not be more than 10$ diff
             var min = this.payRangeFrom;
             var max = this.payRangeTo;
-
-            // this.payRangeFromOnBlur();
 
             if (max == 0 || max == 0.0) {
                 this.errPayRangeTo = "Maximum pay is required";
@@ -489,6 +479,28 @@ export default {
         restrictDecimal() {
             this.contract = this.contract.match(/^\d+\.?\d{0,2}/);
         },
+        fillData() {
+            if (this.type === "edit") {
+                this.jobTitle = this.data.jobTitle;
+                this.activity = this.data.activity;
+                var locationArr = this.data.location.split(" ");
+                this.locState = locationArr[1];
+                this.locSuburb = locationArr[0];
+                this.locPostcode = locationArr[2];
+                this.payRangeFrom = this.data.payRangeFrom;
+                this.payRangeTo = this.data.payRangeTo;
+            }
+        },
+    },
+
+    created() {
+        const notUserLoggingIn = async () => {
+            this.$store.dispatch("authUserLoggingIn", false);
+        };
+
+        notUserLoggingIn();
+
+        this.fillData();
     },
 };
 </script>

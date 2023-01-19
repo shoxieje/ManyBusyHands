@@ -34,6 +34,16 @@ const routes = [
         name: "ManageJob",
         component: () => import("../views/Business/ManageJob.vue"),
     },
+    {
+        path: "/jobs/manage/uuid/candidate",
+        name: "ManageCandidate",
+        component: () => import("../views/Business/ManageCandidate.vue"),
+    },
+    {
+        path: "/jobs/manage/uuid/edit",
+        name: "EditJob",
+        component: () => import("../views/Business/EditJob.vue"),
+    },
 ];
 
 const router = new VueRouter({

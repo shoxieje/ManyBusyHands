@@ -18,10 +18,11 @@ export const config = {
                 workType: "",
                 timeStamp: "12 days ago",
                 status: "Draft",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.jpg",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "basic",
             },
         ],
         disabledJoblist: [
@@ -35,10 +36,11 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "7 hours ago",
                 status: "Disabled",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "premium",
             },
             {
                 joblistId: "1293801288",
@@ -50,16 +52,17 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "11 days ago",
                 status: "Disabled",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "ultra",
             },
         ],
         activeJoblist: [
             {
                 joblistId: "1293801283",
-                jobTitle: "Cherry Picker",
+                jobTitle: "Cherry Picker!",
                 businessName: "Western Sydney University Ltd",
                 activity: "Farming, Animals & Conservation",
                 location: "Sydney NSW 2000",
@@ -67,9 +70,72 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "just now",
                 status: "Active",
-                imgPath: "@/assets/img/icons/grapes-picking.jpg",
+                jobImageSrc: "@/assets/img/icons/grapes-picking.jpg",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "premium",
+                jobSummary: "Job summary. <br /> Test Br",
+                jobDescription: "Job Description.",
+                candidates: {
+                    favorite: [
+                        {
+                            firstName: "Chandra",
+                            lastName: "Dewi",
+                            age: "20",
+                            introduction:
+                                "I am a backpacker from Indonesia. Looking to earn for a living and enjoying australia.",
+                            education:
+                                "Bachelor of Arts, Western Sydney University, 2020-2022",
+                            workExperience: [
+                                "Waitress at Restaurant for 1 year",
+                                "Cherry picker for 1 year",
+                            ],
+                            resume: "Resume/path/resume.pdf",
+                            coverLetter: "coverletter/path/coverletter.pdf",
+                            favorite: true,
+                            emailAddress: "chandra.dewi@gmail.com",
+                            phoneNumber: "+61 0488 123 456",
+                        },
+                        {
+                            firstName: "Guide",
+                            lastName: "Dion",
+                            age: "25",
+                            introduction:
+                                "I am from Thailand. Looking to earn for a living and enjoying australia.",
+                            education:
+                                "Diploma of IT, Western Sydney University, 2020-2022",
+                            workExperience: [
+                                "Cherry picker for 1 year",
+                                "Fruit packer for 1 year",
+                            ],
+                            resume: "Resume/path/resume.pdf",
+                            coverLetter: "coverletter/path/coverletter.pdf",
+                            favorite: true,
+                            emailAddress: "guide.dion@gmail.com",
+                            phoneNumber: "+61 0488 123 456",
+                        },
+                    ],
+                    normal: [
+                        {
+                            firstName: "Fruit",
+                            lastName: "Fresh",
+                            age: "25",
+                            introduction:
+                                "I am from Thailand. Looking to earn for a living and enjoying australia.",
+                            education:
+                                "Diploma of IT, Western Sydney University, 2020-2022",
+                            workExperience: [
+                                "Cherry picker for 1 year",
+                                "Fruit packer for 1 year",
+                            ],
+                            resume: "Resume/path/resume.pdf",
+                            coverLetter: "coverletter/path/coverletter.pdf",
+                            favorite: false,
+                            emailAddress: "Fruit.Fresh@gmail.com",
+                            phoneNumber: "+61 0488 123 456",
+                        },
+                    ],
+                },
             },
             {
                 joblistId: "1293801284",
@@ -81,10 +147,13 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "7 hours ago",
                 status: "Active",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "ultra",
+                jobSummary: "Job summary. <br /> Test Br",
+                jobDescription: "Job Description.",
             },
             {
                 joblistId: "1293801285",
@@ -96,10 +165,13 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "10 days ago",
                 status: "Active",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "basic",
+                jobSummary: "Job summary. <br /> Test Br",
+                jobDescription: "Job Description.",
             },
             {
                 joblistId: "1293801286",
@@ -111,10 +183,13 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "3 days ago",
                 status: "Active",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "basic",
+                jobSummary: "Job summary. <br /> Test Br",
+                jobDescription: "Job Description.",
             },
             {
                 joblistId: "1293801287",
@@ -126,10 +201,13 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "12 days ago",
                 status: "Active",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
                 payRangeTo: "28",
+                adType: "basic",
+                jobSummary: "Job summary. <br /> Test Br",
+                jobDescription: "Job Description.",
             },
             {
                 joblistId: "1293801288",
@@ -141,145 +219,13 @@ export const config = {
                 workType: "Casual",
                 timeStamp: "11 days ago",
                 status: "Active",
-                imgPath:
+                jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
                 payRangeTo: "28",
-            },
-        ],
-        radioQuestions: [
-            {
-                question:
-                    "Which of the following statements best describes your gender?",
-                answers: [
-                    { answer: "Male", value: "M" },
-                    { answer: "Female", value: "F" },
-                    { answer: "Others", value: "O" },
-                ],
-            },
-            {
-                question:
-                    "Which of the following statements best describes your right to work in Australia?",
-                answers: [
-                    {
-                        answer: "I have permanent work rights with no restrictions",
-                        value: "permanent-with-restriction",
-                    },
-                    {
-                        answer: "I have temporary work rights with no restrictions",
-                        value: "temporary-no-restriction",
-                    },
-                    {
-                        answer: "I have temporary work rights with restrictions",
-                        value: "temporary-with-restriction",
-                    },
-                    {
-                        answer: "I require sponsorship to work",
-                        value: "sponsorship",
-                    },
-                ],
-            },
-            {
-                question:
-                    "Which of the following statements best describes your Covid-19 vaccination status?",
-                answers: [
-                    { answer: "I am fully vaccinated", value: 1 },
-                    { answer: "I am partially vaccinated", value: 2 },
-                    {
-                        answer: "I am planning to be vaccinated as soon as possible",
-                        value: 3,
-                    },
-                    { answer: "I have not been vaccinated", value: 4 },
-                    { answer: "I have medical exemption", value: 5 },
-                    { answer: "I prefer not to say", value: 6 },
-                ],
-            },
-            {
-                question: "Do you have customer service experience?",
-                answers: [
-                    { answer: "Yes", value: true },
-                    { answer: "No", value: false },
-                ],
-            },
-            {
-                question:
-                    "How many years' experience do you have in this role?",
-                answers: [
-                    { answer: "No experience", value: -1 },
-                    { answer: "Less than a year", value: 0 },
-                    { answer: "1 year", value: 1 },
-                    { answer: "2 years", value: 2 },
-                    { answer: "3 years", value: 3 },
-                    { answer: "4 years", value: 4 },
-                    { answer: "5 years", value: 5 },
-                    { answer: "More than 5 years", value: 99 },
-                ],
-            },
-
-            {
-                question:
-                    "Are you available to travel for this role when required?",
-                answers: [
-                    {
-                        answer: "Yes, domestic travel",
-                        value: "domestic",
-                    },
-                    {
-                        answer: "Yes, international travel",
-                        value: "international",
-                    },
-                    {
-                        answer: "Yes, domestic and international travel",
-                        value: "both",
-                    },
-                    {
-                        answer: "No",
-                        value: "none",
-                    },
-                ],
-            },
-        ],
-        checkBoxQuestions: [
-            {
-                question:
-                    "Which of the following forklift licenses do you have?",
-                answers: [
-                    { answer: "Forklift truck (LF)", value: "LF" },
-                    {
-                        answer: "Order picking forklift truck (LO)",
-                        value: "LO",
-                    },
-                    { answer: "None of these", value: "none" },
-                ],
-            },
-            {
-                question: "Do you have a heavy vehicle driver's licence?",
-                answers: [
-                    {
-                        answer: "I do not have a heavy vehicle driver's license",
-                        value: "none",
-                    },
-                    {
-                        answer: "Yes, light rigid (LR)",
-                        value: "LR",
-                    },
-                    {
-                        answer: "Yes, medium rigid (MR)",
-                        value: "MR",
-                    },
-                    {
-                        answer: "Yes, heavy rigid (HR)",
-                        value: "HR",
-                    },
-                    {
-                        answer: "Yes, heavy combination (HC)",
-                        value: "HC",
-                    },
-                    {
-                        answer: "Yes, multi rigid (MC)",
-                        value: "MC",
-                    },
-                ],
+                adType: "basic",
+                jobSummary: "Job summary. <br /> Test Br",
+                jobDescription: "Job Description.",
             },
         ],
     },

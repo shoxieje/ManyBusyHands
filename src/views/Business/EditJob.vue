@@ -1,7 +1,7 @@
 <template>
     <section class="create-job-top">
         <div class="stepper-container mw-60">
-            <h1 class="title">Post a job ad</h1>
+            <h1 class="title">Edit your job ad</h1>
             <!-- HEADER -->
             <v-stepper v-model="e1">
                 <v-stepper-header>
@@ -37,11 +37,13 @@
                                 @location="getLocation"
                                 @payRangeFrom="getPayRangeFrom"
                                 @payRangeTo="getPayRangeTo"
+                                type="edit"
+                                :data="data"
                             />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                <span class="span-hidden">Save Draft</span>
+                                <span class="span-hidden">Save Changes</span>
                                 <img
                                     src="@/assets/img/icons/save-w-icon.png"
                                     class="stepper-btn-icon"
@@ -66,11 +68,16 @@
                 <v-stepper-items class="mw-60">
                     <v-stepper-content step="2">
                         <v-card class="mb-12" color="grey lighten-1">
-                            <Createjob2 ref="secondPage" @adType="getAdType" />
+                            <Createjob2
+                                ref="secondPage"
+                                @adType="getAdType"
+                                type="edit"
+                                :data="data"
+                            />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                <span class="span-hidden">Save Draft</span>
+                                <span class="span-hidden">Save Changes</span>
                                 <img
                                     src="@/assets/img/icons/save-w-icon.png"
                                     class="stepper-btn-icon"
@@ -110,11 +117,13 @@
                                 @jobSummary="getJobSummary"
                                 @jobDescription="getJobDescription"
                                 @jobImage="getJobImage"
+                                type="edit"
+                                :data="data"
                             />
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                <span class="span-hidden">Save Draft</span>
+                                <span class="span-hidden">Save Changes</span>
                                 <img
                                     src="@/assets/img/icons/save-w-icon.png"
                                     class="stepper-btn-icon"
@@ -163,7 +172,7 @@
                         </v-card>
                         <div class="stepper-btn-container">
                             <v-btn class="stepper-btn-primary">
-                                <span class="span-hidden">Save Draft</span>
+                                <span class="span-hidden">Save Changes</span>
                                 <img
                                     src="@/assets/img/icons/save-w-icon.png"
                                     class="stepper-btn-icon"
@@ -184,9 +193,7 @@
                                     class="stepper-btn-primary"
                                     style="background-color: #4b8a54 !important"
                                 >
-                                    <span class="span-hidden"
-                                        >Create job ad</span
-                                    >
+                                    <span class="span-hidden">Finish</span>
                                     <img
                                         src="@/assets/img/icons/right-arrow-w-icon-2.png"
                                         class="stepper-btn-icon"
@@ -206,7 +213,11 @@ import Createjob1 from "./components/createjob-component/Createjob-1.vue";
 import Createjob2 from "./components/createjob-component/Createjob-2.vue";
 import Createjob3 from "./components/createjob-component/Createjob-3.vue";
 import Createjob4 from "./components/createjob-component/Createjob-4.vue";
+import { config } from "../../utils/constant";
+const data = config.mockData.activeJoblist[0];
 
+// const radioQuestions = config.mockData.radioQuestions;
+// const checkBoxQuestions = config.mockData.checkBoxQuestions;
 export default {
     components: {
         Createjob1,
@@ -322,6 +333,19 @@ export default {
                 this.e1 = 4;
             }
         },
+        fillData() {
+            this.data = data;
+            this.jobTitle = data.jobTitle;
+            this.activity = data.activity;
+            this.location = data.location;
+            this.payRangeFrom = data.payRangeFrom;
+            this.payRangeTo = data.payRangeTo;
+            this.adType = data.adType;
+            this.jobSummary = data.jobSummary;
+            this.jobDescription = data.jobDescription;
+            this.jobImageSrc = data.jobImageSrc;
+            console.log(this.jobTitle);
+        },
     },
     created() {
         const notUserLoggingIn = async () => {
@@ -329,6 +353,8 @@ export default {
         };
 
         notUserLoggingIn();
+
+        this.fillData();
     },
 };
 </script>
@@ -403,6 +429,8 @@ export default {
 	padding: 0 5%
 
 .create-job-box
+	// border-radius: 10px
+	// padding: 1rem
 	margin: 1rem 0
 
 .title

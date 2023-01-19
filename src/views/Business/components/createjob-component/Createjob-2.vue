@@ -11,7 +11,7 @@
                     <b-button
                         id="ad-basic"
                         variant="light"
-                        class="ad-type-box"
+                        :class="adBasicClass"
                         @click="selectBasic"
                     >
                         <div class="ad-style ad-type">Basic</div>
@@ -21,7 +21,7 @@
                         </div>
                         <b-button
                             id="ad-basic-btn"
-                            class="ad-style ad-btn"
+                            :class="adBasicBtnClass"
                             variant="light"
                             @click="selectBasic"
                             >Select</b-button
@@ -38,7 +38,7 @@
                     <b-button
                         id="ad-premium"
                         variant="light"
-                        class="ad-type-box"
+                        :class="adPremiumClass"
                         @click="selectPremium"
                     >
                         <div class="ad-style ad-type">Premium</div>
@@ -48,7 +48,7 @@
                         </div>
                         <b-button
                             id="ad-premium-btn"
-                            class="ad-style ad-btn"
+                            :class="adPremiumBtnClass"
                             variant="light"
                             @click="selectPremium"
                             >Select</b-button
@@ -68,7 +68,7 @@
                     <b-button
                         id="ad-ultra"
                         variant="light"
-                        class="ad-type-box"
+                        :class="adUltraClass"
                         @click="selectUltra"
                     >
                         <div class="ad-style ad-type">Ultra</div>
@@ -78,7 +78,7 @@
                         </div>
                         <b-button
                             id="ad-ultra-btn"
-                            class="ad-style ad-btn"
+                            :class="adUltraBtnClass"
                             variant="light"
                             @click="selectUltra"
                             >Select</b-button
@@ -107,8 +107,15 @@ export default {
     data() {
         return {
             adType: "",
+            adBasicClass: "ad-type-box",
+            adBasicBtnClass: "ad-style ad-btn",
+            adPremiumClass: "ad-type-box",
+            adPremiumBtnClass: "ad-style ad-btn",
+            adUltraClass: "ad-type-box",
+            adUltraBtnClass: "ad-style ad-btn",
         };
     },
+    props: ["type", "data"],
     components: {},
     methods: {
         emitAdType() {
@@ -164,6 +171,31 @@ export default {
             this.adType = "ultra";
             this.emitAdType();
         },
+        fillData() {
+            if (this.type === "edit") {
+                if (this.data.adType === "basic") {
+                    this.adBasicClass += " selected";
+                    this.adBasicBtnClass += " selected";
+                }
+                if (this.data.adType === "premium") {
+                    this.adPremiumClass += " selected";
+                    this.adPremiumBtnClass += " selected";
+                }
+                if (this.data.adType === "ultra") {
+                    this.adUltraClass += " selected";
+                    this.adUltraBtnClass += " selected";
+                }
+            }
+        },
+    },
+    created() {
+        const notUserLoggingIn = async () => {
+            this.$store.dispatch("authUserLoggingIn", false);
+        };
+
+        notUserLoggingIn();
+
+        this.fillData();
     },
 };
 </script>

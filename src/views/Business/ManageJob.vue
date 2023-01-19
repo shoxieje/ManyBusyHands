@@ -77,6 +77,7 @@ const activeJobList = config.mockData.activeJoblist;
 const draftJobList = config.mockData.draftJoblist;
 const disabledJobList = config.mockData.disabledJoblist;
 export default {
+    name: "ManageJob",
     components: { JobCard },
     data() {
         return {

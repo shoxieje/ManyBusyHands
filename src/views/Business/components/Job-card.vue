@@ -15,13 +15,7 @@
                     <!-- CONTENT -->
                     <div>
                         <h4 style="font-size: 1.1rem !important">
-                            <a href="#"
-                                >{{ job.jobTitle }}
-                                <img
-                                    src="@/assets/img/icons/open-link-icon.png"
-                                    alt="Open job icon"
-                                    class="open-link-icon"
-                            /></a>
+                            {{ job.jobTitle }}
                         </h4>
                         {{ job.location }} <br />
                         {{ job.activity }} <br />

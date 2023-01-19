@@ -114,7 +114,7 @@
                             alt="Share icon"
                             class="carousel-image"
                         />
-                        <!-- <img :src="job.imgPath" alt="Share icon" /> -->
+                        <!-- <img :src="job.jobImageSrc" alt="Share icon" /> -->
                     </div>
                     <div class="carousel-content__container">
                         <div class="carousel-content">
