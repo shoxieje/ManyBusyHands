@@ -187,10 +187,10 @@
             >
                 <img
                     class="manage-job-icon"
-                    src="@/assets/img/icons/disable-2-icon.png"
-                    alt="Manage disabled job ads"
+                    src="@/assets/img/icons/inactive-2-icon.png"
+                    alt="Manage inactive job ads"
                 />
-                <h5 class="bh-job-btn">Manage disabled job ads</h5>
+                <h5 class="bh-job-btn">Manage inactive job ads</h5>
             </b-button>
             <b-button
                 variant="secondary"
@@ -402,13 +402,12 @@
 
 <script>
 import { config } from "../../utils/constant";
-import Vue from "vue";
 import { Carousel, Slide } from "vue-carousel";
 
 const businessData = config.mockData.businessDetails;
 const activeJobList = config.mockData.activeJoblist;
 const draftJobList = config.mockData.draftJoblist;
-const disabledJobList = config.mockData.disabledJoblist;
+const inactiveJobList = config.mockData.inactiveJoblist;
 
 export default {
     name: "BusinessHome",
@@ -416,7 +415,7 @@ export default {
         return {
             activeJobList: [],
             draftJobList: [],
-            disabledJobList: [],
+            inactiveJobList: [],
             businessData: {},
         };
     },
@@ -428,7 +427,7 @@ export default {
         passMockData() {
             this.activeJobList = activeJobList;
             this.draftJobList = draftJobList;
-            this.disabledJobList = disabledJobList;
+            this.inactiveJobList = inactiveJobList;
             this.businessData = businessData;
         },
     },

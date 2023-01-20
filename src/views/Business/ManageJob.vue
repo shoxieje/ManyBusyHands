@@ -12,12 +12,12 @@
                     >Active</b-button
                 >
                 <b-button
-                    id="job-disable-btn"
+                    id="job-inactive-btn"
                     class="job-preview-btn"
                     variant="light"
-                    @click="selectDisable"
+                    @click="selectInactive"
                     style="border-radius: 0 0 0 0 !important"
-                    >Disable</b-button
+                    >Inactive</b-button
                 >
                 <b-button
                     id="job-draft-btn"
@@ -47,15 +47,15 @@
                     class="job-preview-card__container"
                 >
                     <div v-for="(job, key) in activeJobList">
-                        <JobCard :job="job" :key="key" type="active" />
+                        <JobCard :job="job" :number="key" type="active" />
                     </div>
                 </div>
                 <div
-                    v-if="showDisableJobList"
+                    v-if="showInactiveJobList"
                     class="job-preview-card__container"
                 >
-                    <div v-for="(job, key) in disabledJobList">
-                        <JobCard :job="job" :key="key" type="disabled" />
+                    <div v-for="(job, key) in inactiveJobList">
+                        <JobCard :job="job" :number="key" type="inactive" />
                     </div>
                 </div>
                 <div
@@ -63,7 +63,7 @@
                     class="job-preview-card__container"
                 >
                     <div v-for="(job, key) in draftJobList">
-                        <JobCard :job="job" :key="key" type="draft" />
+                        <JobCard :job="job" :number="key" type="draft" />
                     </div>
                 </div>
             </div>
@@ -75,18 +75,15 @@ import { config } from "../../utils/constant";
 import JobCard from "./components/Job-card.vue";
 const activeJobList = config.mockData.activeJoblist;
 const draftJobList = config.mockData.draftJoblist;
-const disabledJobList = config.mockData.disabledJoblist;
+const inactiveJobList = config.mockData.inactiveJoblist;
 export default {
     name: "ManageJob",
     components: { JobCard },
     data() {
         return {
             search: "",
-            activeJobList: [],
-            draftJobList: [],
-            disabledJobList: [],
             showActiveJobList: true,
-            showDisableJobList: false,
+            showInactiveJobList: false,
             showDraftJobList: false,
         };
     },
@@ -94,39 +91,39 @@ export default {
         passMockData() {
             this.activeJobList = activeJobList;
             this.draftJobList = draftJobList;
-            this.disabledJobList = disabledJobList;
+            this.inactiveJobList = inactiveJobList;
         },
         selectActive() {
             var activeBtn = document.getElementById("job-active-btn");
-            var disableBtn = document.getElementById("job-disable-btn");
+            var inactiveBtn = document.getElementById("job-inactive-btn");
             var draftBtn = document.getElementById("job-draft-btn");
             activeBtn.classList.add("selected");
-            disableBtn.classList.remove("selected");
+            inactiveBtn.classList.remove("selected");
             draftBtn.classList.remove("selected");
             this.showActiveJobList = true;
-            this.showDisableJobList = false;
+            this.showInactiveJobList = false;
             this.showDraftJobList = false;
         },
-        selectDisable() {
+        selectInactive() {
             var activeBtn = document.getElementById("job-active-btn");
-            var disableBtn = document.getElementById("job-disable-btn");
+            var inactiveBtn = document.getElementById("job-inactive-btn");
             var draftBtn = document.getElementById("job-draft-btn");
             activeBtn.classList.remove("selected");
-            disableBtn.classList.add("selected");
+            inactiveBtn.classList.add("selected");
             draftBtn.classList.remove("selected");
             this.showActiveJobList = false;
-            this.showDisableJobList = true;
+            this.showInactiveJobList = true;
             this.showDraftJobList = false;
         },
         selectDraft() {
             var activeBtn = document.getElementById("job-active-btn");
-            var disableBtn = document.getElementById("job-disable-btn");
+            var inactiveBtn = document.getElementById("job-inactive-btn");
             var draftBtn = document.getElementById("job-draft-btn");
             activeBtn.classList.remove("selected");
-            disableBtn.classList.remove("selected");
+            inactiveBtn.classList.remove("selected");
             draftBtn.classList.add("selected");
             this.showActiveJobList = false;
-            this.showDisableJobList = false;
+            this.showInactiveJobList = false;
             this.showDraftJobList = true;
         },
     },

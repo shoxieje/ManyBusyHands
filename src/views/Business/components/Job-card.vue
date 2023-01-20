@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :id="'job-card-' + type + '-' + number">
         <div class="job-preview-card">
             <!-- IMAGE CONTAINER -->
             <div class="sr-image__container">
@@ -39,7 +39,11 @@
         <transition name="slide">
             <div v-if="showBottomBar" class="pop-up-btn__container">
                 <div class="pop-up-btn__container--left">
-                    <b-button class="pop-up-btn text-white" variant="primary">
+                    <b-button
+                        class="pop-up-btn text-white"
+                        variant="primary"
+                        to="manage/uuid/edit"
+                    >
                         <span class="pop-up-text">Edit</span>
                         <img
                             src="@/assets/img/icons/edit-w-icon.png"
@@ -51,7 +55,7 @@
                         v-if="type == 'active' || type == 'draft'"
                         class="pop-up-btn text-white"
                         variant="primary"
-                        @click="toast"
+                        @click="disablePrompt"
                     >
                         <span class="pop-up-text">Disable</span>
                         <img
@@ -61,10 +65,10 @@
                         />
                     </b-button>
                     <b-button
-                        v-if="type == 'disabled'"
+                        v-if="type == 'inactive'"
                         class="pop-up-btn text-white"
                         variant="primary"
-                        @click="toast"
+                        @click="enablePrompt"
                     >
                         <span class="pop-up-text">Enable</span>
                         <img
@@ -73,7 +77,11 @@
                             class="pop-up-icon"
                         />
                     </b-button>
-                    <b-button class="pop-up-btn text-white" variant="primary">
+                    <b-button
+                        class="pop-up-btn text-white"
+                        variant="primary"
+                        to="manage/uuid/candidate"
+                    >
                         <span class="pop-up-text">Candidate</span>
                         <img
                             src="@/assets/img/icons/candidate-w-icon.png"
@@ -84,7 +92,7 @@
                     <b-button
                         class="pop-up-btn text-white"
                         variant="primary"
-                        @click="toastPrompt"
+                        @click="deletePrompt"
                     >
                         <span class="pop-up-text">Delete</span>
                         <img
@@ -112,7 +120,7 @@
 
 <script>
 export default {
-    props: ["job", "type"],
+    props: ["job", "type", "number"],
     components: {},
     data() {
         return {
@@ -123,19 +131,58 @@ export default {
         toggleBar() {
             this.showBottomBar = !this.showBottomBar;
         },
-        toast() {
-            this.type == "disabled"
-                ? this.$vToastify.success("Job has been enabled.")
-                : this.$vToastify.success("Job has been disabled.");
+        deleteCurrentJobCard() {
+            const element = document.getElementById(
+                "job-card-" + this.type + "-" + this.number
+            );
+            console.log("job-card-" + this.type + "-" + this.number);
+            element.remove();
         },
-        toastPrompt() {
-            this.$vToastify.prompt({
-                body: "Are you sure you want to delete this job ad?",
-                answers: { Yes: true, No: false },
-            });
+        deletePrompt() {
+            this.$vToastify
+                .prompt({
+                    body: "Are you sure you want to delete this job ad?",
+                    answers: { Yes: true, No: false },
+                })
+                .then((value) => {
+                    if (value) {
+                        this.deleteCurrentJobCard();
+
+                        //Delete from database
+                        //Refresh
+                    }
+                });
+        },
+        disablePrompt() {
+            this.$vToastify
+                .prompt({
+                    body: "Are you sure you want to disable this job ad?",
+                    answers: { Yes: true, No: false },
+                })
+                .then((value) => {
+                    if (value) {
+                        this.deleteCurrentJobCard();
+
+                        //Change status from active to inactive in database
+                        //Refresh
+                    }
+                });
+        },
+        enablePrompt() {
+            this.deleteCurrentJobCard();
+
+            //Change status from inactive to active in database
+            //Refresh
         },
     },
-    created() {},
+    created() {
+        const notUserLoggingIn = async () => {
+            console.log();
+            this.$store.dispatch("authUserLoggingIn", false);
+        };
+
+        notUserLoggingIn();
+    },
 };
 </script>
 

@@ -25,7 +25,7 @@ export const config = {
                 adType: "basic",
             },
         ],
-        disabledJoblist: [
+        inactiveJoblist: [
             {
                 joblistId: "1293801284",
                 jobTitle: "Truck Driver",
@@ -35,7 +35,7 @@ export const config = {
                 payRange: "$40 per hour",
                 workType: "Casual",
                 timeStamp: "7 hours ago",
-                status: "Disabled",
+                status: "inactive",
                 jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",
@@ -51,7 +51,7 @@ export const config = {
                 payRange: "",
                 workType: "Casual",
                 timeStamp: "11 days ago",
-                status: "Disabled",
+                status: "inactive",
                 jobImageSrc:
                     "@/assets/img/Outback Australia Ringers having smoko.png",
                 payRangeFrom: "25",

@@ -24,10 +24,10 @@
             <div
                 class="candidate-container"
                 v-for="(candidate, key) in normalCandidates"
-                :key="key"
+                :key="key + 100"
             >
                 <CandidateCard
-                    :number="key"
+                    :number="key + 100"
                     :candidate="candidate"
                     type="normal"
                 />
