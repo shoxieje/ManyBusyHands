@@ -143,11 +143,9 @@
     </div>
 </template>
 <script>
-import ModalPanel from "./modal-component/ModalPanel.vue";
-
 export default {
     name: "CandidateCard",
-    components: { ModalPanel },
+    components: {},
     props: ["number", "candidate", "type"],
     data() {
         return {
