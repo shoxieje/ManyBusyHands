@@ -13,3 +13,17 @@ let businessUserDetails = `CREATE TABLE if not exists business_user_detail(user_
                         activity_4_id int, foreign key(activity_4_id) references activity(activity_id),
                         activity_5_id int, foreign key(activity_5_id) references activity(activity_id),
                         main_activities longtext, photos varchar(255), busiest_months varchar(255));`
+
+
+let job_ad = `CREATE TABLE if not exists job_ad(jobID int primary key auto_increment, random_url_job_id varchar(36), created_by varchar(255) NOT NULL, title varchar(255), industry varchar(255), suburb varchar(100), state varchar(100), postcode int,
+							pay_from int, pay_to int, ad_plan varchar(100), headline varchar(255), description longtext, image varchar(255), job_status ENUM('ACTIVE', 'INACTIVE', 'DRAFT'),
+                            inactive_date date, date_created date, foreign key(created_by) references business_user_detail(user_email));`
+                            
+let job_seeker_user_detail = `CREATE TABLE if not exists job_seeker_user_detail(user_email varchar(255) primary key, foreign key(user_email) references user(user_email), last_name varchar(255),
+							first_name varchar(255), phone_number varchar(255), visa_type varchar(255), no_of_jobs_applied int, successful_jobs int);`
+
+let candidate = `CREATE TABLE if not exists candidate(user_email varchar(255), jobID int, resume varchar(255), cover_letter varchar(255), date_created date, isHired ENUM('YES','NO'),
+						primary key(user_email, jobID), foreign key(user_email) references job_seeker_user_detail(user_email) on delete cascade,
+                        foreign key(jobID) references job_ad(jobID) on delete cascade);`
+
+                        
