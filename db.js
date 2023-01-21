@@ -15,7 +15,7 @@ let businessUserDetails = `CREATE TABLE if not exists business_user_detail(user_
                         main_activities longtext, photos varchar(255), busiest_months varchar(255));`
 
 
-let job_ad = `CREATE TABLE if not exists job_ad(jobID int primary key auto_increment, created_by varchar(255) NOT NULL, title varchar(255), industry varchar(255), suburb varchar(100), state varchar(100), postcode int,
+let job_ad = `CREATE TABLE if not exists job_ad(jobID int primary key auto_increment, random_url_job_id varchar(36), created_by varchar(255) NOT NULL, title varchar(255), industry varchar(255), suburb varchar(100), state varchar(100), postcode int,
 							pay_from int, pay_to int, ad_plan varchar(100), headline varchar(255), description longtext, image varchar(255), job_status ENUM('ACTIVE', 'INACTIVE', 'DRAFT'),
                             inactive_date date, date_created date, foreign key(created_by) references business_user_detail(user_email));`
                             
