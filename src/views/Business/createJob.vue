@@ -180,17 +180,8 @@
                                         class="stepper-btn-icon"
                                     />
                                 </v-btn>
-                                <v-btn
-                                    class="stepper-btn-primary"
-                                    style="background-color: #4b8a54 !important"
-                                >
-                                    <span class="span-hidden"
-                                        >Create job ad</span
-                                    >
-                                    <img
-                                        src="@/assets/img/icons/right-arrow-w-icon-2.png"
-                                        class="stepper-btn-icon"
-                                    />
+                                <v-btn class="stepper-btn-primary" @click="checkOut">
+                                    Create a job ad
                                 </v-btn>
                             </div>
                         </div>
@@ -206,6 +197,9 @@ import Createjob1 from "./components/createjob-component/Createjob-1.vue";
 import Createjob2 from "./components/createjob-component/Createjob-2.vue";
 import Createjob3 from "./components/createjob-component/Createjob-3.vue";
 import Createjob4 from "./components/createjob-component/Createjob-4.vue";
+import axios from "axios";
+
+// import { config } from "../../utils/constant";
 
 export default {
     components: {
@@ -220,7 +214,7 @@ export default {
             e1: 1,
             jobTitle: "",
             activity: "",
-            location: "",
+            location: [],
             payRangeFrom: 0.0,
             payRangeTo: 0.0,
             adType: "",
@@ -271,7 +265,9 @@ export default {
         firstCreateJob() {
             this.$refs.firstPage.emitJobTitle();
             this.$refs.firstPage.emitActivity();
-            this.$refs.firstPage.emitLocation();
+            this.$refs.firstPage.emitLocState();
+            this.$refs.firstPage.emitLocPostcode();
+            this.$refs.firstPage.emitLocSuburb();
             this.$refs.firstPage.payRangeFromOnBlur();
             this.$refs.firstPage.payRangeToOnBlur();
 
@@ -322,7 +318,12 @@ export default {
                 this.e1 = 4;
             }
         },
+
+        checkOut() {
+            axios.post(`http://localhost:8081/create-checkout-session`)
+        }
     },
+    
     created() {
         const notUserLoggingIn = async () => {
             this.$store.dispatch("authUserLoggingIn", false);

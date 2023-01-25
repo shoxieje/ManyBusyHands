@@ -45,6 +45,8 @@ export default new Vuex.Store({
                         activityName.push(x.activity_name)
                     }
 
+                    activityName.shift();
+
                     commit("SET_ACTIVITY_DATA", activityName)
                 }
             )

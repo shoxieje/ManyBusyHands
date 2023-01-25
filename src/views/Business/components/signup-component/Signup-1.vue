@@ -7,6 +7,14 @@
                 </h2> -->
                 <div class="business-signup-box">
                     <div>
+                        <b-alert
+                            variant="danger"
+                            class="m-4 text-center"
+                            v-show="signupError"
+                            show>
+                            {{ signupErrorMsg }}
+                        </b-alert>
+
                         <!-- EMAIL AND PASSWORD INPUTS -- v2 -->
 
                         <b-col class="">
@@ -78,7 +86,9 @@
                 checkedEmail: null,
                 checkedPassword: null,
                 errEmail: "",
-                errPassword: ""
+                errPassword: "",
+                signupError: false,
+                signupErrorMsg: ""
             };
         },
 
@@ -97,6 +107,18 @@
 
         },
         methods: {
+
+            setSignUpError(err, msg) {
+
+                if(err) {
+                    this.signupError = true;
+                    this.signupErrorMsg = msg
+                } else {
+                    this.signupError = false;
+                    this.signupErrorMsg = msg
+                }
+
+            },
 
             emailOnBlur() {
                 this.firstOnBlurEmail = true;

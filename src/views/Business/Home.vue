@@ -100,7 +100,6 @@
             <h2>My active job ads</h2>
             <carousel
                 :per-page="1"
-                :navigate-to="someLocalProperty"
                 :mouse-drag="false"
             >
                 <slide
@@ -404,6 +403,8 @@
 import { config } from "../../utils/constant";
 import { Carousel, Slide } from "vue-carousel";
 
+
+Vue.use(VueCarousel);
 const businessData = config.mockData.businessDetails;
 const activeJobList = config.mockData.activeJoblist;
 const draftJobList = config.mockData.draftJoblist;
@@ -424,12 +425,6 @@ export default {
         Slide,
     },
     methods: {
-        passMockData() {
-            this.activeJobList = activeJobList;
-            this.draftJobList = draftJobList;
-            this.inactiveJobList = inactiveJobList;
-            this.businessData = businessData;
-        },
     },
     created() {
         const notUserLoggingIn = async () => {
@@ -437,11 +432,19 @@ export default {
             this.$store.dispatch("authUserLoggingIn", false);
         };
 
-        notUserLoggingIn();
+        const passMockData = () => {
+            this.activeJobList = activeJobList;
+            this.draftJobList = draftJobList;
+            this.disabledJobList = disabledJobList;
+            this.businessData = businessData;
+        };
 
-        this.passMockData();
-    },
-};
+        notUserLoggingIn();
+        passMockData();
+        // testUser();
+            
+        }
+    };
 </script>
 
 <style lang="sass">
