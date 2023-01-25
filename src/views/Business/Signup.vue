@@ -103,209 +103,240 @@
 </template>
 
 <script>
-import BusinessSignup1 from "./components/signup-component/Signup-1.vue";
-import BusinessSignup2 from "./components/signup-component/Signup-2.vue";
-import BusinessSignup3 from "./components/signup-component/Signup-3.vue";
-import router from "../../router/index";
+    import BusinessSignup1 from "./components/signup-component/Signup-1.vue";
+    import BusinessSignup2 from "./components/signup-component/Signup-2.vue";
+    import BusinessSignup3 from "./components/signup-component/Signup-3.vue";
+    import { config } from '../../utils/constant.js'
+    import router from "../../router/index";
+    import axios from "axios";	
+    import bcrypt from "bcryptjs"
 
-export default {
-    components: {
-        BusinessSignup1,
-        BusinessSignup2,
-        BusinessSignup3,
-    },
-    data() {
-        return {
-            email: "",
-            password: "",
-            title: "",
-            firstName: "",
-            lastName: "",
-            role: "",
-            businessName: "",
-            abn: "",
-            address: "",
-            landlineNumber: "",
-            mobileNumber: "",
-            website: "",
-            activity_1: "",
-            activity_2: "",
-            activity_3: "",
-            activity_4: "",
-            activity_5: "",
-            activityDescription: "",
-            images: [],
-            months: [],
-            e1: 1,
-        };
-    },
-
-    created() {
-        const userLoggingIn = async () => {
-            this.$store.dispatch("authUserLoggingIn", true);
-        };
-
-        // add user to datasbase
-        // after that retrieve the user
-        const createUser = async () => {
-            // this.$store.dispatch("setUserData", "mbh@gmail.com")
-            // console.log(this.$store.state.activity);
-        };
-
-        userLoggingIn();
-        createUser();
-    },
-
-    methods: {
-        // ------------------ GET DATA FROM CHILD -----------------------------
-        getEmail(value) {
-            this.email = value;
+    export default {
+        components: {
+            BusinessSignup1,
+            BusinessSignup2,
+            BusinessSignup3,
         },
-        getPassword(value) {
-            this.password = value;
-        },
-        getFn(value) {
-            this.firstName = value;
-        },
-        getLn(value) {
-            this.lastName = value;
-        },
-        getRole(value) {
-            this.role = value;
-        },
-        getBn(value) {
-            this.businessName = value;
-        },
-        getABN(value) {
-            this.abn = value;
-        },
-        getAddress(value) {
-            this.address = value;
-        },
-        getLandline(value) {
-            this.landlineNumber = value;
-        },
-        getMobile(value) {
-            this.mobileNumber = value;
-        },
-        getTitle(value) {
-            this.title = value;
-        },
-        getWebsite(value) {
-            this.website = value;
-        },
-        getActivity1(value) {
-            this.activity_1 = value;
-        },
-        getActivity2(value) {
-            this.activity_2 = value;
-        },
-        getActivity3(value) {
-            this.activity_3 = value;
-        },
-        getActivity4(value) {
-            this.activity_4 = value;
-        },
-        getActivity5(value) {
-            this.activity_5 = value;
-        },
-        getActivityDescription(value) {
-            this.activityDescription = value;
-        },
-        getMonths(value) {
-            this.months = value;
+        data() {
+            return {
+                email: "",
+                password: "",
+                title: "",
+                firstName: "",
+                lastName: "",
+                role: "",
+                businessName: "",
+                abn: "",
+                address: "",
+                landlineNumber: "",
+                mobileNumber: "",
+                website: "",
+                activity_1: "",
+                activity_2: "",
+                activity_3: "",
+                activity_4: "",
+                activity_5: "",
+                activityDescription: "",
+                images: [],
+                months: [],
+                e1: 1,
+            };
         },
 
-        // -----------------------------------------------------------------------------------------
+        created() {
+            const userLoggingIn = async () => {
+                this.$store.dispatch("authUserLoggingIn", true);
+            };
 
-        validEmail() {
-            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-                this.email
-            );
+            // add user to datasbase
+            // after that retrieve the user
+            const createUser = async () => {
+                // this.$store.dispatch("setUserData", "mbh@gmail.com")
+                // console.log(this.$store.state.activity);
+            };
+
+            userLoggingIn();
+            createUser();
         },
 
-        // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars
-        validPassword() {
-            if (this.password.length < 6) return false;
-            return true;
-        },
+        methods: {
+            // ------------------ GET DATA FROM CHILD -----------------------------
+            getEmail(value) {
+                this.email = value;
+            },
+            getPassword(value) {
+                this.password = value;
+            },
+            getFn(value) {
+                this.firstName = value;
+            },
+            getLn(value) {
+                this.lastName = value;
+            },
+            getRole(value) {
+                this.role = value;
+            },
+            getBn(value) {
+                this.businessName = value;
+            },
+            getABN(value) {
+                this.abn = value;
+            },
+            getAddress(value) {
+                this.address = value;
+            },
+            getLandline(value) {
+                this.landlineNumber = value;
+            },
+            getMobile(value) {
+                this.mobileNumber = value;
+            },
+            getTitle(value) {
+                this.title = value;
+            },
+            getWebsite(value) {
+                this.website = value;
+            },
+            getActivity1(value) {
+                this.activity_1 = value;
+            },
+            getActivity2(value) {
+                this.activity_2 = value;
+            },
+            getActivity3(value) {
+                this.activity_3 = value;
+            },
+            getActivity4(value) {
+                this.activity_4 = value;
+            },
+            getActivity5(value) {
+                this.activity_5 = value;
+            },
+            getActivityDescription(value) {
+                this.activityDescription = value;
+            },
+            getMonths(value) {
+                this.months = value;
+            },
 
-        firstRegister() {
-            this.$refs.firstPage.emailOnBlur();
-            this.$refs.firstPage.passwordOnBlur();
+            // -----------------------------------------------------------------------------------------
 
-            if (this.validEmail() && this.validPassword()) {
-                this.e1 = 2;
-
-                // find if email exist
-                // axios.get(`http://localhost:8081/user/searchByEmail/${this.loginEmail}`).then(
-                //     result => {
-
-                //         if(result.data.length == 0) {
-                //             this.noLoginError = false;
-                //             this.loginError = "Invalid Email or Password"
-
-                //         } else {
-                //             let userData = result.data[0];
-                //             let matchedPassword = bcrypt.compareSync(this.loginPassword, userData.userPassword);
-
-                //             if(!matchedPassword) {
-                //                 this.noLoginError = false;
-                //                 this.loginError = "Invalid Email or Password"
-                //             } else {
-                //                 console.log("SUCESSFULLY LOGGED IN")
-                //             }
-
-                //         }
-
-                //     }
-                // )
-            }
-        },
-        secondRegister() {
-            this.$refs.secondPage.firstNameOnBlur();
-            this.$refs.secondPage.lastNameOnBlur();
-            this.$refs.secondPage.roleOnBlur();
-            this.$refs.secondPage.businessNameOnBlur();
-            this.$refs.secondPage.ABNOnBlur();
-            this.$refs.secondPage.addressOnBlur();
-            this.$refs.secondPage.emitTitle();
-
-            if (
-                !this.checkEmpty(this.title) &&
-                !this.checkEmpty(this.firstName) &&
-                !this.checkEmpty(this.lastName) &&
-                !this.checkEmpty(this.role) &&
-                !this.checkEmpty(this.businessName) &&
-                !this.checkEmpty(this.abn) &&
-                !this.checkEmpty(this.address)
-            ) {
-                console.log(
-                    this.title,
-                    this.firstName,
-                    this.lastName,
-                    this.role,
-                    this.businessName,
-                    this.abn,
-                    this.address,
-                    this.landlineNumber,
-                    this.mobileNumber
+            validEmail() {
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                    this.email
                 );
+            },
 
-                this.e1 = 3;
-            }
-        },
+            // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars
+            validPassword() {
+                if (this.password.length < 6) return false;
+                return true;
+            },
 
-        checkEmpty(value) {
-            return value.length === 0;
-        },
+            firstRegister() {
+                this.$refs.firstPage.emailOnBlur();
+                this.$refs.firstPage.passwordOnBlur();
 
-        finalRegister() {
-            console.log(this.$data);
-            // router.push('/Business')
+                if(this.validEmail() && this.validPassword()) {	
+                        this.hashedPassword = bcrypt.hashSync(this.password, 10)	
+                        // find if email exist	
+                        axios.get(`http://localhost:8081/user/searchByEmail/${this.email}`).then(	
+                            result => {	
+                                if(result.data.length > 0) {	
+                                    this.$refs.firstPage.setSignUpError(true, "This email is already registered. Sign in or use a different email.")	
+                                } else {	
+                                        
+                                    this.$refs.firstPage.setSignUpError(false, "");	
+                                    this.e1 = 2	
+                                        
+                                }	
+                                    
+                            }	
+                        )	
+                    }
+                
+            },
+            secondRegister() {
+                this.$refs.secondPage.firstNameOnBlur();
+                this.$refs.secondPage.lastNameOnBlur();
+                this.$refs.secondPage.roleOnBlur();
+                this.$refs.secondPage.businessNameOnBlur();
+                this.$refs.secondPage.ABNOnBlur();
+                this.$refs.secondPage.addressOnBlur();
+                this.$refs.secondPage.emitTitle();
+
+                if (
+                    !this.checkEmpty(this.title) &&
+                    !this.checkEmpty(this.firstName) &&
+                    !this.checkEmpty(this.lastName) &&
+                    !this.checkEmpty(this.role) &&
+                    !this.checkEmpty(this.businessName) &&
+                    !this.checkEmpty(this.abn) &&
+                    !this.checkEmpty(this.address)
+                ) {
+                    console.log(
+                        this.title,
+                        this.firstName,
+                        this.lastName,
+                        this.role,
+                        this.businessName,
+                        this.abn,
+                        this.address,
+                        this.landlineNumber,
+                        this.mobileNumber
+                    );
+
+                    this.e1 = 3;
+                }
+            },
+
+            checkEmpty(value) {
+                return value.length === 0;
+            },
+
+            finalRegister() {
+                console.log(this.$data);
+                    
+                axios.post(`http://localhost:8081/user`, new URLSearchParams({	
+                        userEmail: this.email,	
+                        userPassword: this.hashedPassword,	
+                        userType: "BUSINESS"	
+                    }), config).then(	
+                            axios.get(`http://localhost:8081/user/searchByEmail/${this.email}`).then(	
+                                results => {	
+                                    console.log(results);	
+                                }	
+                            ),	
+                            // second call	
+                            axios.post(`http://localhost:8081/businessUser`, new URLSearchParams({	
+                                userEmail: this.email,	
+                                firstName: this.firstName,	
+                                lastName: this.lastName,	
+                                businessName: this.businessName,	
+                                ABN: this.abn,	
+                                title: this.title,	
+                                address: this.address,	
+                                userRole: this.role,	
+                                landlineNumber: this.landlineNumber,	
+                                phoneNumber: this.mobileNumber,	
+                                website: this.website,	
+                                activity1: this.activity_1,	
+                                activity2: this.activity_2,	
+                                activity3: this.activity_3,	
+                                activity4: this.activity_4,	
+                                activity5: this.activity_5,	
+                                mainActivities: this.activityDescription,	
+                                photos: "",	
+                                busiestMonths: ""	
+                            }), config)).then(	
+                                    axios.get(`http://localhost:8081/businessUser/searchByEmail/${this.userEmail}`).then(	
+                                        this.$store.dispatch("setUserData", this.email),	
+                                        router.push('/business')	
+                                    )	
+                        )
+            },
         },
-    },
-};
+    };
 </script>
 
 <style lang="sass">
