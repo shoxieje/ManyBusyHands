@@ -134,7 +134,6 @@ export default {
         };
 
         notUserLoggingIn();
-
         this.passMockData();
     },
 };

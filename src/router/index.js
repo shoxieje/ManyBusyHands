@@ -44,6 +44,11 @@ const routes = [
         name: "EditJob",
         component: () => import("../views/Business/EditJob.vue"),
     },
+    {
+        path: "/invoices",
+        name: "Invoices",
+        component: () => import("../views/Business/Invoices.vue"),
+    },
 ];
 
 const router = new VueRouter({
