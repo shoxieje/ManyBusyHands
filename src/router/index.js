@@ -27,7 +27,7 @@ const routes = [
     {
         path: "/jobs/manage/create",
         name: "CreateJob",
-        component: () => import("../views/Business/createJob.vue"),
+        component: () => import("../views/Business/CreateJob.vue"),
     },
     {
         path: "/jobs/manage",

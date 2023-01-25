@@ -148,70 +148,70 @@ export default {
 </script>
 
 <style lang="sass">
-@import '../assets/styles/custom-variables.sass'
-.ManyBusyHands-logo
-    width: 450px
-    height: auto
-
-.nav-item a
-    color: $mbh-navy !important
-    font-weight: bold
-    font-size: 22px !important
-
-.nav-btn
-    font-size: 24px !important
-    font-weight: bold
-
-.drop-down-menu
-    width: 20px
-    height: auto
-
-.dropdown-right
-
-.dropdown-toggle
-    font-size: 22px !important
-    font-family: "Noticia Text", serif
-    font-weight: bold !important
-    color: $mbh-blue-2 !important
-
-.dropdown-right-menu
-    font-size: 20px
-
-.b-sidebar.shadow.b-sidebar-right.bg-light.text-dark
-    width: 100%
-
-.slide-button
-    width: 100%
-    text-align: right !important
-    color: $mbh-blue-2 !important
-    font-size: 14px !important
-
-.hdr-secondary
-    display: none !important
-
-.hdr-tertiary
-    display: none !important
-    padding: 0
-
-@media only screen and (max-width: $screen-max)
-    .hdr-main
-        display: none !important
-    .hdr-secondary
-        display: block !important
-
-@media only screen and (max-width: $tablet-max)
+    @import '../assets/styles/custom-variables.sass'
     .ManyBusyHands-logo
-        width: 300px
+        width: 450px
+        height: auto
+
+    .nav-item a
+        color: $mbh-navy !important
+        font-weight: bold
+        font-size: 22px !important
+
+    .nav-btn
+        font-size: 24px !important
+        font-weight: bold
+
+    .drop-down-menu
+        width: 20px
+        height: auto
+
+    .dropdown-right
+
     .dropdown-toggle
-        font-size: 16px !important
-    .dropdown-right-menu
-        font-size: 16px
+        font-size: 22px !important
+        font-family: "Noticia Text", serif
+        font-weight: bold !important
+        color: $mbh-blue-2 !important
 
-@media only screen and (max-width: $mobile-max)
-    .ManyBusyHands-logo
-        width: 200px
+    .dropdown-right-menu
+        font-size: 20px
+
+    .b-sidebar.shadow.b-sidebar-right.bg-light.text-dark
+        width: 100%
+
+    .slide-button
+        width: 100%
+        text-align: right !important
+        color: $mbh-blue-2 !important
+        font-size: 14px !important
+
     .hdr-secondary
         display: none !important
+
     .hdr-tertiary
-        display: block !important
+        display: none !important
+        padding: 0
+
+    @media only screen and (max-width: $screen-max)
+        .hdr-main
+            display: none !important
+        .hdr-secondary
+            display: block !important
+
+    @media only screen and (max-width: $tablet-max)
+        .ManyBusyHands-logo
+            width: 300px
+        .dropdown-toggle
+            font-size: 16px !important
+        .dropdown-right-menu
+            font-size: 16px
+
+    @media only screen and (max-width: $mobile-max)
+        .ManyBusyHands-logo
+            width: 200px
+        .hdr-secondary
+            display: none !important
+        .hdr-tertiary
+            display: block !important
 </style>

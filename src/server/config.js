@@ -3,8 +3,8 @@
 const config = {
     db: {
         host: "localhost",
-        user: "chandradewi",
-        password: "database123",
+        user: "shoxie",
+        password: "realmandrid123",
         port: "3306",
         database: "mbh",
     },
