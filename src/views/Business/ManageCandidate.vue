@@ -95,7 +95,7 @@ export default {
 .manage-candidate-container
     padding: 0 1rem
 
-.candidate-container
+// .candidate-container
 
 
 

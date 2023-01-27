@@ -1,4 +1,4 @@
-<!-- HEADER SIGNED IN -->
+<!-- HEADER SIGNED OUT -->
 <template>
     <b-navbar type="primary" variant="light" sticky>
         <!-- BRANDING -->
@@ -36,35 +36,44 @@
         </b-navbar-nav>
 
         <b-navbar-nav
-            class="ml-auto hdr-main-secondary"
+            class="ml-auto hdr-main"
             v-show="!this.$store.state.isUserLoggingIn"
         >
+            <b-button class="nav-btn" variant="light" to="/business/signin"
+                >Sign in</b-button
+            >
+
+            <b-button
+                class="nav-btn ml-2"
+                variant="primary"
+                to="/Business/Signup"
+                >Sign up</b-button
+            >
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto hdr-secondary">
             <b-dropdown
-                id="dropdown-right-logged-in"
+                id="dropdown-right"
                 class="dropdown-right m-2"
                 right
-                :text="username"
+                text="Menu"
                 variant="light"
             >
                 <b-dropdown-item class="dropdown-right-menu" href="#"
-                    ><strong>{{ username }}</strong></b-dropdown-item
+                    >Home</b-dropdown-item
                 >
                 <b-dropdown-item class="dropdown-right-menu" href="#"
-                    >{{ firstName }} {{ lastName }}</b-dropdown-item
+                    >Jobs</b-dropdown-item
+                >
+                <b-dropdown-item class="dropdown-right-menu" href="#"
+                    >Analytics</b-dropdown-item
                 >
                 <div class="bottom-border"></div>
                 <b-dropdown-item class="dropdown-right-menu" href="#"
-                    >Account details</b-dropdown-item
-                >
-                <b-dropdown-item class="dropdown-right-menu" href="/invoices"
-                    >Invoices history</b-dropdown-item
-                >
-                <div class="bottom-border"></div>
-                <b-dropdown-item class="dropdown-right-menu" href="#"
-                    >Contact us</b-dropdown-item
+                    >Sign in</b-dropdown-item
                 >
                 <b-dropdown-item class="dropdown-right-menu" href="#"
-                    >Sign out</b-dropdown-item
+                    >Sign up</b-dropdown-item
                 >
             </b-dropdown>
         </b-navbar-nav>
@@ -131,13 +140,6 @@ export default {
     name: "Header",
 
     computed: {},
-    data() {
-        return {
-            username: "ManyBusyHands",
-            firstName: "Your",
-            lastName: "Name",
-        };
-    },
 
     methods: {
         // This method calls the vuex store action 'logoutUser' to remove the login details
@@ -148,9 +150,7 @@ export default {
 
 <style lang="sass">
 @import '../assets/styles/custom-variables.sass'
-#dropdown-right-logged-in
-    text-decoration: underline
-    text-decoration-color: $mbh-blue-2
+
 #header-home-btn
     text-align: center
     min-width: 80px
@@ -209,16 +209,12 @@ export default {
     padding: 0
 
 @media only screen and (max-width: $screen-max)
-    #dropdown-right-logged-in__BV_toggle_
-        font-size: x-large !important
     .hdr-main
         display: none !important
     .hdr-secondary
         display: block !important
 
 @media only screen and (max-width: $tablet-max)
-    #dropdown-right-logged-in__BV_toggle_
-        display: none !important
     .ManyBusyHands-logo
         width: 300px
     .dropdown-toggle

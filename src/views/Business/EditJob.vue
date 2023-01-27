@@ -481,7 +481,7 @@ export default {
 		font-weight: bolder
 		color: $mbh-blue-2 !important
 
-	.v-stepper__header
+	// .v-stepper__header
 
 	.v-stepper__step.v-stepper__step--complete
 		display: none !important

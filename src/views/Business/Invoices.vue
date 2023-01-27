@@ -116,8 +116,8 @@ export default {
 .invoices-top
     padding: 1rem
     text-align: center
-.invoices__container
-.invoices__card-container
+// .invoices__container
+// .invoices__card-container
 .invoices__card
     padding: 1rem
     background: $mbh-white
@@ -142,7 +142,7 @@ export default {
 .arrow-icon
     width: 15px
     height: 15px
-.page-btn-container
+// .page-btn-container
 .page-btn
     min-width: 30px
     margin-inline: 2.5px

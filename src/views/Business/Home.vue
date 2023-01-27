@@ -102,6 +102,13 @@
                 :per-page="1"
                 :navigate-to="someLocalProperty"
                 :mouse-drag="false"
+                :autoplay="true"
+                :autoplayTimeout="3000"
+                :loop="true"
+                paginationColor="#464866"
+                paginationActiveColor="#ff5000"
+                speed="800"
+                :touchdrag="true"
             >
                 <slide
                     class="carousel-slide"
@@ -114,7 +121,6 @@
                             alt="Share icon"
                             class="carousel-image"
                         />
-                        <!-- <img :src="job.jobImageSrc" alt="Share icon" /> -->
                     </div>
                     <div class="carousel-content__container">
                         <div class="carousel-content">
@@ -490,7 +496,7 @@ h2
         padding-left: 1rem
 
 @media only screen and (max-width: $tablet-max)
-    .business-home-header__left
+    // .business-home-header__left
     h2
         font-size: 1.5rem
     .bh-header-text
@@ -499,7 +505,7 @@ h2
         font-size: small !important
 
 @media only screen and (max-width: $mobile-max)
-    .business-home-header__left
+    // .business-home-header__left
     h2
         font-size: 1.2rem
 

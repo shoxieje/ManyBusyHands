@@ -26,7 +26,7 @@
                             @click="selectBasic"
                             >Select</b-button
                         >
-                        <div class="ad-style ad-text">
+                        <div class="ad-style ad-text point">
                             <ul>
                                 <li>30 days listing</li>
                                 <li>
@@ -53,7 +53,7 @@
                             @click="selectPremium"
                             >Select</b-button
                         >
-                        <div class="ad-style ad-text">
+                        <div class="ad-style ad-text point">
                             <ul>
                                 <li>30 days listing</li>
                                 <li>
@@ -83,7 +83,7 @@
                             @click="selectUltra"
                             >Select</b-button
                         >
-                        <div class="ad-style ad-text">
+                        <div class="ad-style ad-text point">
                             <ul>
                                 <li>Guaranteed to hire the best candidate</li>
                                 <li>
@@ -202,7 +202,7 @@ export default {
 <style lang="sass">
 @import '../../../../assets/styles/custom-variables.sass'
 
-ul
+.ad-style.ad-text.point
 	margin-left: 1.5rem
 
 .ad-type-box__container
