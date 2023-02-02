@@ -1,6 +1,6 @@
 <template>
     <section class="create-job-top">
-        <div class="stepper-container mw-60">
+        <div class="stepper-container mw-80">
             <h1 class="title">Post a job ad</h1>
             <!-- HEADER -->
             <v-stepper v-model="e1">
@@ -27,7 +27,7 @@
                 </v-stepper-header>
 
                 <!-- CONTENT -->
-                <v-stepper-items class="mw-60">
+                <v-stepper-items class="mw-80">
                     <v-stepper-content step="1">
                         <v-card class="mb-12" color="grey lighten-1">
                             <Createjob1
@@ -63,7 +63,7 @@
                     </v-stepper-content>
                 </v-stepper-items>
 
-                <v-stepper-items class="mw-60">
+                <v-stepper-items class="mw-80">
                     <v-stepper-content step="2">
                         <v-card class="mb-12" color="grey lighten-1">
                             <Createjob2 ref="secondPage" @adType="getAdType" />
@@ -102,7 +102,7 @@
                     </v-stepper-content>
                 </v-stepper-items>
 
-                <v-stepper-items class="mw-60">
+                <v-stepper-items class="mw-80">
                     <v-stepper-content step="3">
                         <v-card class="mb-12" color="grey lighten-1">
                             <Createjob3
@@ -146,7 +146,7 @@
                     </v-stepper-content>
                 </v-stepper-items>
 
-                <v-stepper-items class="mw-60">
+                <v-stepper-items class="mw-80">
                     <v-stepper-content step="4">
                         <v-card class="mb-12" color="grey lighten-1">
                             <Createjob4

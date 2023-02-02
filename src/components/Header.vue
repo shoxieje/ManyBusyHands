@@ -18,16 +18,18 @@
             state="background-color: red"
         >
             <b-nav-item class="nav-item" id="header-home-btn" to="/business"
-                >Home</b-nav-item
+                ><span style="color: #29648a !important">Home</span></b-nav-item
             >
             <b-nav-item class="nav-item" id="header-jobs-btn" to="/jobs"
-                >Jobs</b-nav-item
+                ><span style="color: #29648a !important">Jobs</span></b-nav-item
             >
             <b-nav-item
                 class="nav-item"
                 id="header-analytics-btn"
                 to="/analytics"
-                >Analytics</b-nav-item
+                ><span style="color: #29648a !important"
+                    >Analytics</span
+                ></b-nav-item
             >
 
             <!-- <div class="header-button">

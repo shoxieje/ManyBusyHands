@@ -49,6 +49,16 @@ const routes = [
         name: "Invoices",
         component: () => import("../views/Business/Invoices.vue"),
     },
+    {
+        path: "/business/forget-password",
+        name: "BusinessForgetPassword",
+        component: () => import("../views/Business/ForgetPassword.vue"),
+    },
+    {
+        path: "/business/reset-password",
+        name: "BusinessResetPassword",
+        component: () => import("../views/Business/ResetPassword.vue"),
+    },
 ];
 
 const router = new VueRouter({

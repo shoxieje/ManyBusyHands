@@ -75,8 +75,15 @@
                                             Don't have an account?
                                             <router-link
                                                 class="text-right cr-account"
-                                                to="/Business/Signup"
+                                                to="/business/Signup"
                                                 >Create an account</router-link
+                                            >
+                                            <br />
+                                            <router-link
+                                                class="text-right cr-account"
+                                                to="/business/forget-password"
+                                                >Forget your
+                                                password?</router-link
                                             >
                                         </p>
                                     </div>
@@ -91,84 +98,85 @@
 </template>
 
 <script>
-    import axios from "axios";
-    const bcrypt = require("bcryptjs");
+import axios from "axios";
+const bcrypt = require("bcryptjs");
 
-    export default {
-        name: "BusinessSignin",
+export default {
+    name: "BusinessSignin",
 
-        data() {
-            return {
-                // Login input variables
-                loginEmail: "",
-                loginPassword: "",
-                // Variable to store login error
-                firstTimeLogin: true,
-                loginError: "",
-                noLoginError: true,
-            };
+    data() {
+        return {
+            // Login input variables
+            loginEmail: "",
+            loginPassword: "",
+            // Variable to store login error
+            firstTimeLogin: true,
+            loginError: "",
+            noLoginError: true,
+        };
+    },
+
+    created() {
+        const userLoggingIn = async () => {
+            this.$store.dispatch("authUserLoggingIn", true);
+        };
+
+        userLoggingIn();
+    },
+
+    computed: {
+        // Computed boolean variable returning whether the 'loginEmail' input is a valid email address by testing a regular expression
+        validLoginEmail() {
+            if (!this.firstTimeLogin)
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                    this.loginEmail
+                );
         },
 
-        created() {
-            const userLoggingIn = async () =>  {
-                this.$store.dispatch("authUserLoggingIn", true)
-            }
-
-            userLoggingIn();
+        // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars
+        validPassword() {
+            if (!this.firstTimeLogin)
+                if (this.loginPassword.length >= 6) return null;
+                else return false;
         },
+    },
 
-        computed: {
-            // Computed boolean variable returning whether the 'loginEmail' input is a valid email address by testing a regular expression
-            validLoginEmail() {
-                if (!this.firstTimeLogin)
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-                        this.loginEmail
-                    );
-            },
+    methods: {
+        // This method sends a request to the server, first building the necessary data object
+        // containing login email and password. (Currently set to mock JobSeeker login - 'USER' type)
+        login() {
+            this.firstTimeLogin = false;
 
-            // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars
-            validPassword() {
-                if (!this.firstTimeLogin)
-                    if (this.loginPassword.length >= 6) return null;
-                    else return false;
-            },
-        },
+            console.log(this.validLoginEmail, this.validPassword);
+            if (this.validLoginEmail && this.validPassword == null) {
+                // find if email exist
+                axios
+                    .get(
+                        `http://localhost:8081/user/searchByEmail/${this.loginEmail}`
+                    )
+                    .then((result) => {
+                        if (result.data.length == 0) {
+                            this.noLoginError = false;
+                            this.loginError = "Invalid Email or Password";
+                        } else {
+                            let userData = result.data[0];
+                            let matchedPassword = bcrypt.compareSync(
+                                this.loginPassword,
+                                userData.userPassword
+                            );
 
-        methods: {
-            // This method sends a request to the server, first building the necessary data object
-            // containing login email and password. (Currently set to mock JobSeeker login - 'USER' type)
-            login() {
-                this.firstTimeLogin = false;
-                
-                console.log(this.validLoginEmail, this.validPassword);
-                if (this.validLoginEmail && this.validPassword == null) {
-                    // find if email exist
-                    axios.get(
-                            `http://localhost:8081/user/searchByEmail/${this.loginEmail}`
-                        )
-                        .then((result) => {
-                            if (result.data.length == 0) {
+                            if (!matchedPassword) {
                                 this.noLoginError = false;
                                 this.loginError = "Invalid Email or Password";
                             } else {
-                                let userData = result.data[0];
-                                let matchedPassword = bcrypt.compareSync(
-                                    this.loginPassword,
-                                    userData.userPassword
-                                );
-
-                                if (!matchedPassword) {
-                                    this.noLoginError = false;
-                                    this.loginError = "Invalid Email or Password";
-                                } else {
-                                    console.log("SUCESSFULLY LOGGED IN");
-                                }
+                                console.log("SUCESSFULLY LOGGED IN");
                             }
-                        });
-                }
-            },
+                        }
+                    });
+            }
         },
-    };
+    },
+};
 </script>
 
 <style>

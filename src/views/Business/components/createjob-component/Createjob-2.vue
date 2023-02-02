@@ -8,97 +8,147 @@
                     Select an ad type
                 </h3>
                 <div class="ad-type-box__container">
-                    <b-button
-                        id="ad-basic"
-                        variant="light"
-                        :class="adBasicClass"
-                        @click="selectBasic"
-                    >
-                        <div class="ad-style ad-type">Basic</div>
-                        <div class="ad-style ad-price">$149.45</div>
-                        <div class="ad-style ad-text sub">
-                            Find great candidates with our basic ad
-                        </div>
+                    <div class="ad-type-box__container2">
                         <b-button
-                            id="ad-basic-btn"
-                            :class="adBasicBtnClass"
+                            id="ad-basic"
                             variant="light"
+                            :class="adBasicClass"
                             @click="selectBasic"
-                            >Select</b-button
                         >
-                        <div class="ad-style ad-text point">
-                            <ul>
-                                <li>30 days listing</li>
-                                <li>
-                                    Your job ad emailed to relevant candidates
-                                </li>
-                            </ul>
-                        </div>
-                    </b-button>
-                    <b-button
-                        id="ad-premium"
-                        variant="light"
-                        :class="adPremiumClass"
-                        @click="selectPremium"
-                    >
-                        <div class="ad-style ad-type">Premium</div>
-                        <div class="ad-style ad-price">$249.95</div>
-                        <div class="ad-style ad-text sub">
-                            Attract more candidates with a featured listing!
-                        </div>
+                            <div class="ad-style ad-type">Basic</div>
+                            <div class="ad-style ad-price">$149.45</div>
+                            <div class="ad-style ad-text sub">
+                                Find great candidates with our basic ad
+                            </div>
+                            <b-button
+                                id="ad-basic-btn"
+                                :class="adBasicBtnClass"
+                                variant="light"
+                                @click="selectBasic"
+                                >Select</b-button
+                            >
+                            <div class="ad-style ad-text point">
+                                <ul>
+                                    <li>30 days listing</li>
+                                    <li>
+                                        Your job ad emailed to relevant
+                                        candidates
+                                    </li>
+                                </ul>
+                            </div>
+                        </b-button>
                         <b-button
-                            id="ad-premium-btn"
-                            :class="adPremiumBtnClass"
+                            id="ad-premium"
                             variant="light"
+                            :class="adPremiumClass"
                             @click="selectPremium"
-                            >Select</b-button
                         >
-                        <div class="ad-style ad-text point">
-                            <ul>
-                                <li>30 days listing</li>
-                                <li>
-                                    Your job ad emailed to relevant candidates
-                                </li>
-                                <li>Priority listing in search</li>
-                                <li>Priority listing in candidate emails</li>
-                                <li>Get candidates faster</li>
-                            </ul>
-                        </div>
-                    </b-button>
-                    <b-button
-                        id="ad-ultra"
-                        variant="light"
-                        :class="adUltraClass"
-                        @click="selectUltra"
-                    >
-                        <div class="ad-style ad-type">Ultra</div>
-                        <div class="ad-style ad-price">$399.95</div>
-                        <div class="ad-style ad-text sub">
-                            Guaranteed to hire the best candidate!
-                        </div>
-                        <b-button
-                            id="ad-ultra-btn"
-                            :class="adUltraBtnClass"
-                            variant="light"
-                            @click="selectUltra"
-                            >Select</b-button
-                        >
-                        <div class="ad-style ad-text point">
-                            <ul>
-                                <li>Guaranteed to hire the best candidate</li>
-                                <li>
-                                    Your job ad emailed to relevant candidates
-                                </li>
-                                <li>Priority listing in search</li>
-                                <li>Priority listing in candidate emails</li>
-                                <li>Get candidates faster</li>
-                            </ul>
-                        </div>
-                    </b-button>
-                </div>
+                            <div class="ad-style ad-type">Premium</div>
+                            <div class="ad-style ad-price">$249.95</div>
+                            <div class="ad-style ad-text sub">
+                                Attract more candidates with a featured listing!
+                            </div>
+                            <b-button
+                                id="ad-premium-btn"
+                                :class="adPremiumBtnClass"
+                                variant="light"
+                                @click="selectPremium"
+                                >Select</b-button
+                            >
+                            <div class="ad-style ad-text point">
+                                <ul>
+                                    <li>30 days listing</li>
+                                    <li>
+                                        Your job ad emailed to relevant
+                                        candidates
+                                    </li>
+                                    <li>Priority listing in search</li>
+                                    <li>
+                                        Priority listing in candidate emails
+                                    </li>
+                                    <li>Get candidates faster</li>
+                                </ul>
+                            </div>
+                        </b-button>
+                    </div>
 
-                <br />
+                    <div class="ad-type-box__container2">
+                        <b-button
+                            id="ad-ultra"
+                            variant="light"
+                            :class="adUltraClass"
+                            @click="selectUltra"
+                        >
+                            <div class="ad-style ad-type">Ultra</div>
+                            <div class="ad-style ad-price">$399.95</div>
+                            <div class="ad-style ad-text sub">
+                                Guaranteed to hire the best candidate!
+                            </div>
+                            <b-button
+                                id="ad-ultra-btn"
+                                :class="adUltraBtnClass"
+                                variant="light"
+                                @click="selectUltra"
+                                >Select</b-button
+                            >
+                            <div class="ad-style ad-text point">
+                                <ul>
+                                    <li>
+                                        Guaranteed to hire the best candidate
+                                    </li>
+                                    <li>
+                                        Your job ad emailed to relevant
+                                        candidates
+                                    </li>
+                                    <li>Priority listing in search</li>
+                                    <li>
+                                        Priority listing in candidate emails
+                                    </li>
+                                    <li>Get candidates faster</li>
+                                </ul>
+                            </div>
+                        </b-button>
+                        <b-button
+                            id="ad-custom"
+                            variant="light"
+                            :class="adCustomClass"
+                            @click="selectCustom"
+                        >
+                            <div class="ad-style ad-type">Custom</div>
+                            <div class="ad-style ad-price">$499.95</div>
+                            <div class="ad-style ad-text sub">
+                                Create your customized ad service!
+                            </div>
+                            <b-button
+                                id="ad-custom-btn"
+                                :class="adCustomBtnClass"
+                                variant="light"
+                                @click="selectCustom"
+                                >Select</b-button
+                            >
+                            <div class="ad-style ad-text point">
+                                <ul>
+                                    <li>
+                                        Customized ad service according to your
+                                        need
+                                    </li>
+                                    <li>
+                                        Your job ad emailed to relevant
+                                        candidates
+                                    </li>
+                                    <li>Priority listing in search</li>
+                                    <li>
+                                        Priority listing in candidate emails
+                                    </li>
+                                    <li>Get candidates faster</li>
+                                </ul>
+                            </div>
+                        </b-button>
+                    </div>
+                </div>
             </div>
+
+            <br />
         </b-form>
     </b-container>
 </template>
@@ -113,6 +163,8 @@ export default {
             adPremiumBtnClass: "ad-style ad-btn",
             adUltraClass: "ad-type-box",
             adUltraBtnClass: "ad-style ad-btn",
+            adCustomClass: "ad-type-box",
+            adCustomBtnClass: "ad-style ad-btn",
         };
     },
     props: ["type", "data"],
@@ -130,12 +182,16 @@ export default {
             var premiumBtn = document.getElementById("ad-premium-btn");
             var ultra = document.getElementById("ad-ultra");
             var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
             basic.classList.add("selected");
             basicBtn.classList.add("selected");
             premium.classList.remove("selected");
             premiumBtn.classList.remove("selected");
             ultra.classList.remove("selected");
             ultraBtn.classList.remove("selected");
+            custom.classList.remove("selected");
+            customBtn.classList.remove("selected");
             this.adType = "basic";
             this.emitAdType();
         },
@@ -146,12 +202,16 @@ export default {
             var premiumBtn = document.getElementById("ad-premium-btn");
             var ultra = document.getElementById("ad-ultra");
             var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
             basic.classList.remove("selected");
             basicBtn.classList.remove("selected");
             premium.classList.add("selected");
             premiumBtn.classList.add("selected");
             ultra.classList.remove("selected");
             ultraBtn.classList.remove("selected");
+            custom.classList.remove("selected");
+            customBtn.classList.remove("selected");
             this.adType = "premium";
             this.emitAdType();
         },
@@ -162,13 +222,37 @@ export default {
             var premiumBtn = document.getElementById("ad-premium-btn");
             var ultra = document.getElementById("ad-ultra");
             var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
             basic.classList.remove("selected");
             basicBtn.classList.remove("selected");
             premium.classList.remove("selected");
             premiumBtn.classList.remove("selected");
             ultra.classList.add("selected");
             ultraBtn.classList.add("selected");
+            custom.classList.remove("selected");
+            customBtn.classList.remove("selected");
             this.adType = "ultra";
+            this.emitAdType();
+        },
+        selectCustom() {
+            var basic = document.getElementById("ad-basic");
+            var basicBtn = document.getElementById("ad-basic-btn");
+            var premium = document.getElementById("ad-premium");
+            var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
+            basic.classList.remove("selected");
+            basicBtn.classList.remove("selected");
+            premium.classList.remove("selected");
+            premiumBtn.classList.remove("selected");
+            ultra.classList.remove("selected");
+            ultraBtn.classList.remove("selected");
+            custom.classList.add("selected");
+            customBtn.classList.add("selected");
+            this.adType = "custom";
             this.emitAdType();
         },
         fillData() {
@@ -184,6 +268,10 @@ export default {
                 if (this.data.adType === "ultra") {
                     this.adUltraClass += " selected";
                     this.adUltraBtnClass += " selected";
+                }
+                if (this.data.adType === "custom") {
+                    this.adCustomClass += " selected";
+                    this.adCustomBtnClass += " selected";
                 }
             }
         },
@@ -207,13 +295,19 @@ export default {
 
 .ad-type-box__container
 	display: flex
-	justify-content: space-between
+	justify-content: space-around
+
+.ad-type-box__container2
+	display: flex
+	justify-content: space-around
+
+.container-job-ad
+	max-width: unset !important
 
 .ad-type-box
 	background-color: $mbh-white
-	// background-color: pink
-	width: 32%
-	// min-height: 400px
+	width: 24%
+	min-width: 220px
 	padding: 2.5rem 3%
 	border-style: solid
 	border-color: $mbh-gray-0
@@ -223,7 +317,7 @@ export default {
 	flex-direction: column
 
 .ad-style.ad-text.sub
-	min-height: 75px
+	min-height: 50px
 
 .ad-style
 	font-weight: bold
@@ -246,7 +340,7 @@ export default {
 	border-width: 3px
 
 .ad-text
-	font-size: medium
+	font-size: small
 	font-weight: 300
 
 .ad-type-box.selected
@@ -257,11 +351,18 @@ export default {
 .ad-btn.selected
 	background-color: $mbh-blue-2
 	color: $mbh-white
+@media only screen and (max-width: 1100px)
+	.ad-type-box__container
+		display: block
+	.ad-type-box
+		width: 50%
+	.ad-style.ad-text.sub
+		min-height: 30px
+
 
 @media only screen and (max-width: $tablet-max)
-	.ad-type-box__container
-		display: flex
-		flex-wrap: wrap
+	.ad-type-box__container2
+		display: block
 	.ad-type-box
 		width: 100%
 		padding: 1rem 1.5rem

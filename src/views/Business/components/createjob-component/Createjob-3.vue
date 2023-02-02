@@ -63,7 +63,7 @@
                             <b-button
                                 v-if="hasImage"
                                 variant="warning"
-                                class="ml-3 text-white"
+                                class="ml-3 text-white clear-btn"
                                 @click="clearImage"
                             >
                                 <span class="span-hidden">Clear image</span>
