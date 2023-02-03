@@ -59,6 +59,11 @@ const routes = [
         name: "BusinessResetPassword",
         component: () => import("../views/Business/ResetPassword.vue"),
     },
+    {
+        path: "/business/landing",
+        name: "BusinessLanding",
+        component: () => import("../views/Business/Landing.vue"),
+    },
 ];
 
 const router = new VueRouter({
