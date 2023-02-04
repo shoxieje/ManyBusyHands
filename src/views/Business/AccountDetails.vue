@@ -1,7 +1,7 @@
 <template>
-    <div class="acc-details-top text-primary">
+    <div class="acc-details-top text-primary mw-60">
+        <h1 class="title">Edit your account details</h1>
         <div class="acc-details__container mw-60">
-            <h1 class="title">Edit your account details</h1>
             <!-- First -->
             <b-container class="acc-details-box">
                 <h2 class="acc-details-title">Your details</h2>
