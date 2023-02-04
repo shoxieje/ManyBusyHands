@@ -6,24 +6,24 @@
                 <h3 class="subtitle">Write your job description</h3>
                 <b-row class="my-1">
                     <b-col sm="12">
-                        <label for="jobSummary" class="required-field"
+                        <label for="headline" class="required-field"
                             >Job Headline</label
                         >
                         <b-form-textarea
-                            id="jobSummary"
+                            id="headline"
                             type="text"
                             rows="3"
                             max-rows="3"
-                            @blur="emitJobSummary"
-                            @input="emitJobSummary"
+                            @blur="emitheadline"
+                            @input="emitheadline"
                             aria-describedby="input-wrong-JT"
-                            v-model="jobSummary"
-                            :state="checkedJobSummary"
+                            v-model="headline"
+                            :state="checkedheadline"
                             style="resize: none"
                             placeholder="Write an interesting statement about your role to attract candidates to look at your ad!"
                         ></b-form-textarea>
                         <b-form-invalid-feedback id="input-wrong-JS">
-                            {{ errJobSummary }}
+                            {{ errheadline }}
                         </b-form-invalid-feedback>
                     </b-col>
                 </b-row>
@@ -88,113 +88,109 @@
         </b-form>
     </b-container>
 </template>
+
 <script>
-const base64Encode = (data) =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(data);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-    });
+    const base64Encode = (data) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(data);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
 
-export default {
-    props: ["type", "data"],
-    components: {},
-    data() {
-        return {
-            jobSummary: "",
-            jobDescription: "",
-            image: null,
-            imageSrc: null,
+    export default {
+        props: ["type", "data"],
+        components: {},
+        data() {
+            return {
+                headline: "",
+                jobDescription: "",
+                image: null,
+                imageSrc: null,
 
-            errJobSummary: "",
-            errJobDescription: "",
+                errheadline: "",
+                errJobDescription: "",
 
-            checkedJobSummary: null,
-            checkedJobDescription: null,
-            checkedJobImage: null,
-        };
-    },
-    computed: {
-        hasImage() {
-            return !!this.image;
+                checkedheadline: null,
+                checkedJobDescription: null,
+                checkedJobImage: null,
+            };
         },
-    },
+        computed: {
+            hasImage() {
+                return this.image;
+            },
+        },
 
-    watch: {
-        image(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if (newValue) {
-                    base64Encode(newValue)
-                        .then((value) => {
-                            this.imageSrc = value;
-                        })
-                        .catch(() => {
-                            this.imageSrc = null;
-                        });
-                } else {
-                    this.imageSrc = null;
+        watch: {
+            image(newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    if (newValue) {
+                        base64Encode(newValue)
+                            .then((value) => {
+                                this.imageSrc = value;
+                            })
+                            .catch(() => {
+                                this.imageSrc = null;
+                            });
+                    } else {
+                        this.imageSrc = null;
+                    }
                 }
-            }
+            },
         },
-    },
-    methods: {
-        clearImage() {
-            this.image = null;
+        methods: {
+            clearImage() {
+                this.image = null;
+            },
+
+            onSubmit() {
+                if (!this.image) {
+                    alert("Please select an image.");
+                    return;
+                }
+
+                alert("Form submitted!");
+            },
+
+            emitheadline() {
+                if (this.headline.length === 0) {
+                    this.checkedheadline = false;
+                    this.errheadline = "Job summary is required";
+                } else {
+                    this.checkedheadline = null;
+                    this.$emit("headline", this.headline);
+                }
+            },
+
+            emitJobDescription() {
+                if (this.jobDescription.length === 0) {
+                    this.checkedJobDescription = false;
+                    this.errJobDescription = "Job description is required";
+                } else {
+                    this.checkedJobDescription = null;
+                    this.$emit("jobDescription", this.jobDescription);
+                }
+            },
+
+            emitJobImage() {
+
+                //What to do??
+                if (this.image != null && this.imageSrc != null) {
+                    // this.checkedJobImage = null;
+                    this.$emit("jobImage", [this.image, this.imageSrc]);
+                }
+            },
+
+
         },
 
-        onSubmit() {
-            if (!this.image) {
-                alert("Please select an image.");
-                return;
-            }
+        created() {
 
-            alert("Form submitted!");
         },
-        emitJobSummary() {
-            if (this.jobSummary.length === 0) {
-                this.checkedJobSummary = false;
-                this.errJobSummary = "Job summary is required";
-            } else {
-                this.checkedJobSummary = null;
-                this.$emit("jobSummary", this.jobSummary);
-            }
-        },
-        emitJobDescription() {
-            if (this.jobDescription.length === 0) {
-                this.checkedJobDescription = false;
-                this.errJobDescription = "Job description is required";
-            } else {
-                this.checkedJobDescription = null;
-                this.$emit("jobDescription", this.jobDescription);
-            }
-        },
-        emitJobImage() {
-            //What to do??
-            if (this.image != null && this.imageSrc != null) {
-                // this.checkedJobImage = null;
-                // this.$emit("jobImage", this.image);
-                // this.$emit("jobImageSrc", this.imageSrc);
-            }
-        },
-        fillData() {
-            if (this.type === "edit") {
-                this.jobSummary = this.data.jobSummary;
-                this.jobDescription = this.data.jobDescription;
-            }
-        },
-    },
-    created() {
-        const notUserLoggingIn = async () => {
-            this.$store.dispatch("authUserLoggingIn", false);
-        };
-
-        notUserLoggingIn();
-
-        this.fillData();
-    },
-};
+    };
 </script>
+
 <style lang="sass">
 .image-preview
     width: 100%

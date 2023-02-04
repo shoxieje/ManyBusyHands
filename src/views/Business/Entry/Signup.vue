@@ -71,12 +71,14 @@
                     <v-stepper-content step="3">
                         <v-card class="mb-12" color="grey lighten-1"
                             ><BusinessSignup3
+                                ref="thirdPage"
                                 @activity_1="getActivity1"
                                 @activity_2="getActivity2"
                                 @activity_3="getActivity3"
                                 @activity_4="getActivity4"
                                 @activity_5="getActivity5"
                                 @activity_description="getActivityDescription"
+                                @images="getImages"
                                 @busiest_months="getMonths"
                         /></v-card>
 
@@ -103,12 +105,11 @@
 </template>
 
 <script>
-    import BusinessSignup1 from "./components/signup-component/Signup-1.vue";
-    import BusinessSignup2 from "./components/signup-component/Signup-2.vue";
-    import BusinessSignup3 from "./components/signup-component/Signup-3.vue";
-    import { config } from '../../utils/constant.js'
-    import router from "../../router/index";
-    import axios from "axios";	
+    import BusinessSignup1 from "../components/signup-component/Signup-1.vue";
+    import BusinessSignup2 from "../components/signup-component/Signup-2.vue";
+    import BusinessSignup3 from "../components/signup-component/Signup-3.vue";
+    import { config } from '../../../utils/constant.js'
+    import axios from "axios";
     import bcrypt from "bcryptjs"
 
     export default {
@@ -138,25 +139,15 @@
                 activity_5: "",
                 activityDescription: "",
                 images: [],
+                imagesName: [],
                 months: [],
+                monthsValue: [],
                 e1: 1,
             };
         },
 
         created() {
-            const userLoggingIn = async () => {
-                this.$store.dispatch("authUserLoggingIn", true);
-            };
-
-            // add user to datasbase
-            // after that retrieve the user
-            const createUser = async () => {
-                // this.$store.dispatch("setUserData", "mbh@gmail.com")
-                // console.log(this.$store.state.activity);
-            };
-
-            userLoggingIn();
-            createUser();
+            
         },
 
         methods: {
@@ -218,6 +209,9 @@
             getMonths(value) {
                 this.months = value;
             },
+            getImages(value) {
+                this.images = value
+            },
 
             // -----------------------------------------------------------------------------------------
 
@@ -272,19 +266,7 @@
                     !this.checkEmpty(this.role) &&
                     !this.checkEmpty(this.businessName) &&
                     !this.checkEmpty(this.abn) &&
-                    !this.checkEmpty(this.address)
-                ) {
-                    console.log(
-                        this.title,
-                        this.firstName,
-                        this.lastName,
-                        this.role,
-                        this.businessName,
-                        this.abn,
-                        this.address,
-                        this.landlineNumber,
-                        this.mobileNumber
-                    );
+                    !this.checkEmpty(this.address)) {
 
                     this.e1 = 3;
                 }
@@ -295,21 +277,55 @@
             },
 
             finalRegister() {
-                console.log(this.$data);
-                    
+
+                this.$refs.thirdPage.emitActivity1();
+                this.$refs.thirdPage.emitActivity2();
+                this.$refs.thirdPage.emitActivity3();
+                this.$refs.thirdPage.emitActivity4();
+                this.$refs.thirdPage.emitActivity5();
+
+                for(let month of this.months) 
+                    this.monthsValue.push(parseInt(month.split("-")[1]))
+
+
+                this.monthsValue.sort(function (a, b) {
+                    return a - b;
+                })
+
+                // get image name
+                for(let x of this.images) {       
+
+                    let fileName = x.getAll('filename')[0]
+                    this.imagesName.push(fileName);
+
+                    let config = {
+
+                        method: 'post',
+                        maxBodyLength: Infinity,
+                        url: `http://localhost:8081/business_user/${this.email}/images/${fileName}`,
+                        headers: { 'Content-Type': `multipart/form-data; boundary=${x._boundary}` },
+                        data: x
+
+                    }
+                    axios(config)
+                };
+
                 axios.post(`http://localhost:8081/user`, new URLSearchParams({	
                         userEmail: this.email,	
                         userPassword: this.hashedPassword,	
                         userType: "BUSINESS"	
-                    }), config).then(	
+                    }), config).then(
+
                             axios.get(`http://localhost:8081/user/searchByEmail/${this.email}`).then(	
-                                results => {	
+                                results => {
+
                                     console.log(results);	
-                                }	
-                            ),	
+                                }
+                            ),
+
                             // second call	
                             axios.post(`http://localhost:8081/businessUser`, new URLSearchParams({	
-                                userEmail: this.email,	
+                                userEmail: this.email,
                                 firstName: this.firstName,	
                                 lastName: this.lastName,	
                                 businessName: this.businessName,	
@@ -326,12 +342,13 @@
                                 activity4: this.activity_4,	
                                 activity5: this.activity_5,	
                                 mainActivities: this.activityDescription,	
-                                photos: "",	
-                                busiestMonths: ""	
-                            }), config)).then(	
+                                photos: this.imagesName,	
+                                busiestMonths: this.monthsValue
+                            }), config.headers)).then(	
                                     axios.get(`http://localhost:8081/businessUser/searchByEmail/${this.userEmail}`).then(	
-                                        this.$store.dispatch("setUserData", this.email),	
-                                        router.push('/business')	
+                                        this.$store.dispatch("setUserData", this.email),
+                                        this.$store.dispatch("authUserLoggingIn", true),
+                                        this.$router.push('/')
                                     )	
                         )
             },
@@ -340,7 +357,7 @@
 </script>
 
 <style lang="sass">
-@import '../../assets/styles/custom-variables.sass'
+@import '../../../assets/styles/custom-variables.sass'
 .mw-60
     max-width: 60rem
     margin-inline: auto

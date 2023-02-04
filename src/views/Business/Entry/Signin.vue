@@ -72,12 +72,20 @@
                                     <!-- REGISTRATION LINKS -->
                                     <div id="signup-list">
                                         <p>
+                                            <router-link
+                                                class="text-right cr-account"
+                                                to="/business/forget-password"
+                                                >Forget your
+                                                password?</router-link
+                                            >
+                                            <br />
                                             Don't have an account?
                                             <router-link
                                                 class="text-right cr-account"
                                                 to="/Business/Signup"
                                                 >Create an account</router-link
                                             >
+                                                                                        
                                         </p>
                                     </div>
                                 </b-form>
@@ -92,7 +100,11 @@
 
 <script>
     import axios from "axios";
+    import { config } from "../../../utils/constant";
+    import VueCookies  from 'vue-cookies'
+    // import { randomUUID } from "crypto";
     const bcrypt = require("bcryptjs");
+
 
     export default {
         name: "BusinessSignin",
@@ -110,20 +122,18 @@
         },
 
         created() {
-            const userLoggingIn = async () =>  {
-                this.$store.dispatch("authUserLoggingIn", true)
-            }
 
-            userLoggingIn();
         },
 
         computed: {
             // Computed boolean variable returning whether the 'loginEmail' input is a valid email address by testing a regular expression
             validLoginEmail() {
                 if (!this.firstTimeLogin)
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
                         this.loginEmail
-                    );
+                    )) return null;
+                    
+                    else return false;
             },
 
             // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars
@@ -140,8 +150,7 @@
             login() {
                 this.firstTimeLogin = false;
                 
-                console.log(this.validLoginEmail, this.validPassword);
-                if (this.validLoginEmail && this.validPassword == null) {
+                if (this.validLoginEmail == null && this.validPassword == null) {
                     // find if email exist
                     axios.get(
                             `http://localhost:8081/user/searchByEmail/${this.loginEmail}`
@@ -152,16 +161,43 @@
                                 this.loginError = "Invalid Email or Password";
                             } else {
                                 let userData = result.data[0];
+
                                 let matchedPassword = bcrypt.compareSync(
                                     this.loginPassword,
-                                    userData.userPassword
+                                    userData.user_password
                                 );
 
                                 if (!matchedPassword) {
                                     this.noLoginError = false;
                                     this.loginError = "Invalid Email or Password";
                                 } else {
-                                    console.log("SUCESSFULLY LOGGED IN");
+                                    
+                                    // generate cookie
+                                    // 1000-01-01 00:00:00 || yyyy-mm-dd hh:mm:ss
+                                    // token expires after an hour
+
+                                    let now = new Date();
+                                    let d = new Date(+now + 3600 * 1000)
+
+                                    let expiresAt = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-"
+                                                    + ("0" + d.getDate()).slice(-2) + " " + ("0" + d.getHours()).slice(-2)
+                                                    + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+                                    
+                                    
+                                    const newSessionToken = crypto.randomUUID();
+
+                                    VueCookies.set('mbh_session_token', newSessionToken, d)
+
+                                    axios.post(`http://localhost:8081/sessionToken/createToken`, new URLSearchParams({
+                                        session_token: newSessionToken,
+                                        userName: this.loginEmail,
+                                        expiresAt: expiresAt
+    
+                                    }), config.headers).then(
+                                        this.$store.dispatch("setUserData", this.loginEmail),
+                                        this.$store.dispatch("authUserLoggingIn", true),
+                                        this.$router.push('/')
+                                    )
                                 }
                             }
                         });
@@ -172,25 +208,25 @@
 </script>
 
 <style>
-.login-label {
-    font-size: 20px;
-    /* $mbh-blue-2 */
-    color: #29648a;
-}
+    .login-label {
+        font-size: 20px;
+        /* $mbh-blue-2 */
+        color: #29648a;
+    }
 
-.signin-label {
-    /* $mbh-navy */
-    color: #25274d;
-    font-size: 46px;
-}
+    .signin-label {
+        /* $mbh-navy */
+        color: #25274d;
+        font-size: 46px;
+    }
 
-.signin-btn {
-    color: white !important;
-    font-weight: bold;
-}
+    .signin-btn {
+        color: white !important;
+        font-weight: bold;
+    }
 
-.cr-account {
-    /* $mbh-blue-1 */
-    color: #2e9cca;
-}
+    .cr-account {
+        /* $mbh-blue-1 */
+        color: #2e9cca;
+    }
 </style>

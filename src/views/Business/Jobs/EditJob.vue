@@ -209,304 +209,301 @@
 </template>
 
 <script>
-import Createjob1 from "./components/createjob-component/Createjob-1.vue";
-import Createjob2 from "./components/createjob-component/Createjob-2.vue";
-import Createjob3 from "./components/createjob-component/Createjob-3.vue";
-import Createjob4 from "./components/createjob-component/Createjob-4.vue";
-import { config } from "../../utils/constant";
-const data = config.mockData.activeJoblist[0];
+    import Createjob1 from "../components/createjob-component/Createjob-1.vue";
+    import Createjob2 from "../components/createjob-component/Createjob-2.vue";
+    import Createjob3 from "../components/createjob-component/Createjob-3.vue";
+    import Createjob4 from "../components/createjob-component/Createjob-4.vue";
+    import { config } from "../../../utils/constant";
+    const data = config.mockData.activeJoblist[0];
 
-// const radioQuestions = config.mockData.radioQuestions;
-// const checkBoxQuestions = config.mockData.checkBoxQuestions;
-export default {
-    components: {
-        Createjob1,
-        Createjob2,
-        Createjob3,
-        Createjob4,
-    },
-    name: "CreateJob",
-    data() {
-        return {
-            e1: 1,
-            jobTitle: "",
-            activity: "",
-            location: "",
-            payRangeFrom: 0.0,
-            payRangeTo: 0.0,
-            adType: "",
-            jobSummary: "",
-            jobDescription: "",
-            jobImage: "",
-            jobImageSrc: "",
-        };
-    },
-    methods: {
-        // ---------------- GET DATA FROM CHILD --------------
-        getJobTitle(value) {
-            this.jobTitle = value;
+    // const radioQuestions = config.mockData.radioQuestions;
+    // const checkBoxQuestions = config.mockData.checkBoxQuestions;
+    export default {
+        components: {
+            Createjob1,
+            Createjob2,
+            Createjob3,
+            Createjob4,
         },
-        getActivity(value) {
-            this.activity = value;
+        name: "CreateJob",
+        data() {
+            return {
+                e1: 1,
+                jobTitle: "",
+                activity: "",
+                location: "",
+                payRangeFrom: 0.0,
+                payRangeTo: 0.0,
+                adType: "",
+                jobSummary: "",
+                jobDescription: "",
+                jobImage: "",
+                jobImageSrc: "",
+            };
         },
-        getLocation(value) {
-            this.location = value;
-        },
-        getPayRangeFrom(value) {
-            this.payRangeFrom = value;
-        },
-        getPayRangeTo(value) {
-            this.payRangeTo = value;
-        },
-        getAdType(value) {
-            this.adType = value;
-        },
-        getJobSummary(value) {
-            this.jobSummary = value;
-        },
-        getJobDescription(value) {
-            this.jobDescription = value;
-        },
-        getJobImage(value) {
-            this.jobImage = value;
-        },
-        getJobImageSrc(value) {
-            this.jobImageSrc = value;
+        methods: {
+            // ---------------- GET DATA FROM CHILD --------------
+            getJobTitle(value) {
+                this.jobTitle = value;
+            },
+            getActivity(value) {
+                this.activity = value;
+            },
+            getLocation(value) {
+                this.location = value;
+            },
+            getPayRangeFrom(value) {
+                this.payRangeFrom = value;
+            },
+            getPayRangeTo(value) {
+                this.payRangeTo = value;
+            },
+            getAdType(value) {
+                this.adType = value;
+            },
+            getJobSummary(value) {
+                this.jobSummary = value;
+            },
+            getJobDescription(value) {
+                this.jobDescription = value;
+            },
+            getJobImage(value) {
+                this.jobImage = value;
+            },
+            getJobImageSrc(value) {
+                this.jobImageSrc = value;
+            },
+
+            checkEmpty(value) {
+                return value.length === 0;
+            },
+
+            // ---------------- BUTTON METHODS --------------
+            firstCreateJob() {
+                this.$refs.firstPage.emitJobTitle();
+                this.$refs.firstPage.emitActivity();
+                this.$refs.firstPage.emitLocation();
+                this.$refs.firstPage.payRangeFromOnBlur();
+                this.$refs.firstPage.payRangeToOnBlur();
+
+                if (
+                    !this.checkEmpty(this.jobTitle) &&
+                    !this.checkEmpty(this.activity) &&
+                    !this.checkEmpty(this.location) &&
+                    this.payRangeFrom != 0 &&
+                    this.payRangeTo != 0
+                ) {
+                    console.log("Move to 2nd page");
+                    console.log(
+                        this.jobTitle +
+                            ", " +
+                            this.activity +
+                            ", " +
+                            this.location +
+                            ", " +
+                            this.payRangeFrom +
+                            ", " +
+                            this.payRangeTo
+                    );
+
+                    this.e1 = 2;
+                }
+            },
+
+            secondCreateJob() {
+                this.$refs.secondPage.emitAdType();
+                if (!this.checkEmpty(this.adType)) {
+                    this.e1 = 3;
+                    console.log("Move to 3rd page");
+                    console.log("AdType = " + this.adType);
+                }
+            },
+
+            thirdCreateJob() {
+                this.$refs.thirdPage.emitJobSummary();
+                this.$refs.thirdPage.emitJobDescription();
+                this.$refs.thirdPage.emitJobImage();
+
+                if (
+                    !this.checkEmpty(this.jobSummary) &&
+                    !this.checkEmpty(this.jobDescription)
+                    // && !this.checkEmpty(this.jobImage)
+                    // && !this.checkEmpty(this.jobImageSrc)
+                ) {
+                    this.e1 = 4;
+                }
+            },
+            fillData() {
+                this.data = data;
+                this.jobTitle = data.jobTitle;
+                this.activity = data.activity;
+                this.location = data.location;
+                this.payRangeFrom = data.payRangeFrom;
+                this.payRangeTo = data.payRangeTo;
+                this.adType = data.adType;
+                this.jobSummary = data.jobSummary;
+                this.jobDescription = data.jobDescription;
+                this.jobImageSrc = data.jobImageSrc;
+                console.log(this.jobTitle);
+            },
         },
 
-        checkEmpty(value) {
-            return value.length === 0;
+        created() {
+
+            this.fillData();
         },
-
-        // ---------------- BUTTON METHODS --------------
-        firstCreateJob() {
-            this.$refs.firstPage.emitJobTitle();
-            this.$refs.firstPage.emitActivity();
-            this.$refs.firstPage.emitLocation();
-            this.$refs.firstPage.payRangeFromOnBlur();
-            this.$refs.firstPage.payRangeToOnBlur();
-
-            if (
-                !this.checkEmpty(this.jobTitle) &&
-                !this.checkEmpty(this.activity) &&
-                !this.checkEmpty(this.location) &&
-                this.payRangeFrom != 0 &&
-                this.payRangeTo != 0
-            ) {
-                console.log("Move to 2nd page");
-                console.log(
-                    this.jobTitle +
-                        ", " +
-                        this.activity +
-                        ", " +
-                        this.location +
-                        ", " +
-                        this.payRangeFrom +
-                        ", " +
-                        this.payRangeTo
-                );
-
-                this.e1 = 2;
-            }
-        },
-
-        secondCreateJob() {
-            this.$refs.secondPage.emitAdType();
-            if (!this.checkEmpty(this.adType)) {
-                this.e1 = 3;
-                console.log("Move to 3rd page");
-                console.log("AdType = " + this.adType);
-            }
-        },
-
-        thirdCreateJob() {
-            this.$refs.thirdPage.emitJobSummary();
-            this.$refs.thirdPage.emitJobDescription();
-            this.$refs.thirdPage.emitJobImage();
-
-            if (
-                !this.checkEmpty(this.jobSummary) &&
-                !this.checkEmpty(this.jobDescription)
-                // && !this.checkEmpty(this.jobImage)
-                // && !this.checkEmpty(this.jobImageSrc)
-            ) {
-                this.e1 = 4;
-            }
-        },
-        fillData() {
-            this.data = data;
-            this.jobTitle = data.jobTitle;
-            this.activity = data.activity;
-            this.location = data.location;
-            this.payRangeFrom = data.payRangeFrom;
-            this.payRangeTo = data.payRangeTo;
-            this.adType = data.adType;
-            this.jobSummary = data.jobSummary;
-            this.jobDescription = data.jobDescription;
-            this.jobImageSrc = data.jobImageSrc;
-            console.log(this.jobTitle);
-        },
-    },
-    created() {
-        const notUserLoggingIn = async () => {
-            this.$store.dispatch("authUserLoggingIn", false);
-        };
-
-        notUserLoggingIn();
-
-        this.fillData();
-    },
-};
+    };
 </script>
+
 <style lang="sass">
-@import '../../assets/styles/custom-variables.sass'
+    @import '../../../assets/styles/custom-variables.sass'
 
-/* Stepper */
+    /* Stepper */
 
-.v-stepper__label
-	font-size: 20px !important
-	margin-left: 1rem
+    .v-stepper__label
+        font-size: 20px !important
+        margin-left: 1rem
 
-.stepper-container
-	padding: 3rem
-	margin-inline: auto
+    .stepper-container
+        padding: 3rem
+        margin-inline: auto
 
-.stepper-btn-container
-	border-style: solid none none none
-	border-color: $mbh-gray-0
-	border-width: 2px
-	display: flex
-	justify-content: space-between
-	padding: 0 2rem 2rem
+    .stepper-btn-container
+        border-style: solid none none none
+        border-color: $mbh-gray-0
+        border-width: 2px
+        display: flex
+        justify-content: space-between
+        padding: 0 2rem 2rem
 
-.stepper-btn-primary
-	background-color: $mbh-blue-2 !important
-	color: white !important
+    .stepper-btn-primary
+        background-color: $mbh-blue-2 !important
+        color: white !important
 
-.stepper-btn-secondary
-	color: $mbh-navy !important
+    .stepper-btn-secondary
+        color: $mbh-navy !important
 
-.v-sheet.v-card:not(.v-sheet--outlined)
-	box-shadow: none !important
+    .v-sheet.v-card:not(.v-sheet--outlined)
+        box-shadow: none !important
 
-.v-btn:not(.v-btn--round).v-size--default
-	min-width: 120px !important
+    .v-btn:not(.v-btn--round).v-size--default
+        min-width: 120px !important
 
-.v-stepper__content
-	padding: 0 !important
+    .v-stepper__content
+        padding: 0 !important
 
-.span-hidden
-	margin: 2px
+    .span-hidden
+        margin: 2px
 
-.stepper-btn-icon
-	width: 20px
-	height: 20px
-	margin-inline: 5px
+    .stepper-btn-icon
+        width: 20px
+        height: 20px
+        margin-inline: 5px
 
 
-@media only screen and (max-width: 600px)
-	.span-hidden
-		display: none
-	.v-btn:not(.v-btn--round).v-size--default
-		min-width: unset !important
-		margin-bottom: 0 !important
-	.v-stepper__label
-		margin-left: 0
-		min-width: unset
-	.v-stepper__step__step
-		display: none
+    @media only screen and (max-width: 600px)
+        .span-hidden
+            display: none
+        .v-btn:not(.v-btn--round).v-size--default
+            min-width: unset !important
+            margin-bottom: 0 !important
+        .v-stepper__label
+            margin-left: 0
+            min-width: unset
+        .v-stepper__step__step
+            display: none
 
-/*Post*/
-.create-job-top
-	text-align: center
+    /*Post*/
+    .create-job-top
+        text-align: center
 
-.container-job
-	text-align: left
-	padding: 0 3rem
+    .container-job
+        text-align: left
+        padding: 0 3rem
 
-.container-job-ad
-	text-align: left
-	padding: 0 5%
+    .container-job-ad
+        text-align: left
+        padding: 0 5%
 
-.create-job-box
-	// border-radius: 10px
-	// padding: 1rem
-	margin: 1rem 0
+    .create-job-box
+        // border-radius: 10px
+        // padding: 1rem
+        margin: 1rem 0
 
-.title
-	color: $mbh-navy
-	padding-bottom: 1rem
-	text-align: left
+    .title
+        color: $mbh-navy
+        padding-bottom: 1rem
+        text-align: left
 
-.subtitle
-	color: $mbh-blue-2
-	font-size: 1.5rem
-	padding-bottom: 1rem
+    .subtitle
+        color: $mbh-blue-2
+        font-size: 1.5rem
+        padding-bottom: 1rem
 
-.required-field::after
-	content: "*"
-	color: red
-	margin-left: 2px
+    .required-field::after
+        content: "*"
+        color: red
+        margin-left: 2px
 
-@media only screen and (max-width: $laptop-max)
-	.title
-		font-size: xx-large
-		font-weight: bolder
+    @media only screen and (max-width: $laptop-max)
+        .title
+            font-size: xx-large
+            font-weight: bolder
 
-	.subtitle
-		font-size: large !important
-		margin-left: -0.8rem
+        .subtitle
+            font-size: large !important
+            margin-left: -0.8rem
 
-	span
-		font-size: small !important
+        span
+            font-size: small !important
 
-	label
-		font-size: small
+        label
+            font-size: small
 
-	input
-		font-size: small !important
+        input
+            font-size: small !important
 
-	.v-stepper__step.v-stepper__step--inactive
-		display: none !important
+        .v-stepper__step.v-stepper__step--inactive
+            display: none !important
 
-	hr
-		display: none !important
+        hr
+            display: none !important
 
-	.v-stepper__step.v-stepper__step--active
-		width: 100%
-		padding: 0
+        .v-stepper__step.v-stepper__step--active
+            width: 100%
+            padding: 0
 
-	.v-stepper__step.v-stepper__step--active div
-		display: block !important
-		font-weight: bolder
-		color: $mbh-blue-2 !important
+        .v-stepper__step.v-stepper__step--active div
+            display: block !important
+            font-weight: bolder
+            color: $mbh-blue-2 !important
 
-	.v-stepper__header
+        .v-stepper__header
 
-	.v-stepper__step.v-stepper__step--complete
-		display: none !important
+        .v-stepper__step.v-stepper__step--complete
+            display: none !important
 
-	.container-job
-		padding: 0 2rem
+        .container-job
+            padding: 0 2rem
 
-	.col-sm-12
-		padding: 0 !important
+        .col-sm-12
+            padding: 0 !important
 
-	.col-sm-4
-		padding: 0 !important
+        .col-sm-4
+            padding: 0 !important
 
-	.stepper-btn-container
-		flex-wrap: wrap
-		padding: 0 0.5rem 1rem
+        .stepper-btn-container
+            flex-wrap: wrap
+            padding: 0 0.5rem 1rem
 
-@media only screen and (max-width: $mobile-max)
-	.v-btn__content
-		font-size: smaller !important
+    @media only screen and (max-width: $mobile-max)
+        .v-btn__content
+            font-size: smaller !important
 
-	.v-btn:not(.v-btn--round).v-size--default
-		padding: 5px !important
+        .v-btn:not(.v-btn--round).v-size--default
+            padding: 5px !important
 
-@media only screen and (max-width: $tablet-max)
-	.title
-		font-size: large
+    @media only screen and (max-width: $tablet-max)
+        .title
+            font-size: large
 </style>

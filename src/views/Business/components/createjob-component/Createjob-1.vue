@@ -56,16 +56,7 @@
                         <label for="location" class="required-field"
                             >State
                         </label>
-                        <!-- <vue-google-autocomplete
-                            id="location"
-                            classname="form-control"
-                            placeholder="Enter your work location"
-                            @blur="locationOnBlur"
-                            @inputChange="emitLocation"
-                            v-on:placechanged="getLocationData"
-                            :country="['au']"
-                        >
-                        </vue-google-autocomplete> -->
+                        
 
                         <b-form-input
                             id="locState"
@@ -123,11 +114,11 @@
 
                 <b-row class="my-1">
                     <b-col sm="12">
-                        <label for="payRange">Applicable Award Payment </label>
+                        <label for="payRange">Applicable Award</label>
                         <b-row>
                             <b-col sm="6">
                                 <label for="payRangeFrom" class="required-field"
-                                    >From</label
+                                    >Payment From</label
                                 >
                                 <b-form-input
                                     id="payRangeFrom"
@@ -147,7 +138,7 @@
                             
                             <b-col sm="6">
                                 <label for="payRangeTo" class="required-field"
-                                    >To
+                                    >Payment To
                                 </label>
                                 <b-form-input
                                     id="payRangeTo"
@@ -172,331 +163,330 @@
         </b-form>
     </b-container>
 </template>
+
 <script>
-import Vue from "vue";
-import VueGoogleAutocomplete from "vue-google-autocomplete";
-import Multiselect from "vue-multiselect";
-import { mapGetters } from "vuex";
+    import Vue from "vue";
+    import VueGoogleAutocomplete from "vue-google-autocomplete";
+    import Multiselect from "vue-multiselect";
+    import { mapGetters } from "vuex";
 
-const bcrypt = require("bcryptjs");
+    const bcrypt = require("bcryptjs");
 
-export default {
-    props: ["type", "data"],
-    components: {
-        VueGoogleAutocomplete,
-        Multiselect,
-    },
-    data() {
-        return {
-            jobTitle: "",
-            activity: "",
-            locState: "",
-            locSuburb: "",
-            locPostcode: "",
-            location: "",
-            activityOptions: [""],
-            payRangeFrom: "",
-            payRangeTo: "",
-            isFirstPayRange: false,
-
-            errJobTitle: "",
-            errPayRangeFrom: "",
-            errPayRangeTo: "",
-            errLocState: "",
-            errLocSuburb: "",
-            errLocPostcode: "",
-
-            checkedJobTitle: null,
-            checkedPayRangeFrom: null,
-            checkedPayRangeTo: null,
-            checkedLocState: null,
-            checkedLocSuburb: null,
-            checkedLocPostcode: null,
-        };
-    },
-
-    computed: {
-        // ...mapGetters({
-        //     activityOptions: "getActivityData",
-        // }),
-    },
-
-    mounted() {
-
-        const setFilter = async () => {
-            this.setInputFilter(
-                document.getElementById("payRangeFrom"),
-                function (value) {
-                    return /^-?\d*[.,]?\d{0,2}$/.test(value);
-                },
-                "Must be a currency value"
-            );
-
-            this.setInputFilter(
-                document.getElementById("payRangeTo"),
-                function (value) {
-                    return /^-?\d*[.,]?\d{0,2}$/.test(value);
-                },
-                "Must be a currency value"
-            );
-        }
-
-        setFilter()
-
-    },
-
-    computed: {
-        ...mapGetters({
-            activities: "getActivityData",
-        }),
-    },
-    methods: {
-        // ----- Job Title validation -----------
-        emitJobTitle() {
-            // if (this.firstOnBlurJt) {
-            if (this.jobTitle.length === 0) {
-                this.checkedJobTitle = false;
-                this.errJobTitle = "Job Title is required";
-            } else {
-                this.checkedJobTitle = null;
-                this.$emit("jobTitle", this.jobTitle);
-            }
-            // }
+    export default {
+        props: ["type", "data"],
+        components: {
+            VueGoogleAutocomplete,
+            Multiselect,
+        },
+        data() {
+            return {
+                jobTitle: "",
+                activity: "",
+                locState: "",
+                locSuburb: "",
+                locPostcode: "",
+                location: "",
+                activityOptions: [""],
+                payRangeFrom: "",
+                payRangeTo: "",
+                isFirstPayRange: false,
+                errJobTitle: "",
+                errPayRangeFrom: "",
+                errPayRangeTo: "",
+                errLocState: "",
+                errLocSuburb: "",
+                errLocPostcode: "",
+                checkedJobTitle: null,
+                checkedPayRangeFrom: null,
+                checkedPayRangeTo: null,
+                checkedLocState: null,
+                checkedLocSuburb: null,
+                checkedLocPostcode: null,
+            };
         },
 
-        // ----- Activity validation -----------
-        emitActivity() {
-            if (this.checkEmpty(this.activity)) {
-                document.getElementsByClassName("multiselect")[0].style.border =
-                    "1px solid #dc3545";
-                document.getElementById("rc").style.display = "block";
-            } else {
-                document.getElementsByClassName("multiselect")[0].style.border =
-                    "1px solid #ced4da";
-                document.getElementById("rc").style.display = "none";
-                this.$emit("activity", this.activity);
-            }
+        computed: {
+            // ...mapGetters({
+            //     activityOptions: "getActivityData",
+            // }),
         },
 
-        // ----- location validation -----------
+        mounted() {
 
-        emitLocState() {
-            if (this.checkEmpty(this.locState)) {
-                this.checkedLocState = false;
-                this.errLocState = "State is required";
-            } else {
-                this.checkedLocState = null;
-                this.emitLocation();
+            const setFilter = async () => {
+                this.setInputFilter(
+                    document.getElementById("payRangeFrom"),
+                    function (value) {
+                        return /^-?\d*[.,]?\d{0,2}$/.test(value);
+                    },
+                    "Must be a currency value"
+                );
+
+                this.setInputFilter(
+                    document.getElementById("payRangeTo"),
+                    function (value) {
+                        return /^-?\d*[.,]?\d{0,2}$/.test(value);
+                    },
+                    "Must be a currency value"
+                );
             }
+
+            setFilter()
+
         },
 
-        emitLocPostcode() {
-            if (this.checkEmpty(this.locPostcode)) {
-                this.checkedLocPostcode = false;
-                this.errLocPostcode = "Postcode is required";
-            } else {
-                this.checkedLocPostcode = null;
-                this.emitLocation();
-            }
+        computed: {
+            ...mapGetters({
+                activities: "getActivityData",
+            }),
         },
+        methods: {
+            // ----- Job Title validation -----------
+            emitJobTitle() {
+                // if (this.firstOnBlurJt) {
+                if (this.jobTitle.length === 0) {
+                    this.checkedJobTitle = false;
+                    this.errJobTitle = "Job Title is required";
+                } else {
+                    this.checkedJobTitle = null;
+                    this.$emit("jobTitle", this.jobTitle);
+                }
+                // }
+            },
 
-        emitLocSuburb() {
-            if (this.checkEmpty(this.locSuburb)) {
-                this.checkedLocSuburb = false;
-                this.errLocSuburb = "Suburb is required";
-            } else {
-                this.checkedLocSuburb = null;
-                this.emitLocation();
-            }
-        },
+            // ----- Activity validation -----------
+            emitActivity() {
+                if (this.checkEmpty(this.activity)) {
+                    document.getElementsByClassName("multiselect")[0].style.border =
+                        "1px solid #dc3545";
+                    document.getElementById("rc").style.display = "block";
+                } else {
+                    document.getElementsByClassName("multiselect")[0].style.border =
+                        "1px solid #ced4da";
+                    document.getElementById("rc").style.display = "none";
+                    this.$emit("activity", this.activity);
+                }
+            },
 
-        emitLocation() {
-            if (!this.checkEmpty(this.locSuburb) &&
-                !this.checkEmpty(this.locState) &&
-                !this.checkEmpty(this.locPostcode)) {
+            // ----- location validation -----------
 
-                this.$emit("location", [ this.locSuburb,  this.locState, this.locPostcode ]);
-            }
-        },
+            emitLocState() {
+                if (this.checkEmpty(this.locState)) {
+                    this.checkedLocState = false;
+                    this.errLocState = "State is required";
+                } else {
+                    this.checkedLocState = null;
+                    this.$emit("state", this.locState)
+                    this.emitLocation();
+                }
+            },
 
-        // ----- pay range validation -----------
+            emitLocPostcode() {
+                if (this.checkEmpty(this.locPostcode)) {
+                    this.checkedLocPostcode = false;
+                    this.errLocPostcode = "Postcode is required";
+                } else {
+                    this.checkedLocPostcode = null;
+                    this.$emit("postcode", this.locPostcode)
+                    this.emitLocation();
+                }
+            },
 
-        // Restricts input for the given textbox to the given inputFilter.
-        setInputFilter(textbox, inputFilter, errMsg) {
-            [
-                "input",
-                "keydown",
-                "keyup",
-                "mousedown",
-                "mouseup",
-                "select",
-                "contextmenu",
-                "drop",
-                "focusout",
-            ].forEach(function (event) {
-                textbox.addEventListener(event, function (e) {
-                    if (inputFilter(this.value)) {
-                        // Accepted value
-                        if (
-                            ["keydown", "mousedown", "focusout"].indexOf(
-                                e.type
-                            ) >= 0
-                        ) {
-                            this.classList.remove("input-error");
-                            this.setCustomValidity("");
+            emitLocSuburb() {
+                if (this.checkEmpty(this.locSuburb)) {
+                    this.checkedLocSuburb = false;
+                    this.errLocSuburb = "Suburb is required";
+                } else {
+                    this.checkedLocSuburb = null;
+                    this.$emit("suburb", this.locSuburb)
+                    this.emitLocation();
+                }
+            },
+
+            emitLocation() {
+                if (!this.checkEmpty(this.locSuburb) &&
+                    !this.checkEmpty(this.locState) &&
+                    !this.checkEmpty(this.locPostcode)) {
+
+                    this.$emit("location",  this.locSuburb + " " +  this.locState + " " + this.locPostcode );
+                }
+            },
+
+            // ----- pay range validation -----------
+
+            // Restricts input for the given textbox to the given inputFilter.
+            setInputFilter(textbox, inputFilter, errMsg) {
+                [
+                    "input",
+                    "keydown",
+                    "keyup",
+                    "mousedown",
+                    "mouseup",
+                    "select",
+                    "contextmenu",
+                    "drop",
+                    "focusout",
+                ].forEach(function (event) {
+                    textbox.addEventListener(event, function (e) {
+                        if (inputFilter(this.value)) {
+                            // Accepted value
+                            if (
+                                ["keydown", "mousedown", "focusout"].indexOf(
+                                    e.type
+                                ) >= 0
+                            ) {
+                                this.classList.remove("input-error");
+                                this.setCustomValidity("");
+                            }
+                            this.oldValue = this.value;
+                            this.oldSelectionStart = this.selectionStart;
+                            this.oldSelectionEnd = this.selectionEnd;
+                        } else if (this.hasOwnProperty("oldValue")) {
+                            // Rejected value - restore the previous one
+                            this.classList.add("input-error");
+                            this.setCustomValidity(errMsg);
+                            this.reportValidity();
+                            this.value = this.oldValue;
+                            this.setSelectionRange(
+                                this.oldSelectionStart,
+                                this.oldSelectionEnd
+                            );
+                        } else {
+                            // Rejected value - nothing to restore
+                            this.value = "";
                         }
-                        this.oldValue = this.value;
-                        this.oldSelectionStart = this.selectionStart;
-                        this.oldSelectionEnd = this.selectionEnd;
-                    } else if (this.hasOwnProperty("oldValue")) {
-                        // Rejected value - restore the previous one
-                        this.classList.add("input-error");
-                        this.setCustomValidity(errMsg);
-                        this.reportValidity();
-                        this.value = this.oldValue;
-                        this.setSelectionRange(
-                            this.oldSelectionStart,
-                            this.oldSelectionEnd
-                        );
-                    } else {
-                        // Rejected value - nothing to restore
-                        this.value = "";
-                    }
+                    });
                 });
-            });
+            },
+
+            payRangeFromOnBlur() {
+                // Minimum pay must be greater than $0.
+                // Minimum pay must be lesser than Maximum pay
+                // Minimum pay and Maximum pay differences should not be more than 10$ diff
+
+                var min = parseFloat(this.payRangeFrom);
+                var max = parseFloat(this.payRangeTo);
+
+                // this.payRangeToOnBlur();
+
+                if (min == 0 || min == 0.0 || Number.isNaN(min)) {
+                    this.errPayRangeFrom = "Minimum pay is required";
+                    this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
+                } else if (min < 0) {
+                    this.errPayRangeFrom = "Minimum pay must be greather than $0";
+                    this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
+                } else if (max - min > 10.0) {
+                    this.errPayRangeFrom =
+                        "The differences between minimum payrange and maximum payrange should not be more than $10.";
+                    this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
+                } else if (min > max || max - min < 0.0) {
+                    this.errPayRangeFrom =
+                        "Minimum pay must be lesser than maximum pay.";
+                    this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
+                } else {
+                    this.styleToNormal("input-wrong-PRF", "payRangeFrom");
+                    // this.firstOnBlurPRF = true;
+                    this.emitPayRangeFrom;
+                }
+            },
+
+            emitPayRangeFrom() {
+                var min = parseFloat(this.payRangeFrom);
+                // if (this.firstOnBlurPRF) {
+                if (min == 0 || min == 0.0) {
+                    this.checkedPayRangeFrom = false;
+                    this.errPayRangeFrom = "Minimum payrange is required";
+                } else {
+                    this.checkedPayRangeFrom = null;
+                    this.$emit("payRangeFrom", this.payRangeFrom);
+                }
+                // }
+            },
+
+            payRangeToOnBlur() {
+                this.setInputFilter(
+                    document.getElementById("payRangeTo"),
+                    function (value) {
+                        return /^-?\d*[.,]?\d{0,2}$/.test(value);
+                    },
+                    "Must be a currency value"
+                );
+
+                var min = this.payRangeFrom;
+                var max = this.payRangeTo;
+
+                if (max == 0 || max == 0.0) {
+                    this.errPayRangeTo = "Maximum pay is required";
+                    this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
+                } else if (max < 0) {
+                    this.errPayRangeTo = "Maximum pay must be greather than $0";
+                    this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
+                } else if (max - min > 10.0 || max - min > 10) {
+                    this.errPayRangeTo =
+                        "The differences between minimum payrange and maximum payrange should not be more than $10.";
+                    this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
+                } else if (min >= max || max - min <= 0.0) {
+                    this.errPayRangeTo =
+                        "Maximum pay must be greater than maximum pay.";
+                    this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
+                } else {
+                    this.styleToNormal("input-wrong-PRT", "payRangeTo");
+                    // this.firstOnBlurPRT = true;
+                    this.emitPayRangeTo;
+                }
+            },
+
+            emitPayRangeTo() {
+                var max = parseFloat(this.payRangeTo);
+                // if (this.firstOnBlurPRF) {
+                if (max == 0 || max == 0.0) {
+                    this.checkedPayRangeTo = false;
+                    this.errPayRangeTo = "Max payrange is required";
+                } else {
+                    this.checkedPayRangeTo = null;
+                    this.$emit("payRangeTo", this.payRangeTo);
+                }
+                // }
+            },
+
+            // ------------ METHODS ------------
+
+            styleToRequiredField(rid, sid) {
+                document.getElementById(rid).style.display = "block";
+                document.getElementById(sid).style.border = "1px solid #dc3545";
+            },
+            styleToNormal(rid, sid) {
+                document.getElementById(rid).style.display = "none";
+                document.getElementById(sid).style.border = "1px solid #ced4da";
+            },
+
+            checkEmpty(value) {
+                return value.length === 0;
+            },
+            restrictDecimal() {
+                this.contract = this.contract.match(/^\d+\.?\d{0,2}/);
+            },
+            fillData() {
+                if (this.type === "edit") {
+                    this.jobTitle = this.data.jobTitle;
+                    this.activity = this.data.activity;
+                    var locationArr = this.data.location.split(" ");
+                    this.locState = locationArr[1];
+                    this.locSuburb = locationArr[0];
+                    this.locPostcode = locationArr[2];
+                    this.payRangeFrom = this.data.payRangeFrom;
+                    this.payRangeTo = this.data.payRangeTo;
+                }
+            },
         },
 
-        payRangeFromOnBlur() {
-            // Minimum pay must be greater than $0.
-            // Minimum pay must be lesser than Maximum pay
-            // Minimum pay and Maximum pay differences should not be more than 10$ diff
+        created() {
 
-            var min = parseFloat(this.payRangeFrom);
-            var max = parseFloat(this.payRangeTo);
-
-            // this.payRangeToOnBlur();
-
-            if (min == 0 || min == 0.0 || Number.isNaN(min)) {
-                this.errPayRangeFrom = "Minimum pay is required";
-                this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
-            } else if (min < 0) {
-                this.errPayRangeFrom = "Minimum pay must be greather than $0";
-                this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
-            } else if (max - min > 10.0) {
-                this.errPayRangeFrom =
-                    "The differences between minimum payrange and maximum payrange should not be more than $10.";
-                this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
-            } else if (min > max || max - min < 0.0) {
-                this.errPayRangeFrom =
-                    "Minimum pay must be lesser than maximum pay.";
-                this.styleToRequiredField("input-wrong-PRF", "payRangeFrom");
-            } else {
-                this.styleToNormal("input-wrong-PRF", "payRangeFrom");
-                // this.firstOnBlurPRF = true;
-                this.emitPayRangeFrom;
-            }
+            this.fillData();
         },
-
-        emitPayRangeFrom() {
-            var min = parseFloat(this.payRangeFrom);
-            // if (this.firstOnBlurPRF) {
-            if (min == 0 || min == 0.0) {
-                this.checkedPayRangeFrom = false;
-                this.errPayRangeFrom = "Minimum payrange is required";
-            } else {
-                this.checkedPayRangeFrom = null;
-                this.$emit("payRangeFrom", this.payRangeFrom);
-            }
-            // }
-        },
-
-        payRangeToOnBlur() {
-            this.setInputFilter(
-                document.getElementById("payRangeTo"),
-                function (value) {
-                    return /^-?\d*[.,]?\d{0,2}$/.test(value);
-                },
-                "Must be a currency value"
-            );
-
-            var min = this.payRangeFrom;
-            var max = this.payRangeTo;
-
-            if (max == 0 || max == 0.0) {
-                this.errPayRangeTo = "Maximum pay is required";
-                this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
-            } else if (max < 0) {
-                this.errPayRangeTo = "Maximum pay must be greather than $0";
-                this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
-            } else if (max - min > 10.0 || max - min > 10) {
-                this.errPayRangeTo =
-                    "The differences between minimum payrange and maximum payrange should not be more than $10.";
-                this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
-            } else if (min >= max || max - min <= 0.0) {
-                this.errPayRangeTo =
-                    "Maximum pay must be greater than maximum pay.";
-                this.styleToRequiredField("input-wrong-PRT", "payRangeTo");
-            } else {
-                this.styleToNormal("input-wrong-PRT", "payRangeTo");
-                // this.firstOnBlurPRT = true;
-                this.emitPayRangeTo;
-            }
-        },
-
-        emitPayRangeTo() {
-            var max = parseFloat(this.payRangeTo);
-            // if (this.firstOnBlurPRF) {
-            if (max == 0 || max == 0.0) {
-                this.checkedPayRangeTo = false;
-                this.errPayRangeTo = "Max payrange is required";
-            } else {
-                this.checkedPayRangeTo = null;
-                this.$emit("payRangeTo", this.payRangeTo);
-            }
-            // }
-        },
-
-        // ------------ METHODS ------------
-
-        styleToRequiredField(rid, sid) {
-            document.getElementById(rid).style.display = "block";
-            document.getElementById(sid).style.border = "1px solid #dc3545";
-        },
-        styleToNormal(rid, sid) {
-            document.getElementById(rid).style.display = "none";
-            document.getElementById(sid).style.border = "1px solid #ced4da";
-        },
-
-        checkEmpty(value) {
-            return value.length === 0;
-        },
-        restrictDecimal() {
-            this.contract = this.contract.match(/^\d+\.?\d{0,2}/);
-        },
-        fillData() {
-            if (this.type === "edit") {
-                this.jobTitle = this.data.jobTitle;
-                this.activity = this.data.activity;
-                var locationArr = this.data.location.split(" ");
-                this.locState = locationArr[1];
-                this.locSuburb = locationArr[0];
-                this.locPostcode = locationArr[2];
-                this.payRangeFrom = this.data.payRangeFrom;
-                this.payRangeTo = this.data.payRangeTo;
-            }
-        },
-    },
-
-    created() {
-        const notUserLoggingIn = async () => {
-            this.$store.dispatch("authUserLoggingIn", false);
-        };
-
-        notUserLoggingIn();
-
-        this.fillData();
-    },
-};
+    };
 </script>
-<style></style>
+
+<style>
+</style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

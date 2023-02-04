@@ -57,7 +57,7 @@ router.get('/searchByType/:type', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
 
-    try{
+    try {
 
         res.json(await user.addUser(req.body));
         

@@ -154,6 +154,7 @@
         data() {
             return {
                 images: [],
+                upload_images: [],
                 activityDescription: "",
                 activityPlaceholder:
                     `E.g it could be 'Flour Miller' another could be Angus cattle, merino sheep, wool, grains and mention if you are a stud stock producer. Write about your business in 500 words.`,
@@ -176,23 +177,37 @@
         },
 
         methods: {
+
+            addDateToFileName(x) {
+                var regExFileName = /([\w\d_-]*)\.?[^\\\/]*$/i,
+                    regExFileNameExtension =/\.[0-9a-z]{1,5}$/i,
+                    fileNameBase = x.match(regExFileName)[1],
+                    fileNameExtension = x.match(regExFileNameExtension)[0];
+                    //build a dynamic file name using Date.now()
+                return fileNameBase + '_' + Date.now() + fileNameExtension;
+            },
+
             uploadImageSuccess(formData, index, fileList) {
-                console.log("data", formData, index, fileList);
-                // Upload image api
-                // axios.post('http://your-url-upload', formData).then(response => {
-                //   console.log(response)
-                // })
+
+                let fileName = this.addDateToFileName(fileList[index].name)
+
+                formData.append('filename', fileName)
+                this.upload_images.push(formData)
+                this.emitImages();
+                
             },
+
             beforeRemove(index, done, fileList) {
-                console.log("index", index, fileList);
-                var r = confirm("remove image");
-                if (r == true) {
-                    done();
-                } else {
-                }
+                this.upload_images.splice(index, 1)
+
+                done()
             },
+
             editImage(formData, index, fileList) {
-                console.log("edit data", formData, index, fileList);
+                formData.append('filename', fileList[index].name)
+                this.upload_images.push(formData)
+
+                this.emitImages();
             },
 
             emitActivity1() {
@@ -239,12 +254,14 @@
 
             emitActivityDescription() {
                 this.$emit('activity_description', this.activityDescription)
-                console.log(this.months)
+            },
+
+            emitImages() {
+                this.$emit('images', this.upload_images)
             },
 
             emitMonths() {
                 this.$emit('busiest_months', this.months)
-                console.log(this.months)
             }
 
         },

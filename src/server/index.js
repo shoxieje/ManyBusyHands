@@ -2,6 +2,14 @@
 
 const express = require("express");
 const cors = require("cors");
+const multer = require("multer")
+const fs = require("fs")
+const path = require("path")
+const bodyParser = require('body-parser')
+
+
+let upload = null;
+let uploadImage = null;
 
 const app = express();
 
@@ -11,6 +19,11 @@ const port = 8081;
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('static'))
+
+// app.use(bodyParser.urlencoded({
+//     extended: true,
+// }))
 
 app.use(
     express.urlencoded({
@@ -18,11 +31,17 @@ app.use(
     })
 );
 
+
 const userRouter = require("./routes/user");
 const businessUserRouter = require('./routes/businessUser')
 const activityRouter = require('./routes/activity')
+const sessionTokenRouter = require('./routes/user_session')
+const jobAdRouter = require('./routes/jobAd')
+const postcodeRouter = require('./routes/postcode')
+const candidateRouter = require('./routes/candidate')
+const jobSeekerUserRouter = require('./routes/jobSeekerUser')
 
-////////////// TEST STRIPE
+///////////////////////// TEST STRIPE
 
 app.post('/create-checkout-session', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
@@ -50,9 +69,73 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 
+///////////////////////////////////////////////////////
+
+// storage 
+const business_photo_storage = multer.diskStorage({
+
+    destination: (req, file, cb) => {
+
+        const dir = path.join(__dirname, `../assets/users/business/${req.params.id}/images`)
+
+        fs.mkdirSync(dir, {recursive: true})
+        cb(null, dir)
+    },
+
+    filename: (req, file, cb) => {
+
+        cb(null, req.params.filename)
+
+    }
+
+})
 
 
-////////////////
+upload = multer({storage: business_photo_storage})
+
+app.post('/business_user/:id/images/:filename', upload.single('file'), (req, res) => {
+
+    console.log('storage location is ', req.hostname +'/' + req.file.path);
+    return res.send(req.file);
+
+})
+
+
+/////////////////////////////////////////////////////
+
+const job_ad_photo_storage = multer.diskStorage({
+
+	destination: (req, file, cb) => {
+
+		console.log(req.params.id)
+
+		const dir = path.join(__dirname, `../assets/job_ad/${req.params.id}/images`)
+
+		fs.mkdirSync(dir, {recursive: true})
+		cb(null, dir)
+	},
+
+	filename: (req, file, cb) => {
+
+		cb(null, req.params.filename)
+
+	}
+
+})
+
+uploadImage = multer({storage: job_ad_photo_storage})
+
+app.post('/job_ad/:id/images/:filename', uploadImage.single('file'), (req, res) => {
+
+    console.log('storage location is ', req.hostname +'/' + req.file.path);
+    return res.send(req.file);
+
+})
+
+
+
+/////////////////////////////////////////////////////
+
 
 app.get("/", (req, res) => {
     res.json({ message: "ok" });
@@ -73,6 +156,11 @@ app.get("/cancel", (req, res) => {
 app.use('/user', userRouter);
 app.use('/businessUser', businessUserRouter)
 app.use('/activity', activityRouter)
+app.use('/sessionToken', sessionTokenRouter)
+app.use('/jobAd', jobAdRouter)
+app.use('/postcode', postcodeRouter)
+app.use('/candidate', candidateRouter)
+app.use('/jobSeekerUser', jobSeekerUserRouter)
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

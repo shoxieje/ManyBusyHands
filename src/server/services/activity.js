@@ -21,6 +21,7 @@ async function addActivity(activity) {
 }
 
 async function retrieveActivity() {
+    
     const result = await db.query(
 
         `SELECT * FROM activity;`

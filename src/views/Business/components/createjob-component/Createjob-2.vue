@@ -94,6 +94,43 @@
                             </ul>
                         </div>
                     </b-button>
+
+                    <b-button
+                            id="ad-custom"
+                            variant="light"
+                            :class="adCustomClass"
+                            @click="selectCustom"
+                        >
+                            <div class="ad-style ad-type">Custom</div>
+                            <div class="ad-style ad-price">$499.95</div>
+                            <div class="ad-style ad-text sub">
+                                Create your customized ad service!
+                            </div>
+                            <b-button
+                                id="ad-custom-btn"
+                                :class="adCustomBtnClass"
+                                variant="light"
+                                @click="selectCustom"
+                                >Select</b-button
+                            >
+                            <div class="ad-style ad-text point">
+                                <ul>
+                                    <li>
+                                        Customized ad service according to your
+                                        need
+                                    </li>
+                                    <li>
+                                        Your job ad emailed to relevant
+                                        candidates
+                                    </li>
+                                    <li>Priority listing in search</li>
+                                    <li>
+                                        Priority listing in candidate emails
+                                    </li>
+                                    <li>Get candidates faster</li>
+                                </ul>
+                            </div>
+                        </b-button>
                 </div>
 
                 <br />
@@ -101,103 +138,140 @@
         </b-form>
     </b-container>
 </template>
+
 <script>
-export default {
-    data() {
-        return {
-            adType: "",
-            adBasicClass: "ad-type-box",
-            adBasicBtnClass: "ad-style ad-btn",
-            adPremiumClass: "ad-type-box",
-            adPremiumBtnClass: "ad-style ad-btn",
-            adUltraClass: "ad-type-box",
-            adUltraBtnClass: "ad-style ad-btn",
-        };
-    },
-    props: ["type", "data"],
-    components: {},
-    methods: {
-        emitAdType() {
-            if (this.adType.length != 0) {
-                this.$emit("adType", this.adType);
-            }
+    export default {
+        data() {
+            return {
+                adType: "",
+                adBasicClass: "ad-type-box",
+                adBasicBtnClass: "ad-style ad-btn",
+                adPremiumClass: "ad-type-box",
+                adPremiumBtnClass: "ad-style ad-btn",
+                adUltraClass: "ad-type-box",
+                adUltraBtnClass: "ad-style ad-btn",
+                adCustomClass: "ad-type-box",
+                adCustomBtnClass: "ad-style ad-btn",
+            };
         },
-        selectBasic() {
-            var basic = document.getElementById("ad-basic");
-            var basicBtn = document.getElementById("ad-basic-btn");
-            var premium = document.getElementById("ad-premium");
-            var premiumBtn = document.getElementById("ad-premium-btn");
-            var ultra = document.getElementById("ad-ultra");
-            var ultraBtn = document.getElementById("ad-ultra-btn");
-            basic.classList.add("selected");
-            basicBtn.classList.add("selected");
-            premium.classList.remove("selected");
-            premiumBtn.classList.remove("selected");
-            ultra.classList.remove("selected");
-            ultraBtn.classList.remove("selected");
-            this.adType = "basic";
-            this.emitAdType();
-        },
-        selectPremium() {
-            var basic = document.getElementById("ad-basic");
-            var basicBtn = document.getElementById("ad-basic-btn");
-            var premium = document.getElementById("ad-premium");
-            var premiumBtn = document.getElementById("ad-premium-btn");
-            var ultra = document.getElementById("ad-ultra");
-            var ultraBtn = document.getElementById("ad-ultra-btn");
-            basic.classList.remove("selected");
-            basicBtn.classList.remove("selected");
-            premium.classList.add("selected");
-            premiumBtn.classList.add("selected");
-            ultra.classList.remove("selected");
-            ultraBtn.classList.remove("selected");
-            this.adType = "premium";
-            this.emitAdType();
-        },
-        selectUltra() {
-            var basic = document.getElementById("ad-basic");
-            var basicBtn = document.getElementById("ad-basic-btn");
-            var premium = document.getElementById("ad-premium");
-            var premiumBtn = document.getElementById("ad-premium-btn");
-            var ultra = document.getElementById("ad-ultra");
-            var ultraBtn = document.getElementById("ad-ultra-btn");
-            basic.classList.remove("selected");
-            basicBtn.classList.remove("selected");
-            premium.classList.remove("selected");
-            premiumBtn.classList.remove("selected");
-            ultra.classList.add("selected");
-            ultraBtn.classList.add("selected");
-            this.adType = "ultra";
-            this.emitAdType();
-        },
-        fillData() {
-            if (this.type === "edit") {
-                if (this.data.adType === "basic") {
-                    this.adBasicClass += " selected";
-                    this.adBasicBtnClass += " selected";
+        props: ["type", "data"],
+        components: {},
+        methods: {
+            emitAdType() {
+                if (this.adType.length != 0) {
+                    this.$emit("adType", this.adType);
                 }
-                if (this.data.adType === "premium") {
-                    this.adPremiumClass += " selected";
-                    this.adPremiumBtnClass += " selected";
-                }
-                if (this.data.adType === "ultra") {
-                    this.adUltraClass += " selected";
-                    this.adUltraBtnClass += " selected";
-                }
-            }
-        },
-    },
-    created() {
-        const notUserLoggingIn = async () => {
-            this.$store.dispatch("authUserLoggingIn", false);
-        };
+            },
 
-        notUserLoggingIn();
+            
+            selectBasic() {
+                var basic = document.getElementById("ad-basic");
+                var basicBtn = document.getElementById("ad-basic-btn");
+                var premium = document.getElementById("ad-premium");
+                var premiumBtn = document.getElementById("ad-premium-btn");
+                var ultra = document.getElementById("ad-ultra");
+                var ultraBtn = document.getElementById("ad-ultra-btn");
+                var custom = document.getElementById("ad-custom");
+                var customBtn = document.getElementById("ad-custom-btn");
+                basic.classList.add("selected");
+                basicBtn.classList.add("selected");
+                premium.classList.remove("selected");
+                premiumBtn.classList.remove("selected");
+                ultra.classList.remove("selected");
+                ultraBtn.classList.remove("selected");
+                custom.classList.remove("selected");
+                customBtn.classList.remove("selected");
+                this.adType = "basic";
+                this.emitAdType();
+            },
 
-        this.fillData();
-    },
-};
+            selectPremium() {
+                var basic = document.getElementById("ad-basic");
+                var basicBtn = document.getElementById("ad-basic-btn");
+                var premium = document.getElementById("ad-premium");
+                var premiumBtn = document.getElementById("ad-premium-btn");
+                var ultra = document.getElementById("ad-ultra");
+                var ultraBtn = document.getElementById("ad-ultra-btn");
+                var custom = document.getElementById("ad-custom");
+                var customBtn = document.getElementById("ad-custom-btn");
+                basic.classList.remove("selected");
+                basicBtn.classList.remove("selected");
+                premium.classList.add("selected");
+                premiumBtn.classList.add("selected");
+                ultra.classList.remove("selected");
+                ultraBtn.classList.remove("selected");
+                custom.classList.remove("selected");
+                customBtn.classList.remove("selected");
+                this.adType = "premium";
+                this.emitAdType();
+            },
+
+            selectUltra() {
+                var basic = document.getElementById("ad-basic");
+                var basicBtn = document.getElementById("ad-basic-btn");
+                var premium = document.getElementById("ad-premium");
+                var premiumBtn = document.getElementById("ad-premium-btn");
+                var ultra = document.getElementById("ad-ultra");
+                var ultraBtn = document.getElementById("ad-ultra-btn");
+                var custom = document.getElementById("ad-custom");
+                var customBtn = document.getElementById("ad-custom-btn");
+                basic.classList.remove("selected");
+                basicBtn.classList.remove("selected");
+                premium.classList.remove("selected");
+                premiumBtn.classList.remove("selected");
+                ultra.classList.add("selected");
+                ultraBtn.classList.add("selected");
+                custom.classList.remove("selected");
+                customBtn.classList.remove("selected");
+                this.adType = "ultra";
+                this.emitAdType();
+            },
+
+            selectCustom() {
+                var basic = document.getElementById("ad-basic");
+                var basicBtn = document.getElementById("ad-basic-btn");
+                var premium = document.getElementById("ad-premium");
+                var premiumBtn = document.getElementById("ad-premium-btn");
+                var ultra = document.getElementById("ad-ultra");
+                var ultraBtn = document.getElementById("ad-ultra-btn");
+                var custom = document.getElementById("ad-custom");
+                var customBtn = document.getElementById("ad-custom-btn");
+                basic.classList.remove("selected");
+                basicBtn.classList.remove("selected");
+                premium.classList.remove("selected");
+                premiumBtn.classList.remove("selected");
+                ultra.classList.remove("selected");
+                ultraBtn.classList.remove("selected");
+                custom.classList.add("selected");
+                customBtn.classList.add("selected");
+                this.adType = "custom";
+                this.emitAdType();
+            },
+
+            fillData() {
+                if (this.type === "edit") {
+                    if (this.data.adType === "basic") {
+                        this.adBasicClass += " selected";
+                        this.adBasicBtnClass += " selected";
+                    }
+                    if (this.data.adType === "premium") {
+                        this.adPremiumClass += " selected";
+                        this.adPremiumBtnClass += " selected";
+                    }
+                    if (this.data.adType === "ultra") {
+                        this.adUltraClass += " selected";
+                        this.adUltraBtnClass += " selected";
+                    }
+                }
+            },
+        },
+        created() {
+
+            this.fillData();
+        },
+    };
 </script>
+
 <style lang="sass">
 @import '../../../../assets/styles/custom-variables.sass'
 

@@ -85,7 +85,7 @@
                                         >
                                     </div>
                                 </div>
-                                {{ jobSummary }}<br />
+                                {{ headline }}<br />
                                 {{ location }}<br />
                                 {{ activity }}<br />
                                 ${{ payRangeFrom }} - ${{ payRangeTo }} per hour
@@ -110,8 +110,9 @@
                         <div class="job-description">
                             {{ jobDescription }}
                             <br />
-                            <img
-                                src="@/assets/img/icons/grapes-picking.jpg"
+                            <img 
+                                v-if="hasImage"
+                                :src="this.image[1]"
                                 alt="Share icon"
                                 class="job-preview-image"
                             />
@@ -126,7 +127,8 @@
                         <div class="search-result">
                             <div class="sr-image__container">
                                 <img
-                                    src="@/assets/img/icons/grapes-picking.jpg"
+                                    v-if="hasImage"
+                                    :src="this.image[1]"
                                     alt="Share icon"
                                     class="sr-image"
                                 />
@@ -192,46 +194,61 @@
         </b-form>
     </b-container>
 </template>
+
 <script>
-export default {
-    props: [
-        "jobTitle",
-        "activity",
-        "location",
-        "payRangeFrom",
-        "payRangeTo",
-        "adType",
-        "jobSummary",
-        "jobDescription",
-    ],
-    components: {},
-    data() {
-        return {
-            showJobDetails: true,
-            showSearchResult: false,
-        };
-    },
-    methods: {
-        selectJd() {
-            var jdBtn = document.getElementById("jd-btn");
-            var srBtn = document.getElementById("card-btn");
-            jdBtn.classList.add("selected");
-            srBtn.classList.remove("selected");
-            this.showJobDetails = true;
-            this.showSearchResult = false;
+
+    export default {
+        props: [
+            "jobTitle",
+            "activity",
+            "location",
+            "payRangeFrom",
+            "payRangeTo",
+            "adType",
+            "headline",
+            "jobDescription",
+            "image"
+        ],
+        components: {},
+        data() {
+            return {
+                showJobDetails: true,
+                showSearchResult: false,
+            };
         },
-        selectSr() {
-            var jdBtn = document.getElementById("jd-btn");
-            var srBtn = document.getElementById("card-btn");
-            jdBtn.classList.remove("selected");
-            srBtn.classList.add("selected");
-            this.showJobDetails = false;
-            this.showSearchResult = true;
+
+        computed: {
+
+            hasImage() {
+
+                return this.image.length !== 0
+
+            }
+
         },
-    },
-    created() {},
-};
+
+        methods: {
+            selectJd() {
+                var jdBtn = document.getElementById("jd-btn");
+                var srBtn = document.getElementById("card-btn");
+                jdBtn.classList.add("selected");
+                srBtn.classList.remove("selected");
+                this.showJobDetails = true;
+                this.showSearchResult = false;
+            },
+            selectSr() {
+                var jdBtn = document.getElementById("jd-btn");
+                var srBtn = document.getElementById("card-btn");
+                jdBtn.classList.remove("selected");
+                srBtn.classList.add("selected");
+                this.showJobDetails = false;
+                this.showSearchResult = true;
+            },
+        },
+        created() {},
+    };
 </script>
+
 <style lang="sass">
 @import '../../../../assets/styles/custom-variables.sass'
 

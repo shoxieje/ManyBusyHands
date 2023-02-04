@@ -85,7 +85,7 @@
                 <h6>Phone number :</h6>
                 <p>{{ candidate.phoneNumber }}</p>
                 <h6>Email address :</h6>
-                <p>{{ candidate.emailAddress }}</p>
+                <p>{{ candidate.user_email }}</p>
             </b-modal>
         </div>
         <transition name="slide">
@@ -142,162 +142,180 @@
         </transition>
     </div>
 </template>
+
 <script>
-export default {
-    name: "CandidateCard",
-    components: {},
-    props: ["number", "candidate", "type"],
-    data() {
-        return {
-            showBottomBar: false,
-            favorite: false,
-        };
-    },
-    methods: {
-        toggleBar() {
-            this.showBottomBar = !this.showBottomBar;
-            var arrowBtn = document.getElementById("btn-arrow");
-            this.showBottomBar
-                ? arrowBtn.classList.add("rotated")
-                : arrowBtn.classList.remove("rotated");
-        },
-        toggleFavorite() {
-            console.log(this.number);
-            var card = document.getElementById(
-                "candidate-card-" + this.type + "-" + this.number
-            );
-            this.favorite = !this.favorite;
-            this.favorite
-                ? card.classList.add("favorite")
-                : card.classList.remove("favorite");
-        },
-    },
+    import axios from "axios";
+    export default {
+        name: "CandidateCard",
+        components: {},
+        props: ["number", "candidate", "type"],
 
-    created() {
-        this.favorite = this.candidate.favorite;
-    },
-};
+        data() {
+            return {
+                showBottomBar: false,
+                favorite: false,
+            };
+        },
+
+        methods: {
+            toggleBar() {
+                this.showBottomBar = !this.showBottomBar;
+                var arrowBtn = document.getElementById("btn-arrow");
+                this.showBottomBar
+                    ? arrowBtn.classList.add("rotated")
+                    : arrowBtn.classList.remove("rotated");
+            },
+
+            toggleFavorite() {
+                console.log(this.number);
+                this.favorite = !this.favorite;
+
+                this.makeFavorite()
+
+                axios.put(`http://localhost:8081/candidate/${this.candidate.user_email}/setFavorite/${this.favorite}`)
+            },
+
+            makeFavorite() {
+                var card = document.getElementById(
+                    "candidate-card-" + this.type + "-" + this.number
+                );
+
+                this.favorite
+                    ? card.classList.add("favorite")
+                    : card.classList.remove("favorite");
+                
+            }
+        },
+
+        created() {
+            if(parseInt(this.candidate.isFavorite))
+                this.favorite = true
+            else this.favorite = false
+
+        },
+
+        mounted() {
+            
+            this.makeFavorite()
+
+        }
+    };
 </script>
+
 <style lang="sass">
-@import '../../../assets/styles/custom-variables.sass'
-.candidate-card
-    margin: 0.5rem 0
+    @import '../../../../assets/styles/custom-variables.sass'
+    .candidate-card
+        margin: 0.5rem 0
 
-.candidate-content
-    background-color: $mbh-white
-    padding: 1rem
-    border-radius: 0.5rem
-    border-style: solid
-    border-width: 1px
-    border-color: $mbh-gray-0
-    display: block
+    .candidate-content
+        background-color: $mbh-white
+        padding: 1rem
+        border-radius: 0.5rem
+        border-style: solid
+        border-width: 1px
+        border-color: $mbh-gray-0
+        display: block
 
-.candidate-content.favorite
-    background-color: $mbh-orange-1
+    .candidate-content.favorite
+        background-color: $mbh-orange-1
 
-.candidate-card-header
-    display: flex
-    justify-content: space-between
+    .candidate-card-header
+        display: flex
+        justify-content: space-between
 
-.candidate-card-header--left
-    margin: auto 0
+    .candidate-card-header--left
+        margin: auto 0
 
-.candidate-card-header--right
-    display: flex
-
-.candidate-pop-up__container
-    display: flex
-    padding: 0 0.5rem
-
-.btn-candidate
-    padding: 7.5px
-    width: 40px
-    height: 40px
-    display: flex
-    justify-content: center
-    background-color: transparent
-    border-radius: 20px
-    margin: auto 0
-    border-style: none
-
-.btn-arrow-icon
-    width: 25px
-    height: 25px
-
-.btn-arrow-icon.rotated
-    transform: rotate(180deg)
-
-.btn-star-icon
-    width: 25px
-    height: 25px
-
-.pop-up-btn
-    height: 40px
-    width: 25%
-    margin: 0 1px 0 1px
-    border-radius: 0 0 8px 8px
-
-.pop-up-icon
-    margin: 0 5px 5px 5px
-    width: 20px
-    height: 20px
-
-/* MODAL */
-.modal
-    padding-right: 0 !important
-
-.modal-open
-    padding-right: 0 !important
-
-.modal-footer
-    .btn
-        min-width: 80px
-        color: $mbh-white !important
-    .btn-secondary
-        color: $mbh-navy !important
-        background-color: $mbh-white-2 !important
-
-
-@media only screen and (max-width: $tablet-max)
-    .btn-candidate
-        margin: unset
-    .pop-up-btn
-        font-size: small
-@media only screen and (max-width: 650px)
-    .pop-up-text
-        display: none
-@media only screen and (max-width: 350px)
     .candidate-card-header--right
-        flex-direction: column
-    .pop-up-btn
-        padding: 0
+        display: flex
 
-/* SLIDE ANIMATION*/
-.slide-enter-active
-   -moz-transition-duration: 0.3s
-   -webkit-transition-duration: 0.3s
-   -o-transition-duration: 0.3s
-   transition-duration: 0.3s
-   -moz-transition-timing-function: ease-in
-   -webkit-transition-timing-function: ease-in
-   -o-transition-timing-function: ease-in
-   transition-timing-function: ease-in
+    .candidate-pop-up__container
+        display: flex
+        padding: 0 0.5rem
 
-.slide-leave-active
-   -moz-transition-duration: 0.3s
-   -webkit-transition-duration: 0.3s
-   -o-transition-duration: 0.3s
-   transition-duration: 0.3s
-   -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
-   -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
-   -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
-   transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+    .btn-candidate
+        padding: 7.5px
+        width: 40px
+        height: 40px
+        display: flex
+        justify-content: center
+        background-color: transparent
+        border-radius: 20px
+        margin: auto 0
+        border-style: none
 
-.slide-enter-to, .slide-leave
-   max-height: 100px
-   overflow: hidden
+    .btn-arrow-icon
+        width: 25px
+        height: 25px
 
-.slide-enter, .slide-leave-to
-   overflow: hidden
-   max-height: 0
+    .btn-arrow-icon.rotated
+        transform: rotate(180deg)
+
+    .btn-star-icon
+        width: 25px
+        height: 25px
+
+    .pop-up-icon
+        margin: 0 5px 5px 5px
+        width: 20px
+        height: 20px
+
+    /* MODAL */
+    .modal
+        padding-right: 0 !important
+
+    .modal-open
+        padding-right: 0 !important
+
+    .modal-footer
+        .btn
+            min-width: 80px
+            color: $mbh-white !important
+        .btn-secondary
+            color: $mbh-navy !important
+            background-color: $mbh-white-2 !important
+
+
+    @media only screen and (max-width: $tablet-max)
+        .btn-candidate
+            margin: unset
+        .pop-up-btn
+            font-size: small
+    @media only screen and (max-width: 650px)
+        .pop-up-text
+            display: none
+    @media only screen and (max-width: 350px)
+        .candidate-card-header--right
+            flex-direction: column
+        .pop-up-btn
+            padding: 0
+
+    /* SLIDE ANIMATION*/
+    .slide-enter-active
+        -moz-transition-duration: 0.3s
+        -webkit-transition-duration: 0.3s
+        -o-transition-duration: 0.3s
+        transition-duration: 0.3s
+        -moz-transition-timing-function: ease-in
+        -webkit-transition-timing-function: ease-in
+        -o-transition-timing-function: ease-in
+        transition-timing-function: ease-in
+
+    .slide-leave-active
+        -moz-transition-duration: 0.3s
+        -webkit-transition-duration: 0.3s
+        -o-transition-duration: 0.3s
+        transition-duration: 0.3s
+        -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+        -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+        -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+        transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+
+    .slide-enter-to, .slide-leave
+        max-height: 100px
+        overflow: hidden
+
+    .slide-enter, .slide-leave-to
+        overflow: hidden
+        max-height: 0
 </style>
