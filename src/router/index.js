@@ -64,6 +64,11 @@ const routes = [
         name: "BusinessLanding",
         component: () => import("../views/Business/Landing.vue"),
     },
+    {
+        path: "/business/account-details",
+        name: "AccountDetails",
+        component: () => import("../views/Business/AccountDetails.vue"),
+    },
 ];
 
 const router = new VueRouter({

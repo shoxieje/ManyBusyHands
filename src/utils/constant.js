@@ -5,7 +5,31 @@ export const config = {
     },
     mockData: {
         businessDetails: {
+            title: "Miss",
+            firstName: "Chandra",
+            lastName: "Dewi",
+            role: "Owner",
             businessName: "Many Busy Hands",
+            abn: "12345678910",
+            address: "10 Spring Street, Sydney NSW, Australia",
+            phoneNumber: "+61 412345678",
+            landlineNumber: "+61 499111000",
+            businessWebsite: "www.manybusyhands.com",
+            activityDescription: "activity description",
+            main_activity: "main_activity",
+            activity_1: "activity_1",
+            activity_2: "activity_2",
+            activity_3: "activity_3",
+            activity_4: "activity_4",
+            activity_5: "activity_5",
+            images: [
+                "@/assets/img/icons/grapes-picking.jpg",
+                "imagesPath2",
+                "imagespath3",
+                "imagesPath4",
+                "imagesPath5",
+            ],
+            months: ["2023-02", "2023-06"],
         },
         draftJoblist: [
             {

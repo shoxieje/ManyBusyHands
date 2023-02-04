@@ -44,14 +44,18 @@
                 :text="username"
                 variant="light"
             >
-                <b-dropdown-item class="dropdown-right-menu" href="#"
-                    ><strong>{{ username }}</strong></b-dropdown-item
+                <b-dropdown-text class="dropdown-right-menu"
+                    ><span style="font-weight: bold">{{
+                        username
+                    }}</span></b-dropdown-text
                 >
-                <b-dropdown-item class="dropdown-right-menu" href="#"
-                    >{{ firstName }} {{ lastName }}</b-dropdown-item
+                <b-dropdown-text disabled class="dropdown-right-menu"
+                    >{{ firstName }} {{ lastName }}</b-dropdown-text
                 >
                 <div class="bottom-border"></div>
-                <b-dropdown-item class="dropdown-right-menu" href="#"
+                <b-dropdown-item
+                    class="dropdown-right-menu"
+                    href="#/business/edit-details"
                     >Account details</b-dropdown-item
                 >
                 <b-dropdown-item class="dropdown-right-menu" href="/invoices"
