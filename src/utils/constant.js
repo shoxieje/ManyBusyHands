@@ -16,7 +16,8 @@ export const config = {
             landlineNumber: "+61 499111000",
             businessWebsite: "www.manybusyhands.com",
             activityDescription: "activity description",
-            main_activity: "main_activity",
+            main_activity:
+                "main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity main_activity ",
             activity_1: "activity_1",
             activity_2: "activity_2",
             activity_3: "activity_3",

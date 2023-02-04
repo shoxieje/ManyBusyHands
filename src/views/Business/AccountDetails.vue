@@ -850,6 +850,10 @@ export default {
     .acc-details-title
         font-size: x-large !important
     .acc-details-label
+        font-size: medium !important
+    .acc-details-text
+        font-size: medium !important
+    .acc-details-label
         padding: 0 12px !important
     .acc-details-text
         padding: 0 12px !important
