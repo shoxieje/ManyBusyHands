@@ -460,6 +460,7 @@
 
             <!-- FIFTH -->
             <b-container class="acc-details-box">
+                <br />
                 <b-row
                     class="save-container"
                     style="
@@ -851,6 +852,10 @@ export default {
         padding: 0 12px !important
     .acc-details-text
         padding: 0 12px !important
+    .save-container
+        justify-content: center
+    .save-btn
+        width: 100%
 
 /* Image uploader */
 .text-small.mark-text-primary.cursor-pointer
