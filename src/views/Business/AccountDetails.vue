@@ -443,6 +443,7 @@
                     </b-col>
                     <b-col class="acc-details-text" sm="9">
                         <v-date-picker
+                            width="240"
                             id="monthPickers"
                             type="month"
                             v-model="months"
