@@ -62,7 +62,7 @@
                             ></b-form-file>
                             <b-button
                                 v-if="hasImage"
-                                variant="warning"
+                                variant="primary"
                                 class="ml-3 text-white clear-btn"
                                 @click="clearImage"
                             >

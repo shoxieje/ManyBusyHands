@@ -2,47 +2,62 @@
     <section class="business-home-top text-primary">
         <!-- HEADER SECTION -->
         <div class="bottom-border">
-            <div class="business-home-header mw-80">
-                <div class="business-home-header__left">
-                    <h2>Hi, {{ businessData.businessName }}</h2>
-                    <strong class="bh-header-text">
-                        <p v-if="!activeJobList.length && !draftJobList.length">
-                            Get started by creating your first job ad!
-                        </p>
+            <div class="business-home-header">
+                <div class="business-home-header__container mw-80">
+                    <div class="business-home-header__left text-white">
+                        <h2>Hi, {{ businessData.businessName }}</h2>
+                        <strong class="bh-header-text">
+                            <p
+                                v-if="
+                                    !activeJobList.length &&
+                                    !draftJobList.length
+                                "
+                            >
+                                Get started by creating your first job ad!
+                            </p>
 
-                        <p v-if="draftJobList.length">
-                            You left a job ad unfinished,
-                            <span class="text-red">{{
-                                draftJobList[0].jobTitle
-                            }}</span>
-                            at
-                            <span class="text-red">{{
-                                draftJobList[0].location
-                            }}</span
-                            >. <a href="#">Continue draft?</a>
-                        </p>
+                            <p v-if="draftJobList.length">
+                                You left a job ad unfinished,
+                                <span class="text-red">{{
+                                    draftJobList[0].jobTitle
+                                }}</span>
+                                at
+                                <span class="text-red">{{
+                                    draftJobList[0].location
+                                }}</span
+                                >.
+                                <a href="#" class="text-white"
+                                    >Continue draft?</a
+                                >
+                            </p>
 
-                        <p v-if="activeJobList.length && !draftJobList.length">
-                            Check the best candidates for your active job ads!
-                        </p>
-                    </strong>
-                </div>
-                <div class="business-home-header__right">
-                    <div class="float-ver">
-                        <b-button
-                            v-if="draftJobList.length"
-                            class="nav-btn text-white"
-                            variant="warning"
-                            to="#"
-                            style="margin: 0.5rem 1rem"
-                            >Continue Draft</b-button
-                        ><b-button
-                            class="nav-btn text-white"
-                            variant="primary"
-                            to="/jobs/manage/create"
-                            style="margin: 0.5rem 1rem"
-                            >Create a job ad</b-button
-                        >
+                            <p
+                                v-if="
+                                    activeJobList.length && !draftJobList.length
+                                "
+                            >
+                                Check the best candidates for your active job
+                                ads!
+                            </p>
+                        </strong>
+                    </div>
+                    <div class="business-home-header__right">
+                        <div class="float-ver">
+                            <b-button
+                                v-if="draftJobList.length"
+                                class="nav-btn text-blue"
+                                variant="light"
+                                to="#"
+                                style="margin: 0.5rem 1rem"
+                                >Continue Draft</b-button
+                            ><b-button
+                                class="nav-btn text-white"
+                                variant="primary"
+                                to="/jobs/manage/create"
+                                style="margin: 0.5rem 1rem"
+                                >Create a job ad</b-button
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,7 +75,7 @@
                     >
                         <img
                             class="find-role-icon"
-                            src="@/assets/img/icons/post-2-icon.png"
+                            src="@/assets/img/icons/post-3a-icon.png"
                             alt="Create job ad icon"
                         />
                         <h4>Create a job ad</h4>
@@ -72,7 +87,7 @@
                     >
                         <img
                             class="find-role-icon"
-                            src="@/assets/img/icons/choose-ads-2-icon.png"
+                            src="@/assets/img/icons/choose-ads-3a-icon.png"
                             alt="Choose ad icon"
                         />
                         <h4>Choose your ad type</h4>
@@ -84,7 +99,7 @@
                     >
                         <img
                             class="find-role-icon"
-                            src="@/assets/img/icons/candidate-2-icon-no-stroke.png"
+                            src="@/assets/img/icons/candidate-3-icon.png"
                             alt="Manage candidate icon"
                         />
                         <h4>Manage candidates</h4>
@@ -106,7 +121,7 @@
                 :autoplayTimeout="3000"
                 :loop="true"
                 paginationColor="#464866"
-                paginationActiveColor="#ff5000"
+                paginationActiveColor="#2F3C7E"
                 speed="800"
                 :touchdrag="true"
             >
@@ -117,7 +132,7 @@
                 >
                     <div class="carousel-image__container">
                         <img
-                            src="@/assets/img/icons/grapes-picking.jpg"
+                            src="@/assets/img/icons/hiring-1.png"
                             alt="Share icon"
                             class="carousel-image"
                         />
@@ -149,7 +164,7 @@
                                     to="#"
                                 >
                                     <img
-                                        src="@/assets/img/icons/share-icon.png"
+                                        src="@/assets/img/icons/share-icon-3.png"
                                         alt="Share icon"
                                         class="open-link-icon"
                                     />
@@ -160,7 +175,7 @@
                         <div class="carousel-content-btn-container">
                             <b-button
                                 class="carousel-button"
-                                variant="primary text-white"
+                                variant="secondary text-white"
                                 >Manage this job ad</b-button
                             >
                             <b-button class="carousel-button" variant="light"
@@ -181,7 +196,7 @@
             >
                 <img
                     class="manage-job-icon text-white"
-                    src="@/assets/img/icons/active-2-icon.png"
+                    src="@/assets/img/icons/active-w-icon.png"
                     alt="Manage active job ads"
                 />
                 <h5 class="bh-job-btn">Manage active job ads</h5>
@@ -193,7 +208,7 @@
             >
                 <img
                     class="manage-job-icon"
-                    src="@/assets/img/icons/inactive-2-icon.png"
+                    src="@/assets/img/icons/inactive-3-icon.png"
                     alt="Manage inactive job ads"
                 />
                 <h5 class="bh-job-btn">Manage inactive job ads</h5>
@@ -205,7 +220,7 @@
             >
                 <img
                     class="manage-job-icon"
-                    src="@/assets/img/icons/draft-1-icon.png"
+                    src="@/assets/img/icons/draft-w-icon.png"
                     alt="Manage draft job ads"
                 />
                 <h5 class="bh-job-btn">Manage drafts</h5>
@@ -218,11 +233,11 @@
             <div class="business-home-info__container mw-80">
                 <div
                     class="bh-info__container"
-                    style="background-color: #25274d"
+                    style="background-color: #101820ff"
                 >
                     <img
                         class="info-icon"
-                        src="@/assets/img/icons/question-3-icon.png"
+                        src="@/assets/img/icons/question-5-icon.png"
                         alt="Question icon"
                     />
                     <div class="bh-info__content">
@@ -249,11 +264,11 @@
 
                 <div
                     class="bh-info__container"
-                    style="background-color: #fff4da"
+                    style="background-color: #ffffff"
                 >
                     <img
                         class="info-icon"
-                        src="@/assets/img/icons/question-2-icon.png"
+                        src="@/assets/img/icons/question-6-icon.png"
                         alt="Question icon"
                     />
                     <div class="bh-info__content">
@@ -290,7 +305,7 @@
                         <img
                             class="bh-video-image"
                             alt="Video 1"
-                            src="@/assets/img/icons/Video-1.jpg"
+                            src="@/assets/img/icons/Video-4.jpg"
                         />
                         <div class="bh-video-content text-primary">
                             <h4 class="bh-video-title">
@@ -313,7 +328,7 @@
                         <img
                             class="bh-video-image"
                             alt="Video 2"
-                            src="@/assets/img/icons/Video-2.jpg"
+                            src="@/assets/img/icons/Video-1.jpg"
                         />
                         <div class="bh-video-content text-primary">
                             <h4 class="bh-video-title">
@@ -463,7 +478,9 @@ h2
     margin-inline: auto
 
 .business-home-header
-    // background-color: pink
+    background-color: $blue-mbh-0
+
+.business-home-header__container
     display: flex
     justify-content: space-between
 
@@ -572,7 +589,6 @@ h2
     background-color: $mbh-white
     text-align: left
 
-
 .carousel-image__container
     width: 30%
     min-width: 300px
@@ -630,7 +646,6 @@ h2
     .share-button
         font-size: small
 
-
 @media only screen and (max-width: $tablet-max)
     .VueCarousel-slide.carousel-slide
         padding: 1.5rem
@@ -666,16 +681,16 @@ h2
 
 //-----  Info Section  -----
 .business-home-info
-    background-color: $mbh-white-2
+    background-color: $blue-mbh-0
 
 .business-home-info__container
-    padding: 2rem
-    // background-color: yellow
+    padding: 3rem 2rem
     display: flex
     flex-wrap: wrap
     justify-content: space-between
 
 .bh-info__container
+    border-radius: 10px
     width: 48%
     min-width: 40px
     padding: 2rem 2rem
@@ -707,8 +722,11 @@ h2
         font-size: medium !important
 
 @media only screen and (max-width: 800px)
+    .business-home-info__container
+        padding: 2rem
     .bh-info__container
         width: 100%
+        margin: 0.5rem 0
     .bh-info-title
         font-size: large
     .bh-info-text
@@ -735,6 +753,7 @@ h2
 .bh-job-list__manage-job
     display: flex
     justify-content: space-evenly
+    padding: 1rem
 
 .manage-job-btn
     margin: 1rem 0

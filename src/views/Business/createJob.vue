@@ -83,7 +83,7 @@
                                 >
                                     <span class="span-hidden">Back</span>
                                     <img
-                                        src="@/assets/img/icons/back-b-icon.png"
+                                        src="@/assets/img/icons/back-bl-icon.png"
                                         class="stepper-btn-icon"
                                     />
                                 </v-btn>
@@ -127,7 +127,7 @@
                                 >
                                     <span class="span-hidden">Back</span>
                                     <img
-                                        src="@/assets/img/icons/back-b-icon.png"
+                                        src="@/assets/img/icons/back-bl-icon.png"
                                         class="stepper-btn-icon"
                                     />
                                 </v-btn>
@@ -176,13 +176,13 @@
                                 >
                                     <span class="span-hidden">Back</span>
                                     <img
-                                        src="@/assets/img/icons/back-b-icon.png"
+                                        src="@/assets/img/icons/back-bl-icon.png"
                                         class="stepper-btn-icon"
                                     />
                                 </v-btn>
                                 <v-btn
                                     class="stepper-btn-primary"
-                                    style="background-color: #4b8a54 !important"
+                                    variant="primary"
                                 >
                                     <span class="span-hidden"
                                         >Create job ad</span
@@ -354,7 +354,7 @@ export default {
 	padding: 0 2rem 2rem
 
 .stepper-btn-primary
-	background-color: $mbh-blue-2 !important
+	background-color: $black-mbh-0 !important
 	color: white !important
 
 .stepper-btn-secondary
@@ -411,7 +411,7 @@ export default {
 	text-align: left
 
 .subtitle
-	color: $mbh-blue-2
+	color: $black-mbh-0
 	font-size: 1.5rem
 	padding-bottom: 1rem
 
@@ -451,7 +451,7 @@ export default {
 	.v-stepper__step.v-stepper__step--active div
 		display: block !important
 		font-weight: bolder
-		color: $mbh-blue-2 !important
+		color: $black-mbh-0 !important
 
 	// .v-stepper__header
 

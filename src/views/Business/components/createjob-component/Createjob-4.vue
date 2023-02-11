@@ -75,7 +75,7 @@
                                             disabled
                                         >
                                             <img
-                                                src="@/assets/img/icons/share-icon.png"
+                                                src="@/assets/img/icons/share-icon-3.png"
                                                 alt="Share icon"
                                                 class="open-link-icon sm"
                                             />
@@ -105,13 +105,14 @@
                                     >
                                 </div>
                             </div>
+                            <br />
                             <div class="bottom-border"></div>
                         </div>
                         <div class="job-description">
                             {{ jobDescription }}
                             <br />
                             <img
-                                src="@/assets/img/icons/grapes-picking.jpg"
+                                src="@/assets/img/icons/hiring-1.png"
                                 alt="Share icon"
                                 class="job-preview-image"
                             />
@@ -126,7 +127,7 @@
                         <div class="search-result">
                             <div class="sr-image__container">
                                 <img
-                                    src="@/assets/img/icons/grapes-picking.jpg"
+                                    src="@/assets/img/icons/hiring-2.jpg"
                                     alt="Share icon"
                                     class="sr-image"
                                 />
@@ -154,7 +155,7 @@
                                                 disabled
                                             >
                                                 <img
-                                                    src="@/assets/img/icons/share-icon.png"
+                                                    src="@/assets/img/icons/share-icon-3.png"
                                                     alt="Share icon"
                                                     class="open-link-icon sm"
                                                 />
@@ -285,8 +286,7 @@ export default {
 
 .job-details-title
     font-size: x-large
-.bottom-border
-    padding: 1rem
+
 
 .job-description
     background-color: $mbh-white
@@ -299,7 +299,7 @@ export default {
     padding: 2rem 0
 
 .job-preview-btn.selected
-    background-color: $mbh-blue-2
+    background-color: $black-mbh-0
     color: $mbh-white
 
 //SEARCH RESULT

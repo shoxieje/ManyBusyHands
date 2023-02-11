@@ -322,7 +322,7 @@ export default {
     text-align: right
 
 .stepper-btn-primary
-    background-color: $mbh-blue-2 !important
+    background-color: $black-mbh-0 !important
     color: white !important
 
 .stepper-btn-secondary
@@ -343,7 +343,7 @@ export default {
     padding-bottom: 1rem
 
 .subtitle-signup
-    color: $mbh-blue-2
+    color: $black-mbh-0
     font-size: 1.5rem
     padding-bottom: 1rem
 
@@ -366,7 +366,7 @@ export default {
     .v-stepper__step.v-stepper__step--active div
         display: block !important
         font-weight: bolder
-        color: $mbh-blue-2 !important
+        color: $black-mbh-0 !important
     .v-stepper__step.v-stepper__step--complete
         display: none !important
     .stepper-btn-container

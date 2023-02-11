@@ -336,7 +336,7 @@ export default {
 	font-size: large
 	text-align: center
 	border-style: solid
-	border-color: $mbh-blue-2
+	border-color: $black-mbh-0
 	border-width: 3px
 
 .ad-text
@@ -344,13 +344,14 @@ export default {
 	font-weight: 300
 
 .ad-type-box.selected
-	background-color: $mbh-white-3
-	border-color: $mbh-blue-1
+	background-color: $black-mbh-0
+	border-color: $blue-mbh-0
 	border-width: 3px
+	color: $mbh-white
 
 .ad-btn.selected
-	background-color: $mbh-blue-2
-	color: $mbh-white
+	background-color: $mbh-white
+	color: $black-mbh-0
 @media only screen and (max-width: 1100px)
 	.ad-type-box__container
 		display: block

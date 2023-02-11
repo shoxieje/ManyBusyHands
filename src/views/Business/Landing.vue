@@ -8,7 +8,7 @@
                     <strong class="bl-header-text">
                         <p>
                             Get started by
-                            <span class="text-red">registering</span> your
+                            <span class="text-blue">registering</span> your
                             business!
                         </p>
                     </strong>

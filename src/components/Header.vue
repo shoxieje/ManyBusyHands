@@ -1,6 +1,6 @@
 <!-- HEADER SIGNED IN -->
 <template>
-    <b-navbar type="primary" variant="light" sticky>
+    <b-navbar type="primary" variant="primary" sticky>
         <!-- BRANDING -->
         <b-navbar-brand :to="{ name: 'BusinessHome' }">
             <img
@@ -18,16 +18,20 @@
             state="background-color: red"
         >
             <b-nav-item class="nav-item" id="header-home-btn" to="/business"
-                ><span style="color: #29648a !important">Home</span></b-nav-item
+                ><span style="color: #101820ff !important"
+                    >Home</span
+                ></b-nav-item
             >
             <b-nav-item class="nav-item" id="header-jobs-btn" to="/jobs"
-                ><span style="color: #29648a !important">Jobs</span></b-nav-item
+                ><span style="color: #101820ff !important"
+                    >Jobs</span
+                ></b-nav-item
             >
             <b-nav-item
                 class="nav-item"
                 id="header-analytics-btn"
                 to="/analytics"
-                ><span style="color: #29648a !important"
+                ><span style="color: #101820ff !important"
                     >Analytics</span
                 ></b-nav-item
             >
@@ -55,7 +59,7 @@
                 <div class="bottom-border"></div>
                 <b-dropdown-item
                     class="dropdown-right-menu"
-                    href="#/business/edit-details"
+                    href="#/business/account-details"
                     >Account details</b-dropdown-item
                 >
                 <b-dropdown-item class="dropdown-right-menu" href="/invoices"
@@ -150,9 +154,12 @@ export default {
 
 <style lang="sass">
 @import '../assets/styles/custom-variables.sass'
+
+.navbar.header.sticky-top.navbar-primary.bg-primary.navbar-expand
+    border-bottom: none !important
 #dropdown-right-logged-in
     text-decoration: underline
-    text-decoration-color: $mbh-blue-2
+    text-decoration-color: $black-mbh-0
 #header-home-btn
     text-align: center
     min-width: 80px
@@ -189,7 +196,7 @@ export default {
     font-size: 22px !important
     font-family: "Noticia Text", serif
     font-weight: bold !important
-    color: $mbh-blue-2 !important
+    color: $black-mbh-0 !important
 
 .dropdown-right-menu
     font-size: 20px
@@ -200,7 +207,7 @@ export default {
 .slide-button
     width: 100%
     text-align: right !important
-    color: $mbh-blue-2 !important
+    color: $black-mbh-0 !important
     font-size: 14px !important
 
 .hdr-secondary

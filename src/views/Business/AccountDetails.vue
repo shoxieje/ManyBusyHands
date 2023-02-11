@@ -891,6 +891,6 @@ export default {
     display: none
 
 .theme--dark.v-picker__body
-    background: $mbh-blue-2 !important
+    background: $black-mbh-0 !important
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

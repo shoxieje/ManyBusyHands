@@ -254,7 +254,7 @@ export default {
 }
 .theme--dark.v-picker__body {
     /* blue mbh-blue-2 */
-    background: #29648a !important;
+    background: #101820ff !important;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

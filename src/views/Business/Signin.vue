@@ -182,8 +182,8 @@ export default {
 <style>
 .login-label {
     font-size: 20px;
-    /* $mbh-blue-2 */
-    color: #29648a;
+    /* $black-mbh-0 */
+    color: #101820ff;
 }
 
 .signin-label {
