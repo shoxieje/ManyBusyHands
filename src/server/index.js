@@ -5,7 +5,7 @@ const cors = require("cors");
 const multer = require("multer")
 const fs = require("fs")
 const path = require("path")
-const bodyParser = require('body-parser')
+
 
 
 let upload = null;
@@ -20,10 +20,6 @@ const port = 8081;
 app.use(express.json());
 app.use(cors());
 app.use(express.static('static'))
-
-// app.use(bodyParser.urlencoded({
-//     extended: true,
-// }))
 
 app.use(
     express.urlencoded({
@@ -40,6 +36,7 @@ const jobAdRouter = require('./routes/jobAd')
 const postcodeRouter = require('./routes/postcode')
 const candidateRouter = require('./routes/candidate')
 const jobSeekerUserRouter = require('./routes/jobSeekerUser')
+const awardRouter = require('./routes/award.js')
 
 ///////////////////////// TEST STRIPE
 
@@ -161,6 +158,7 @@ app.use('/jobAd', jobAdRouter)
 app.use('/postcode', postcodeRouter)
 app.use('/candidate', candidateRouter)
 app.use('/jobSeekerUser', jobSeekerUserRouter)
+app.use('/award', awardRouter)
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

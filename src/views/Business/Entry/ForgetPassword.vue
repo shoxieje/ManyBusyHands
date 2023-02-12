@@ -156,7 +156,7 @@
     .forget-text
         text-align: left
     .cr-account
-        color: $mbh-blue-1
+        color: $blue-mbh-0
 
     @media only screen and (max-width: $tablet-max)
         .forget-subtitle

@@ -19,7 +19,11 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VueAxios, axios);
 Vue.use(vueCountryRegionSelect);
-Vue.use(VueToastify);
+Vue.use(VueToastify, {
+
+    position: "top-right"
+
+});
 Vue.use(VueCarousel);
 Vue.use(VueWait)
 
@@ -31,3 +35,4 @@ new Vue({
     wait: new VueWait(),
     render: (h) => h(App),
 }).$mount("#app");
+

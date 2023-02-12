@@ -107,7 +107,7 @@
 
 
     export default {
-        name: "BusinessSignin",
+        name: "Signin",
 
         data() {
             return {
@@ -194,9 +194,12 @@
                                         expiresAt: expiresAt
     
                                     }), config.headers).then(
-                                        this.$store.dispatch("setUserData", this.loginEmail),
-                                        this.$store.dispatch("authUserLoggingIn", true),
-                                        this.$router.push('/')
+                                        // set data for apps
+
+                                        this.$store.dispatch("setUserData", this.loginEmail).then(
+                                            this.$router.push('/')
+                                        ),
+                                        
                                     )
                                 }
                             }
@@ -210,7 +213,7 @@
 <style>
     .login-label {
         font-size: 20px;
-        /* $mbh-blue-2 */
+        /* $black-mbh-0 */
         color: #29648a;
     }
 
@@ -226,7 +229,7 @@
     }
 
     .cr-account {
-        /* $mbh-blue-1 */
+        /* $blue-mbh-0 */
         color: #2e9cca;
     }
 </style>

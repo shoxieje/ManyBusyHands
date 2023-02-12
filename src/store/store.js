@@ -16,7 +16,8 @@ export default new Vuex.Store({
         inactive_job_ad: [],
         draft_job_ad: [],
         // retrieve postcodes
-        postcode: []
+        postcode: [],
+        awards: []
 
     },
     mutations: {
@@ -40,20 +41,31 @@ export default new Vuex.Store({
         },
         SET_DRAFT_JOB_AD(state, x) {
             state.draft_job_ad = x
+        },
+        ADD_INACTIVE_JOB_AD(state, x) {
+            state.inactive_job_ad.push(x)
+        },
+        REMOVE_ACTIVE_JOB_AD(state, x) {
+            state.active_job_ad.splice(x, 1)
+        },
+        SET_AWARD_DATA(state, x) {
+            state.awards = x
         }
 
     },
+    
     actions: {
         // This action commits the setLoggedInUser mutation, updating the store state with the 'account' object passed through
-        authUserLoggingIn({commit}, value) {
-            commit("SET_USER_LOGGING_IN", value)
-        },
-
         setUserData({commit}, userEmail) {
             return axios.get(`http://localhost:8081/businessUser/searchByEmail/${userEmail}`).then(
                 result => {
                     commit("SET_USER_DATA", result.data[0]);
                     commit("SET_USER_LOGGING_IN", true);
+                    this.dispatch('setActiveJobAd');
+                    this.dispatch('setInactiveJobAd');
+                    this.dispatch('setDraftJobAd');
+                    this.dispatch('setAwardData')
+
                 }
             )
         },
@@ -144,6 +156,11 @@ export default new Vuex.Store({
 
         },
 
+        pushInactiveAd({commit}, x) {
+            commit("ADD_INACTIVE_JOB_AD", x[0])
+            commit("REMOVE_ACTIVE_JOB_AD", x[1])
+        },
+
         clearUserData({commit}) {
 
             commit("SET_USER_LOGGING_IN", false);
@@ -153,10 +170,26 @@ export default new Vuex.Store({
             commit("SET_DRAFT_JOB_AD", []);
 
         },
+
+
+        setAwardData({commit}) {
+
+            axios.get(`http://localhost:8081/award/`).then(
+
+                result => {
+
+                    commit("SET_AWARD_DATA", result.data)
+
+                }
+
+            )
+
+        }
     },
 
     getters: {
         authUser: (state) => {
+            console.log(state)
             return state.isUserLoggingIn
         },
         getUserData: (state) => {
@@ -177,6 +210,9 @@ export default new Vuex.Store({
         getDraftJobAd: (state) => {
             return state.draft_job_ad
         },
+        getAwardData: (state) => {
+            return state.awards
+        }
         
     }
 })

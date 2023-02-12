@@ -214,6 +214,7 @@
     import Createjob3 from "../components/createjob-component/Createjob-3.vue";
     import Createjob4 from "../components/createjob-component/Createjob-4.vue";
     import { config } from "../../../utils/constant";
+    import { mapGetters } from 'vuex'
     const data = config.mockData.activeJoblist[0];
 
     // const radioQuestions = config.mockData.radioQuestions;
@@ -333,8 +334,8 @@
                     this.e1 = 4;
                 }
             },
+            
             fillData() {
-                this.data = data;
                 this.jobTitle = data.jobTitle;
                 this.activity = data.activity;
                 this.location = data.location;
@@ -344,11 +345,28 @@
                 this.jobSummary = data.jobSummary;
                 this.jobDescription = data.jobDescription;
                 this.jobImageSrc = data.jobImageSrc;
-                console.log(this.jobTitle);
+
             },
         },
 
+        computed: {
+            ...mapGetters({
+                activeJobList: 'getActiveJobAd',
+                inactiveJobList: 'getInactiveJobAd',
+                draftJobList: 'getDraftJobAd',
+            })
+        },
+
         created() {
+            
+
+            // let id = this.$route.params.id
+
+            // axios.get(``)
+
+            // let job_ad = this.activeJobList.find(x => x.random_url_job_id === id)
+
+            // console.log(job_ad)
 
             this.fillData();
         },
@@ -377,7 +395,7 @@
         padding: 0 2rem 2rem
 
     .stepper-btn-primary
-        background-color: $mbh-blue-2 !important
+        background-color: $black-mbh-0 !important
         color: white !important
 
     .stepper-btn-secondary
@@ -436,7 +454,7 @@
         text-align: left
 
     .subtitle
-        color: $mbh-blue-2
+        color: $black-mbh-0
         font-size: 1.5rem
         padding-bottom: 1rem
 
@@ -476,7 +494,7 @@
         .v-stepper__step.v-stepper__step--active div
             display: block !important
             font-weight: bolder
-            color: $mbh-blue-2 !important
+            color: $black-mbh-0 !important
 
         .v-stepper__header
 

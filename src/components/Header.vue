@@ -36,14 +36,14 @@
             class="ml-auto hdr-main"
             v-show="!isUserLoggingIn && !getUser"
         >
-            <b-button class="nav-btn" variant="light" :to="{ name: 'BusinessSignin' }"
+            <b-button class="nav-btn" variant="light" :to="{ name: 'Signin' }"
                 >Sign in</b-button
             >
 
             <b-button
                 class="nav-btn ml-2"
                 variant="primary"
-                :to="{ name: 'BusinessSignup' }"
+                :to="{ name: 'Signup' }"
                 >Sign up</b-button
             >
         </b-navbar-nav>
@@ -67,7 +67,7 @@
                     >{{ user.first_name }} {{ user.last_name }}</b-dropdown-item
                 >
                 <div class="bottom-border-1"></div>
-                <b-dropdown-item class="dropdown-right-menu" href="#"
+                <b-dropdown-item class="dropdown-right-menu" href="/account/details"
                     >Account details</b-dropdown-item
                 >
                 <b-dropdown-item class="dropdown-right-menu" href="/invoices"
@@ -99,17 +99,12 @@
                 <b-dropdown-item class="dropdown-right-menu" :to="{ name: 'ManageJob' }"
                     >Jobs</b-dropdown-item
                 >
-                <b-dropdown-item class="dropdown-right-menu" href="#"
-                    >Ads</b-dropdown-item
-                >
-                <b-dropdown-item class="dropdown-right-menu" href="#"
-                    >Seasonality</b-dropdown-item
-                >
+
                 <div class="bottom-border-1"></div>
-                <b-dropdown-item class="dropdown-right-menu" :to="{ name: 'BusinessSignin' }"
+                <b-dropdown-item class="dropdown-right-menu" :to="{ name: 'Signin' }"
                     >Sign in</b-dropdown-item
                 >
-                <b-dropdown-item class="dropdown-right-menu" :to="{ name: 'BusinessSignup' }"
+                <b-dropdown-item class="dropdown-right-menu" :to="{ name: 'Signup' }"
                     >Sign up</b-dropdown-item
                 >
             </b-dropdown>
@@ -158,10 +153,10 @@
                     <br />
                     <div class="bottom-border-1"></div>
                     <br />
-                    <b-button variant="light" class="slide-button" :to="{ name: 'BusinessSignin' }"
+                    <b-button variant="light" class="slide-button" :to="{ name: 'Signin' }"
                         >S i g n I n</b-button
                     >
-                    <b-button variant="light" class="slide-button" :to="{ name: 'BusinessSignup' }"
+                    <b-button variant="light" class="slide-button" :to="{ name: 'Signup' }"
                         >S i g n U p</b-button
                     ><br />
                     <br />
@@ -187,7 +182,7 @@
             }),
 
             isUserLoggingIn() {
-                return this.$route.name == 'BusinessSignin' || this.$route.name == 'BusinessSignup'
+                return this.$route.name == 'Signin' || this.$route.name == 'Signup'
             },
 
             getUser() {
@@ -202,7 +197,8 @@
                 VueCookies.remove("mbh_session_token");
                 
                 this.$store.dispatch("clearUserData")
-                this.$router.push('/')
+
+                this.$router.push('/').catch(()=>{})
             }
             // This method calls the vuex store action 'logoutUser' to remove the login details
             // and then redirects to the home/landing page
@@ -214,7 +210,7 @@
     @import '../assets/styles/custom-variables.sass'
     #dropdown-right-logged-in
         text-decoration: underline
-        text-decoration-color: $mbh-blue-2
+        text-decoration-color: $black-mbh-0
     #header-home-btn
         text-align: center
         min-width: 80px
@@ -245,7 +241,7 @@
         font-size: 22px !important
         font-family: "Noticia Text", serif
         font-weight: bold !important
-        color: $mbh-blue-2 !important
+        color: $black-mbh-0 !important
     .dropdown-right-menu
         font-size: 20px
     .b-sidebar.shadow.b-sidebar-right.bg-light.text-dark
@@ -253,7 +249,7 @@
     .slide-button
         width: 100%
         text-align: right !important
-        color: $mbh-blue-2 !important
+        color: $black-mbh-0 !important
         font-size: 14px !important
     .hdr-secondary
         display: none !important

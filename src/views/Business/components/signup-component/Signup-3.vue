@@ -107,7 +107,7 @@
                             </b-col>
                         </b-row>
 
-                        <b-row class="my-1">
+                        <!-- <b-row class="my-1">
                             <b-col sm="3">
                                 <label for="monthPickers"
                                     >What months are the busiest or the peak
@@ -128,7 +128,7 @@
                                     class="theme"
                                 ></v-date-picker>
                             </b-col>
-                        </b-row>
+                        </b-row> -->
                     </b-form>
                 </div>
             </b-container>

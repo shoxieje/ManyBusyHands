@@ -55,7 +55,7 @@
                     class="job-preview-card__container"
                 >
                     <div v-for="(job, key) in inactiveJobList">
-                        <JobCard :job="job" :number="key" type="inactive" />
+                        <JobCard :isInactive="showInactiveJobList" :job="job" :number="key+100" type="inactive" />
                     </div>
                 </div>
                 <div
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+
     import { config } from "../../../utils/constant";
     import JobCard from "../components/card__component/Job-card.vue";
     import { mapGetters } from 'vuex'
@@ -189,7 +190,7 @@
         border-width: 1px
         border-radius: 10px
     .job-preview-btn.selected
-        background-color: $mbh-blue-2
+        background-color: $black-mbh-0
         color: $mbh-white
     @media only screen and (max-width: $laptop-max)
         .b-tab-title

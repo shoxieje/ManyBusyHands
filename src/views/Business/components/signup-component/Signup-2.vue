@@ -6,7 +6,7 @@
             </h2> -->
             <!-- YOUR DETAILS -->
             <div class="business-signup-box">
-                <h3 class="subtitle-signup">Your Details</h3>
+                <h3 class="subtitle-signup">Personal Details</h3>
                 <b-form id="business-signup-form1" class="text-primary">
                     <!-- INPUTS -->
                     <b-row class="my-1">
@@ -158,7 +158,7 @@
                     <b-row class="my-1">
                         <b-col sm="3">
                             <label for="address" class="required-field"
-                                >Business address
+                                >Main Business address
                             </label>
                         </b-col>
                         <b-col sm="9">
@@ -177,7 +177,29 @@
                             <div id="radd" style="color: red; display: none;">Business Address is required</div>
                         </b-col>
                     </b-row>
-                </b-form>
+
+                    <b-row class="my-1">
+                        <b-col sm="3">
+                            <label for="s_address"
+                                >Second Business address
+                            </label>
+                        </b-col>
+                        <b-col sm="9">
+                            <vue-google-autocomplete
+                                id="s_address"
+                                classname="form-control"
+                                placeholder="Enter your second business address"
+                                
+                                v-on:placechanged="getSecondAddressData"
+                                :country="['au']"
+                            >
+                            </vue-google-autocomplete>
+
+                            <!-- radd = required address -->
+                            <div id="radd" style="color: red; display: none;">Business Address is required</div>
+                        </b-col>
+                    </b-row>
+                
 
                 <b-row class="my-1">
                     <b-col sm="3">
@@ -192,6 +214,23 @@
                             valid-color="#4b8a54"
                             v-model="landlineNumber"
                             placeholder="Landline Number"
+                        />
+                    </b-col>
+                </b-row>
+
+                <b-row class="my-1">
+                    <b-col sm="3">
+                        <label for="faxNumber" class="text-primary"
+                            >Business Fax Number
+                        </label>
+                    </b-col>
+                    <b-col sm="9">
+                        <VuePhoneNumberInput
+                            @phone-number-blur="emitFaxNumber"
+                            default-country-code="AU"
+                            valid-color="#4b8a54"
+                            v-model="faxNumber"
+                            placeholder="Fax Number"
                         />
                     </b-col>
                 </b-row>
@@ -227,6 +266,7 @@
                         ></b-form-input>
                     </b-col>
                 </b-row>
+            </b-form>
             </div>
         </b-container>
     </section>
@@ -240,7 +280,6 @@
     import axios from "axios";
     // import { config } from "../../../utils/constant";
     import VueGoogleAutocomplete from "vue-google-autocomplete";
-    const bcrypt = require("bcryptjs");
 
     export default {
         data() {
@@ -255,6 +294,7 @@
                 address: "",
                 phoneNumber: "",
                 landlineNumber: "",
+                faxNumber: "",
                 businessWebsite: "",
                 errFirstName: "",
                 errLastName: "",
@@ -267,7 +307,8 @@
                 checkedLastName: null,
                 checkedRole: null,
                 checkedBusinessName: null,
-                checkedABN: null
+                checkedABN: null,
+                secondAddress: ""
             };
         },
 
@@ -280,6 +321,10 @@
         methods: {
             getAddressData(addressData, placeResultData, id) {
                 this.address = addressData;
+            },
+
+            getSecondAddressData(addressData, placeResultData, id) {
+                this.secondAddress = addressData
             },
 
             // ----- first name validation -----------
@@ -413,6 +458,7 @@
             
             // ----- address validation -----------
 
+
             addressOnBlur() {
                 if(this.checkEmpty(document.getElementById("address").value)) {
                     this.styleToRequiredField("radd", "address")
@@ -430,12 +476,20 @@
                 }
             },
 
+            // emitSecondAddress() {
+            //     this.$emit()
+            // },
+
             emitLandlineNumber() {
                 this.$emit('landlineNumber', this.landlineNumber);
             },
 
             emitPhoneNumber() {
                 this.$emit('mobileNumber', this.phoneNumber);
+            },
+
+            emitFaxNumber() {
+                this.$emit('mobileNumber', this.faxNumber);
             },
 
             emitWebsite() {

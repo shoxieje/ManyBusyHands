@@ -48,7 +48,7 @@ async function inActivateJobAd(jobAd) {
 }
 
 // either update from draft, edit or reactivate the ad
-async function ediJobAd(jobAd) {
+async function editJobAd(jobAd) {
 
     const result = await db.query(
 
@@ -113,7 +113,7 @@ module.exports = {
 
     createJobAd,
     inActivateJobAd,
-    ediJobAd,
+    editJobAd,
     remove,
     retrieveAdByType,
     retrieveAdByUUID

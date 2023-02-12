@@ -149,7 +149,7 @@
     .reset-text
         text-align: left
     .cr-account
-        color: $mbh-blue-1
+        color: $blue-mbh-0
     .signin-btn
         font-size: medium !important
 

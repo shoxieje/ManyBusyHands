@@ -2,9 +2,10 @@
     <div :id="'job-card-' + type + '-' + number">
         <div class="job-preview-card">
             <!-- IMAGE CONTAINER -->
+            <!-- :src="'@/assets/job_ad/' + job.random_url_job_id + '/images/' + job.image" -->
             <div class="sr-image__container">
                 <img
-                    src="@/assets/img/icons/grapes-picking.jpg"
+                    :src="require(`@/assets/job_ad/${job.random_url_job_id}/images/${job.image}`)"
                     alt="Share icon"
                     class="sr-image"
                 />
@@ -57,7 +58,7 @@
                         variant="primary"
                         @click="disablePrompt"
                     >
-                        <span class="pop-up-text">Disable</span>
+                        <span class="pop-up-text">Inactive</span>
                         <img
                             src="@/assets/img/icons/disable-w-icon.png"
                             alt="Disable"
@@ -119,15 +120,22 @@
 </template>
 
 <script>
+    import axios from "axios";
     export default {
-        props: ["job", "type", "number"],
+        props: ["job", "type", "number", "isInactive"],
         components: {},
         data() {
             return {
                 showBottomBar: false,
             };
         },
+
+        computed: {
+
+        },
+
         methods: {
+
             toggleBar() {
                 this.showBottomBar = !this.showBottomBar;
             },
@@ -135,8 +143,7 @@
                 const element = document.getElementById(
                     "job-card-" + this.type + "-" + this.number
                 );
-                console.log("job-card-" + this.type + "-" + this.number);
-                element.remove();
+                element.style.display = "none";
             },
             deletePrompt() {
                 this.$vToastify
@@ -153,6 +160,7 @@
                         }
                     });
             },
+
             disablePrompt() {
                 this.$vToastify
                     .prompt({
@@ -163,8 +171,23 @@
                         if (value) {
                             this.deleteCurrentJobCard();
 
+                            let index = this.$store.state.active_job_ad.findIndex(x => x.random_url_job_id === this.job.random_url_job_id)
+                            this.$store.dispatch("pushInactiveAd", [this.job, index])
                             //Change status from active to inactive in database
                             //Refresh
+
+                            let d = new Date();
+
+                            let currentDate = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-"
+                                                + ("0" + d.getDate()).slice(-2)
+
+                            axios.put(`http://localhost:8081/jobAd/inactivateJobAd`, new URLSearchParams({
+
+                                date: currentDate,
+                                id: this.job.random_url_job_id
+
+                            })).then(this.$vToastify.success("Inactive job ad successfully"))
+
                         }
                     });
             },
@@ -176,7 +199,8 @@
             },
         },
         
-        created() {
+        mounted() {
+
 
         },
     };

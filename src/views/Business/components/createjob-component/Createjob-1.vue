@@ -114,7 +114,22 @@
 
                 <b-row class="my-1">
                     <b-col sm="12">
-                        <label for="payRange">Applicable Award</label>
+                        <label for="payRange">Applicable Award <a color="black" href="https://www.fairwork.gov.au/employment-conditions/awards/list-of-awards">(Fair work award)</a></label>
+                        <b-col sm="9">
+                            <multiselect
+                                style="border: 1px solid #ced4da"
+                                placeholder="Select an award"
+                                v-model="award"
+                                :options="award_name"
+                                :show-labels="false"
+                                :searchable="true"
+                                @input="emitAward"
+                            >
+                            </multiselect>
+
+                            <!-- rt = required title -->
+                            <div id="rt" style="color: red; display: none;">Title is required</div>
+                        </b-col>
                         <b-row>
                             <b-col sm="6">
                                 <label for="payRangeFrom" class="required-field"
@@ -189,6 +204,8 @@
                 activityOptions: [""],
                 payRangeFrom: "",
                 payRangeTo: "",
+                award: "",
+                award_name: [],
                 isFirstPayRange: false,
                 errJobTitle: "",
                 errPayRangeFrom: "",
@@ -205,10 +222,26 @@
             };
         },
 
+        created() {
+
+            const retrieveAwardName = async () => {
+
+                this.award_name = this.awards.map(a => a.award_name)
+
+            }
+
+
+            this.fillData();
+            retrieveAwardName();
+
+
+        },
+
         computed: {
-            // ...mapGetters({
-            //     activityOptions: "getActivityData",
-            // }),
+            ...mapGetters({
+                awards: "getAwardData",
+                activities: "getActivityData",
+            }),
         },
 
         mounted() {
@@ -235,11 +268,6 @@
 
         },
 
-        computed: {
-            ...mapGetters({
-                activities: "getActivityData",
-            }),
-        },
         methods: {
             // ----- Job Title validation -----------
             emitJobTitle() {
@@ -310,6 +338,10 @@
 
                     this.$emit("location",  this.locSuburb + " " +  this.locState + " " + this.locPostcode );
                 }
+            },
+
+            emitAward() {
+                this.$emit("award", this.award)
             },
 
             // ----- pay range validation -----------
@@ -480,10 +512,6 @@
             },
         },
 
-        created() {
-
-            this.fillData();
-        },
     };
 </script>
 

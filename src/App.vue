@@ -26,36 +26,20 @@
 
         data() {
             return {
-
+                
             };
         },
 
         computed: {
-            
+
         },
 
-        async created() {
+        created() {
 
             this.$wait.start('loading data');
 
             const retrieveActivityData = async () => {
                 this.$store.dispatch("setActivityData");
-            }
-
-            const authUser = async () => {
-                this.$store.dispatch("authUserLoggingIn", true);
-            }
-
-            const retrieveActiveJobAd = async () => {
-                await this.$store.dispatch("setActiveJobAd")
-            }
-
-            const retrieveInactiveJobAd = async () => {
-                await this.$store.dispatch("setInactiveJobAd")
-            }
-
-            const retrieveDraftJobAd = async () => {
-                await this.$store.dispatch("setDraftJobAd")
             }
 
             retrieveActivityData();
@@ -69,18 +53,13 @@
 
             if(session_id == null) {
                 console.log("not cookie")
-            } else {   
-                await axios.get(`http://localhost:8081/sessionToken/getToken/${session_id}`).then(
+            } else {
+                axios.get(`http://localhost:8081/sessionToken/getToken/${session_id}`).then(
                     result => {
                         let userEmail = result.data[0].user_name;
-                        setUserData(userEmail).then(() => {
-                            authUser();
-                            // retrieve all the job ads
-                            retrieveActiveJobAd();
-                            retrieveInactiveJobAd();
-                            retrieveDraftJobAd();
-                        })
-                    }
+                        setUserData(userEmail)
+                    },
+                    // this.$router.
                 )
             }
 

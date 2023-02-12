@@ -28,10 +28,11 @@
                         >
                         <div class="ad-style ad-text">
                             <ul>
-                                <li>30 days listing on our website and our facebook page</li>
-                                <li>
-                                    Your job ad is searchable and visible to subscribers
-                                </li>
+                                <li>30 days listing on our website and our Facebook page</li>
+                                <li>One photograph displayed in ad</li>
+                                <li>Job headline on Instagram</li>
+                                <li>Your job ad is searchable and visible to subscribers</li>
+                                <li>Great for short teem workers </li>
                             </ul>
                         </div>
                     </b-button>
@@ -56,10 +57,10 @@
                         <div class="ad-style ad-text">
                             <ul>
                                 <li>30 days listing on website and our facebook page</li>
-                                <li>
-                                    Your job ad is emailed to relevant candidates
-                                </li>
+                                <li>Up to three photographs displayed in ad</li>
+                                <li>Posts to social media groups</li>
                                 <li>Priority listing</li>
+                                <li>Your job is notified to relevant candidates</li>
                                 <li>Get workers faster</li>
                             </ul>
                         </div>
@@ -73,7 +74,7 @@
                         <div class="ad-style ad-type">Ultra</div>
                         <div class="ad-style ad-price">$399.95</div>
                         <div class="ad-style ad-text sub">
-                            Guaranteed to hire the best candidate!
+                            Greater likelihood to hire best candidates!
                         </div>
                         <b-button
                             id="ad-ultra-btn"
@@ -84,13 +85,13 @@
                         >
                         <div class="ad-style ad-text">
                             <ul>
-                                <li>Guaranteed to hire the best candidate</li>
-                                <li>
-                                    Your job ad emailed to relevant candidates
-                                </li>
-                                <li>Priority listing in search</li>
-                                <li>Priority listing in candidate emails</li>
-                                <li>Get candidates faster</li>
+                                <li>Up to five photographs displayed in ad</li>
+                                <li>45 days listing on our website and our Facebook page</li>
+                                <li>Job headline on Instagram</li>
+                                <li>Posts to social media groups plus boosts</li>
+                                <li>Your  job is notified to relevant candidates</li>
+                                <li>Priority listing</li>
+                                <li>More longer term workers to select</li>
                             </ul>
                         </div>
                     </b-button>
@@ -102,7 +103,8 @@
                             @click="selectCustom"
                         >
                             <div class="ad-style ad-type">Custom</div>
-                            <div class="ad-style ad-price">$499.95</div>
+                            <div class="ad-style ad-price"></div>
+                            <br><br>
                             <div class="ad-style ad-text sub">
                                 Create your customized ad service!
                             </div>
@@ -115,19 +117,12 @@
                             >
                             <div class="ad-style ad-text point">
                                 <ul>
-                                    <li>
-                                        Customized ad service according to your
-                                        need
-                                    </li>
-                                    <li>
-                                        Your job ad emailed to relevant
-                                        candidates
-                                    </li>
-                                    <li>Priority listing in search</li>
-                                    <li>
-                                        Priority listing in candidate emails
-                                    </li>
-                                    <li>Get candidates faster</li>
+                                    <li>Customized ad service according to your need</li>
+                                    <li>Suitable for multiple locations</li>
+                                    <li>Multiple roles at your locations</li>
+                                    <li>Regular publications on our website - regular display ads</li>
+                                    <li>Regular posts to social media groups</li>
+                                    <li>Negotiable pricing to meet requirements </li>
                                 </ul>
                             </div>
                         </b-button>
@@ -315,7 +310,7 @@ ul
 	font-size: large
 	text-align: center
 	border-style: solid
-	border-color: $mbh-blue-2
+	border-color: $black-mbh-0
 	border-width: 3px
 
 .ad-text
@@ -324,11 +319,11 @@ ul
 
 .ad-type-box.selected
 	background-color: $mbh-white-3
-	border-color: $mbh-blue-1
+	border-color: $blue-mbh-0
 	border-width: 3px
 
 .ad-btn.selected
-	background-color: $mbh-blue-2
+	background-color: $black-mbh-0
 	color: $mbh-white
 
 @media only screen and (max-width: $tablet-max)

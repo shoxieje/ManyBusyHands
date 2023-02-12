@@ -42,7 +42,7 @@ router.put('/editJobAd', async function (req, res, next) {
 
     try {
 
-        res.json(await jobAd.ediJobAd(req.body))
+        res.json(await jobAd.editJobAd(req.body))
 
     } catch (err) {
 

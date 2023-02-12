@@ -1,18 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import store from "../store/store";
 
 Vue.use(VueRouter);
+
 
 const routes = [
     {
         path: "/business/signin",
-        name: "BusinessSignin",
+        name: "Signin",
         component: () => import("../views/Business/Entry/Signin.vue"),
     },
     {
         path: "/business/signup",
-        name: "BusinessSignup",
+        name: "Signup",
         component: () => import("../views/Business/Entry/Signup.vue"),
     },
     {
@@ -24,37 +25,66 @@ const routes = [
         path: "/jobs/manage/create",
         name: "CreateJob",
         component: () => import('../views/Business/Jobs/CreateJob.vue'),
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/jobs/manage",
         name: "ManageJob",
         component: () => import("../views/Business/Jobs/ManageJob.vue"),
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/jobs/manage/:id/candidates",
         name: "ManageCandidate",
         component: () => import("../views/Business/Jobs/ManageCandidate.vue"),
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/jobs/manage/:id/edit",
         name: "EditJob",
         component: () => import("../views/Business/Jobs/EditJob.vue"),
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/business/forget-password",
         name: "BusinessForgetPassword",
         component: () => import("../views/Business/Entry/ForgetPassword.vue"),
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/business/reset-password",
         name: "BusinessResetPassword",
         component: () => import("../views/Business/Entry/ResetPassword.vue"),
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/invoices",
         name: "Invoices",
         component: () => import("../views/Business/Details/Invoices.vue"),
+        meta: {
+            requiresAuth: true
+        },
     },
+    {
+        path: "/account/details",
+        name: "AccountDetails",
+        component: () => import("../views/Business/AccountDetails.vue"),
+        meta: {
+            requiresAuth: true
+        },
+    }
 ];
 
 const router = new VueRouter({
@@ -65,5 +95,21 @@ const router = new VueRouter({
         return { x: 0, y: 0 };
     },
 });
+
+router.beforeEach((to, from, next) => {
+
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        
+        if(!store.getters.authUser) {
+            next({ name: 'Signin' })
+
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
+
+})
 
 export default router;
