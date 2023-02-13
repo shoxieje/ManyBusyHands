@@ -1,5 +1,5 @@
 <template>
-    <section class="business-home-top text-primary">
+    <section class="business-home-top">
         <!-- HEADER SECTION -->
         <div class="bottom-border">
             <div class="business-home-header">
@@ -7,7 +7,12 @@
                     <div class="text-white business-home-header__left">
                         <h2>Hi, {{ user.first_name }}</h2>
                         <strong class="bh-header-text">
-                            <p v-if="!activeJobList.length && !draftJobList.length">
+                            <p
+                                v-if="
+                                    !activeJobList.length &&
+                                    !draftJobList.length
+                                "
+                            >
                                 Get started by creating your first job ad!
                             </p>
 
@@ -20,11 +25,17 @@
                                 <span class="text-red">{{
                                     draftJobList[0].location
                                 }}</span
-                                >. <a href="#">Continue draft?</a>
+                                >.
+                                <a href="#" class="text-red">Continue draft?</a>
                             </p>
 
-                            <p v-if="activeJobList.length && !draftJobList.length">
-                                Join with thousands of businesses to create your own job ad today!
+                            <p
+                                v-if="
+                                    activeJobList.length && !draftJobList.length
+                                "
+                            >
+                                Join with thousands of businesses to create your
+                                own job ad today!
                             </p>
                         </strong>
                     </div>
@@ -32,14 +43,14 @@
                         <div class="float-ver">
                             <b-button
                                 v-if="draftJobList.length"
-                                class="nav-btn text-white"
-                                variant="warning"
+                                class="nav-btn"
+                                variant="light"
                                 to="#"
                                 style="margin: 0.5rem 1rem"
                                 >Continue Draft</b-button
                             ><b-button
                                 class="nav-btn text-white"
-                                variant="primary"
+                                variant="warning"
                                 to="/jobs/manage/create"
                                 style="margin: 0.5rem 1rem"
                                 >Create a job ad</b-button
@@ -57,7 +68,7 @@
                 <div class="bh-find-role__container">
                     <b-button
                         variant="light"
-                        class="bh-find-role__content text-primary"
+                        class="bh-find-role__content"
                         to="jobs/manage/create"
                     >
                         <img
@@ -70,7 +81,7 @@
                     </b-button>
                     <b-button
                         variant="light"
-                        class="bh-find-role__content text-primary"
+                        class="bh-find-role__content"
                         to="jobs/manage/create"
                     >
                         <img
@@ -83,7 +94,7 @@
                     </b-button>
                     <b-button
                         variant="light"
-                        class="bh-find-role__content text-primary"
+                        class="bh-find-role__content"
                         to="jobs/manage/create"
                     >
                         <img
@@ -106,10 +117,13 @@
                 :per-page="1"
                 :mouse-drag="false"
                 :autoplay="true"
-                :autoplayTimeout="4000"
+                :autoplayTimeout="3000"
                 :loop="true"
                 paginationColor="#464866"
-                paginationActiveColor="#ff5000"
+                paginationActiveColor="#009ad6"
+                :navigate-to="someLocalProperty"
+                speed="800"
+                :touchdrag="true"
             >
                 <slide
                     class="carousel-slide"
@@ -117,12 +131,18 @@
                     :key="key"
                 >
                     <div class="carousel-image__container">
+                        <!-- <img
+                            :src="
+                                require(`@/assets/job_ad/${job.random_url_job_id}/images/${job.image}`)
+                            "
+                            alt="Share icon"
+                            class="carousel-image"
+                        /> -->
                         <img
-                            :src="require(`@/assets/job_ad/${job.random_url_job_id}/images/${job.image}`)"
+                            src="@/assets/img/icons/hiring-2.jpg"
                             alt="Share icon"
                             class="carousel-image"
                         />
-                        <!-- <img :src="job.jobImageSrc" alt="Share icon" /> -->
                     </div>
                     <div class="carousel-content__container">
                         <div class="carousel-content">
@@ -136,22 +156,30 @@
                                             class="open-link-icon"
                                     /></a>
                                 </h4>
-                                {{ job.suburb + " " + job.postcode + " " + job.state }} <br />
+                                {{
+                                    job.suburb +
+                                    " " +
+                                    job.postcode +
+                                    " " +
+                                    job.state
+                                }}
+                                <br />
                                 {{ job.industry }} <br />
-                                ${{ job.pay_from }} - ${{ job.pay_to }} per hour <br />
+                                ${{ job.pay_from }} - ${{ job.pay_to }} per hour
+                                <br />
                             </div>
                             <div
                                 variant="light"
-                                class="carousel-right text-primary"
+                                class="carousel-right"
                                 href="#"
                             >
                                 <b-button
                                     variant="light"
-                                    class="share-button text-primary"
+                                    class="share-button"
                                     to="#"
                                 >
                                     <img
-                                        src="@/assets/img/icons/share-icon-3.png"
+                                        src="@/assets/img/icons/share-icon.png"
                                         alt="Share icon"
                                         class="open-link-icon"
                                     />
@@ -189,11 +217,7 @@
                 />
                 <h5 class="bh-job-btn">Manage active job ads</h5>
             </b-button>
-            <b-button
-                variant="light"
-                class="manage-job-btn text-primary"
-                to="/jobs/manage"
-            >
+            <b-button variant="light" class="manage-job-btn" to="/jobs/manage">
                 <img
                     class="manage-job-icon"
                     src="@/assets/img/icons/inactive-3-icon.png"
@@ -252,7 +276,7 @@
 
                 <div
                     class="bh-info__container"
-                    style="background-color: #fff4da"
+                    style="background-color: #ffffff"
                 >
                     <img
                         class="info-icon"
@@ -262,7 +286,7 @@
                     <div class="bh-info__content">
                         <div>
                             <h2 class="bh-info-title">First JOB AD is FREE</h2>
-                            <div class="text-primary bh-info-text">
+                            <div class="bh-info-text">
                                 Post your seasonal work – be Authentic –
                                 Transparent – Visible – Verifiable - Locatable –
                                 Contactable. We will help you get the right
@@ -271,7 +295,7 @@
                         </div>
                         <b-button
                             class="nav-btn text-white bh-info-btn"
-                            variant="primary"
+                            variant="secondary"
                             to="/jobs/manage/create"
                             >Create a job ad</b-button
                         >
@@ -295,7 +319,7 @@
                             alt="Video 1"
                             src="@/assets/img/icons/Video-4.jpg"
                         />
-                        <div class="bh-video-content text-primary">
+                        <div class="bh-video-content">
                             <h4 class="bh-video-title">
                                 Employer's Obligations in the Australian
                                 Workplace
@@ -318,7 +342,7 @@
                             alt="Video 2"
                             src="@/assets/img/icons/Video-1.jpg"
                         />
-                        <div class="bh-video-content text-primary">
+                        <div class="bh-video-content">
                             <h4 class="bh-video-title">
                                 Types of Employment Contracts in Australia
                             </h4>
@@ -341,7 +365,7 @@
                             src="@/assets/img/icons/Video-3.jpg"
                         />
 
-                        <div class="bh-video-content text-primary">
+                        <div class="bh-video-content">
                             <h4 class="bh-video-title">
                                 Employer's Obligations in the Australian
                                 Workplace
@@ -410,457 +434,438 @@
 </template>
 
 <script>
-    import { Carousel, Slide } from "vue-carousel";
-    import axios from "axios";
-    import { mapGetters } from 'vuex'
+import { Carousel, Slide } from "vue-carousel";
+import axios from "axios";
+import { mapGetters } from "vuex";
 
-    // Vue.use(VueCarousel);
+// Vue.use(VueCarousel);
 
-    export default {
-        name: "AuthLanding",
-        
-        data() {
-            return {
-                
-            };
+export default {
+    name: "AuthLanding",
+
+    data() {
+        return {};
+    },
+
+    components: {
+        Carousel,
+        Slide,
+    },
+
+    computed: {
+        ...mapGetters({
+            activeJobList: "getActiveJobAd",
+            inactiveJobList: "getInactiveJobAd",
+            draftJobList: "getDraftJobAd",
+            user: "getUserData",
+        }),
+
+        isAdExisted() {
+            return (
+                this.activeJobList.length === 0 &&
+                this.inactiveJobList.length === 0
+            );
         },
+    },
 
-        components: {
-            Carousel,
-            Slide,
-        },
+    methods: {},
 
-        computed: {
-            ...mapGetters({
-                activeJobList: 'getActiveJobAd',
-                inactiveJobList: 'getInactiveJobAd',
-                draftJobList: 'getDraftJobAd',
-                user: 'getUserData'
-            }),
+    created() {
+        const checkIfAdExistFromDb = async () => {
+            // if(this.activeJobList.length === 0) {
+            //     await axios.get(`http://localhost:8081/jobAd/getJobAdByType/ACTIVE/${this.user.email_address}`).then(
+            //         result => {
+            //             console.log(result.data)
+            //         }
+            //     )
+            // }
+        };
 
-            isAdExisted() {
-                return this.activeJobList.length === 0 && this.inactiveJobList.length === 0
-            }
-
-        },
-
-        methods: {
-
-
-        },
-
-        created() {
-            
-            const checkIfAdExistFromDb = async () => {
-                
-                // if(this.activeJobList.length === 0) {
-                    
-                //     await axios.get(`http://localhost:8081/jobAd/getJobAdByType/ACTIVE/${this.user.email_address}`).then(
-
-                //         result => {
-                //             console.log(result.data)
-                //         }
-                //     )
-
-                // }
-
-            }
-
-            checkIfAdExistFromDb();
-
-
-        }
-    }
+        checkIfAdExistFromDb();
+    },
+};
 </script>
 
 <style lang="sass">
-    @import '../../../assets/styles/custom-variables.sass'
+@import '../../../assets/styles/custom-variables.sass'
 
+h2
+    margin: 0
+    padding: 1rem 0
+
+//-----  Header Section  -----
+.business-home-top
+    // background-color: $blue-mbh-0
+    margin-inline: auto
+
+.business-home-header
+    background-color: $blue-mbh-0
+
+.business-home-header__container
+    display: flex
+    justify-content: space-between
+
+.business-home-header__left
+    // background-color: cyan
+    padding-top: 1rem
+    max-width: 60%
+
+.bh-header-text
+    font-size: large
+
+.business-home-header__right
+    // background-color: yellow
+    // max-width: 40%
+    // background-color: red
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+
+.float-ver
+    display: flex
+    justify-content: right
+    flex-wrap: wrap
+
+
+@media only screen and (max-width: $screen-max)
+    .business-home-header__right
+        color: red !important
+    .business-home-header__left
+        padding-left: 1rem
+
+@media only screen and (max-width: $tablet-max)
+    // .business-home-header__left
     h2
-        margin: 0
-        padding: 1rem 0
+        font-size: 1.5rem
+    .bh-header-text
+        font-size: small
+    .nav-btn
+        font-size: small !important
 
-    //-----  Header Section  -----
-    .business-home-top
-        // background-color: $blue-mbh-0
+@media only screen and (max-width: $mobile-max)
+    // .business-home-header__left
+    h2
+        font-size: 1.2rem
+
+
+
+//-----  Find-Role Section  -----
+.business-home-find-role
+    background-color: $mbh-white
+
+.business-home-find-role__container
+    padding: 2rem 0
+    text-align: center
+
+.bh-find-role__container
+    margin: 2rem 0 0 0
+    // background-color: red
+    display: flex
+    justify-content: space-around
+    flex-wrap: wrap
+
+.bh-find-role__content
+    border-style: none
+    background-color: $mbh-white
+    padding: 1rem
+    width: 30%
+    min-width: 300px
+    text-align: center
+    margin: 0
+
+.find-role-icon
+    width: 40%
+    height: auto
+    margin: 1rem
+
+
+@media only screen and (max-width: $tablet-max)
+    h4
+        font-size: 1rem
+    .bh-find-role__container
+        padding: 0
+        margin: unset
+    .bh-find-role__content
+        padding: 0.5rem
+        min-width: 200px
+        font-size: small
+    .find-role-icon
+        // width: 35%
+
+
+
+//----- JOB LIST -----
+.business-home-job-list
+    text-align: center
+
+.open-link-icon
+    width: 20px
+    height: auto
+
+.carousel-slide
+    padding: 2rem
+    display: flex
+    border-radius: 1rem
+    justify-content: space-between
+    background-color: $mbh-white
+    text-align: left
+.carousel-image__container
+    width: 30%
+    min-width: 300px
+    text-align: center
+    margin-top: auto
+    margin-bottom: auto
+.carousel-image
+    // max-width: 500px
+    // min-width: 300px
+    width: 100%
+    height: auto
+    object-fit: cover
+.carousel-content__container
+    height: 100%
+    display: flex
+    justify-content: space-between
+    width: 67%
+    min-width: 50%
+    padding: 0 0 0 1rem
+    flex-direction: column
+.carousel-content
+    display: flex
+    justify-content: space-between
+.carousel-content-text
+    font-size: large
+    background-color: white
+.carousel-content-btn-container
+    margin: 1rem 0 0 0
+.carousel-right
+    min-width: 50px
+.carousel-button
+    margin-right: 1rem
+    min-width: 9rem
+
+.share-button
+    background-color: $mbh-white
+    border-style: none
+    padding: 0
+
+
+@media only screen and (max-width: $laptop-max)
+    .carousel-image__container
+        min-width: 250px
+    .carousel-content-text
+        font-size: medium
+    .carousel-button
+        font-size: medium
+    .share-button
+        font-size: small
+
+@media only screen and (max-width: $tablet-max)
+    .VueCarousel-slide.carousel-slide
+        padding: 1.5rem
+    .carousel-image__container
+        min-width: 200px
+    .carousel-content-text
+        font-size: small
+    .carousel-button
+        font-size: small
+        min-width: 8rem
+        margin-bottom: 0.5rem
+        margin-right: 0.5rem
+    .open-link-icon
+        width: 15px
+    .share-button
+        font-size: small
+
+@media only screen and (max-width: $mobile-max)
+    .carousel-slide
+        flex-wrap: wrap
+        justify-content: center
+    .carousel-image__container
+        min-width: 200px
+        margin-bottom: 1rem
+        width: 100%
+    .carousel-button
+        width: 100%
+        margin-bottom: 0.5rem
+    .carousel-content__container
+        width: unset
+        height: unset
+
+
+//-----  Info Section  -----
+.business-home-info
+    background-color: $blue-mbh-0
+
+.business-home-info__container
+    padding: 3rem 2rem
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+
+.bh-info__container
+    border-radius: 10px
+    width: 48%
+    min-width: 40px
+    padding: 2rem 2rem
+    display: flex
+    justify-content: space-between
+
+.info-icon
+    width: 25%
+    height: auto
+    margin: auto 2rem auto 0
+
+.bh-info__content
+    width: 70%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    // background-color: pink
+
+.bh-info-text
+    margin-bottom: 1rem
+
+@media only screen and (max-width: $screen-max)
+    .bh-info-title
+        font-size: x-large
+    .bh-info-text
+        font-size: medium
+    .bh-info-btn
+        font-size: medium !important
+
+@media only screen and (max-width: 800px)
+    .business-home-info__container
+        padding: 2rem
+    .bh-info__container
+        width: 100%
+        margin: 0.5rem 0
+    .bh-info-title
+        font-size: large
+    .bh-info-text
+        font-size: small
+    .bh-info-btn
+        font-size: medium !important
+    .info-icon
+        width: 20%
+        margin-inline: 1rem
+    .bh-info__content
+        width: 100%
+
+@media only screen and (max-width: 480px)
+    .bh-info__container
+        flex-wrap: wrap
+        text-align: center
+    .info-icon
+        width: 30%
         margin-inline: auto
 
-    .business-home-header
-        background-color: $blue-mbh-0
 
-    .business-home-header__container
-        display: flex
-        justify-content: space-between
+//----- Manage ads -----
 
-    .business-home-header__left
-        // background-color: cyan
-        padding-top: 1rem
-        max-width: 60%
+.bh-job-list__manage-job
+    display: flex
+    justify-content: space-evenly
+    padding: 1rem
 
-    .bh-header-text
-        font-size: large
+.manage-job-btn
+    margin: 1rem 0
+    width: 30%
+    border-radius: 1rem
 
-    .business-home-header__right
-        // background-color: yellow
-        // max-width: 40%
-        // background-color: red
-        display: flex
-        flex-direction: column
-        justify-content: space-around
+.manage-job-icon
+    width: 25%
+    height: auto
+    margin: 1rem
 
-    .float-ver
-        display: flex
-        justify-content: right
-        flex-wrap: wrap
-
-
-    @media only screen and (max-width: $screen-max)
-        .business-home-header__right
-            color: red !important
-        .business-home-header__left
-            padding-left: 1rem
-
-    @media only screen and (max-width: $tablet-max)
-        // .business-home-header__left
-        h2
-            font-size: 1.5rem
-        .bh-header-text
-            font-size: small
-        .nav-btn
-            font-size: small !important
-
-    @media only screen and (max-width: $mobile-max)
-        // .business-home-header__left
-        h2
-            font-size: 1.2rem
-
-
-
-    //-----  Find-Role Section  -----
-    .business-home-find-role
-        background-color: $mbh-white
-
-    .business-home-find-role__container
-        padding: 2rem 0
-        text-align: center
-
-    .bh-find-role__container
-        margin: 2rem 0 0 0
-        // background-color: red
-        display: flex
-        justify-content: space-around
-        flex-wrap: wrap
-
-    .bh-find-role__content
-        border-style: none
-        background-color: $mbh-white
-        padding: 1rem
-        width: 30%
-        min-width: 300px
-        text-align: center
-        margin: 0
-
-    .find-role-icon
-        width: 40%
-        height: auto
-        margin: 1rem
-
-
-    @media only screen and (max-width: $tablet-max)
-        h4
-            font-size: 1rem
-        .bh-find-role__container
-            padding: 0
-            margin: unset
-        .bh-find-role__content
-            padding: 0.5rem
-            min-width: 200px
-            font-size: small
-        .find-role-icon
-            // width: 35%
-
-
-
-    //----- JOB LIST -----
-    .business-home-job-list
-        text-align: center
-
-    .open-link-icon
-        width: 20px
-        height: auto
-
-    .carousel-slide
-        padding: 2rem
-        display: flex
-        border-radius: 1rem
-        justify-content: space-between
-        background-color: $mbh-white
-        text-align: left
-
-    .carousel-image__container
-        width: 30%
-        min-width: 300px
-        text-align: center
-        margin-top: auto
-        margin-bottom: auto
-
-    .carousel-image
-        // max-width: 500px
-        // min-width: 300px
-        width: 100%
-        height: auto
-        object-fit: cover
-
-    .carousel-content__container
-        height: 100%
-        display: flex
-        justify-content: space-between
-        width: 67%
-        min-width: 50%
-        padding: 0 0 0 1rem
-        flex-direction: column
-
-    .carousel-content
-        display: flex
-        justify-content: space-between
-
-    .carousel-content-text
-        font-size: large
-        background-color: white
-
-    .carousel-content-btn-container
-        margin: 1rem 0 0 0
-
-    .carousel-right
-        min-width: 50px
-
-    .carousel-button
-        margin-right: 1rem
-        min-width: 9rem
-
-    .share-button
-        background-color: $mbh-white
-        border-style: none
-        padding: 0
-
-
-    @media only screen and (max-width: $laptop-max)
-        .carousel-image__container
-            min-width: 250px
-        .carousel-content-text
-            font-size: medium
-        .carousel-button
-            font-size: medium
-        .share-button
-            font-size: small
-
-    @media only screen and (max-width: $tablet-max)
-        .VueCarousel-slide.carousel-slide
-            padding: 1.5rem
-        .carousel-image__container
-            min-width: 200px
-        .carousel-content-text
-            font-size: small
-        .carousel-button
-            font-size: small
-            min-width: 8rem
-            margin-bottom: 0.5rem
-            margin-right: 0.5rem
-        .open-link-icon
-            width: 15px
-        .share-button
-            font-size: small
-
-    @media only screen and (max-width: $mobile-max)
-        .carousel-slide
-            flex-wrap: wrap
-            justify-content: center
-        .carousel-image__container
-            min-width: 200px
-            margin-bottom: 1rem
-            width: 100%
-        .carousel-button
-            width: 100%
-            margin-bottom: 0.5rem
-        .carousel-content__container
-            width: unset
-            height: unset
-
-
-    //-----  Info Section  -----
-    .business-home-info
-        background-color: $blue-mbh-0
-
-    .business-home-info__container
-        padding: 3rem 2rem
-        display: flex
-        flex-wrap: wrap
-        justify-content: space-between
-
-    .bh-info__container
-        border-radius: 10px
-        width: 48%
-        min-width: 40px
-        padding: 2rem 2rem
-        display: flex
-        justify-content: space-between
-
-    .info-icon
-        width: 25%
-        height: auto
-        margin: auto 2rem auto 0
-
-    .bh-info__content
-        width: 70%
-        display: flex
-        flex-direction: column
-        justify-content: space-between
-        // background-color: pink
-
-    .bh-info-text
-        margin-bottom: 1rem
-
-    @media only screen and (max-width: $screen-max)
-        .bh-info-title
-            font-size: x-large
-        .bh-info-text
-            font-size: medium
-        .bh-info-btn
-            font-size: medium !important
-
-    @media only screen and (max-width: 800px)
-        .business-home-info__container
-            padding: 2rem
-        .bh-info__container
-            width: 100%
-            margin: 0.5rem 0
-        .bh-info-title
-            font-size: large
-        .bh-info-text
-            font-size: small
-        .bh-info-btn
-            font-size: medium !important
-        .info-icon
-            width: 20%
-            margin-inline: 1rem
-        .bh-info__content
-            width: 100%
-
-    @media only screen and (max-width: 480px)
-        .bh-info__container
-            flex-wrap: wrap
-            text-align: center
-        .info-icon
-            width: 30%
-            margin-inline: auto
-
-
-    //----- Manage ads -----
-
-    .bh-job-list__manage-job
-        display: flex
-        justify-content: space-evenly
-        padding: 1rem
-
-    .manage-job-btn
-        margin: 1rem 0
-        width: 30%
-        border-radius: 1rem
-
+@media only screen and (max-width: $laptop-max)
     .manage-job-icon
-        width: 25%
-        height: auto
-        margin: 1rem
+        width: 20%
+    .bh-job-btn
+        font-size: medium
 
-    @media only screen and (max-width: $laptop-max)
-        .manage-job-icon
-            width: 20%
-        .bh-job-btn
-            font-size: medium
+@media only screen and (max-width: $mobile-max)
+    .manage-job-icon
+        width: 10%
+    .bh-job-list__manage-job
+        flex-wrap: wrap
+    .bh-job-btn
+        font-size: small
+    .manage-job-btn
+        width: 80%
+        margin: 0.5rem
 
-    @media only screen and (max-width: $mobile-max)
-        .manage-job-icon
-            width: 10%
-        .bh-job-list__manage-job
-            flex-wrap: wrap
-        .bh-job-btn
-            font-size: small
-        .manage-job-btn
-            width: 80%
-            margin: 0.5rem
+//----- Video -----
+.business-home-video
+    padding: 4rem
+    // background-color: $mbh-white
 
-    //----- Video -----
-    .business-home-video
-        padding: 4rem
-        // background-color: $mbh-white
+.business-home-video__container
+    text-align: center
+    // background-color: pink
 
-    .business-home-video__container
-        text-align: center
-        // background-color: pink
+.bh-video__container
+    // background-color: yellow
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
 
+.bh-video-card
+    min-width: 250px
+    background-color: $mbh-white
+    // background-color: green
+    width: 30%
+    padding: 0
+    margin-top: 1rem
+    margin-bottom: 1rem
+
+.bh-video-content
+    padding: 1rem
+    // background-color: pink
+
+.bh-video-image
+    width: 100%
+    // height: 50%
+
+
+
+@media only screen and (max-width: $screen-max)
+    .bh-video-title
+        font-size: large
+
+@media only screen and (max-width: 900px)
     .bh-video__container
-        // background-color: yellow
-        display: flex
-        justify-content: space-between
-        flex-wrap: wrap
-
+        justify-content: space-around
+    .bh-video-title
+        font-size: large
     .bh-video-card
-        min-width: 250px
-        background-color: $mbh-white
-        // background-color: green
-        width: 30%
-        padding: 0
-        margin-top: 1rem
-        margin-bottom: 1rem
+        width: 45%
 
-    .bh-video-content
-        padding: 1rem
-        // background-color: pink
 
-    .bh-video-image
+@media only screen and (max-width: 650px)
+    .bh-video-card
         width: 100%
-        // height: 50%
+    .bh-video-title
+        font-size: medium
+    .bh-video-content p
+        font-size: small
 
+//----- Logo -----
+.business-home-support
+    background-color: $mbh-white
+    text-align: center
+    padding: 2rem
 
+.bh-support__container
+    padding: 1rem
+    display: flex
+    justify-content: space-evenly
+    flex-wrap: wrap
 
-    @media only screen and (max-width: $screen-max)
-        .bh-video-title
-            font-size: large
+.bh-support__logo
+    min-width: 250px
+    margin: auto 0
 
-    @media only screen and (max-width: 900px)
-        .bh-video__container
-            justify-content: space-around
-        .bh-video-title
-            font-size: large
-        .bh-video-card
-            width: 45%
-
-
-    @media only screen and (max-width: 650px)
-        .bh-video-card
-            width: 100%
-        .bh-video-title
-            font-size: medium
-        .bh-video-content p
-            font-size: small
-
-    //----- Logo -----
-    .business-home-support
-        background-color: $mbh-white
-        text-align: center
-        padding: 2rem
-
-    .bh-support__container
-        padding: 1rem
-        display: flex
-        justify-content: space-evenly
-        flex-wrap: wrap
-
+@media only screen and (max-width: $tablet-max)
     .bh-support__logo
-        min-width: 250px
-        margin: auto 0
-
-    @media only screen and (max-width: $tablet-max)
-        .bh-support__logo
-            min-width: 150px
+        min-width: 150px
 </style>

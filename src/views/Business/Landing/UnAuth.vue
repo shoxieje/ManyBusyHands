@@ -1,34 +1,36 @@
 <template>
-    <section class="business-landing-top text-primary">
+    <section class="business-landing-top">
         <!-- HEADER SECTION -->
         <div class="bottom-border">
-            <div class="business-landing-header mw-80">
-                <div class="business-landing-header__left">
-                    <h2>Welcome, business owner</h2>
-                    <strong class="bl-header-text">
-                        <p>
-                            Get started by
-                            <span class="text-blue">registering</span> your
-                            business!
-                        </p>
-                    </strong>
-                </div>
-                <div class="business-landing-header__right">
-                    <div class="float-ver">
-                        <b-button
-                            class="nav-btn text-white"
-                            variant="warning"
-                            to="/business/signup"
-                            style="margin: 0.5rem 0.5rem"
-                            >Sign up</b-button
-                        >
-                        <!-- <b-button
+            <div class="business-landing-header">
+                <div class="business-landing-header__container mw-80">
+                    <div class="text-white business-landing-header__left">
+                        <h2>Welcome, business owner</h2>
+                        <strong class="bl-header-text">
+                            <p>
+                                Get started by
+                                <span class="text-red">registering</span> your
+                                business!
+                            </p>
+                        </strong>
+                    </div>
+                    <div class="business-landing-header__right">
+                        <div class="float-ver">
+                            <b-button
+                                class="nav-btn text-white"
+                                variant="warning"
+                                to="/business/signup"
+                                style="margin: 0.5rem 0.5rem"
+                                >Sign up</b-button
+                            >
+                            <!-- <b-button
                             class="nav-btn text-white"
                             variant="primary"
                             to="business/signin"
                             style="margin: 0.5rem 0.5rem"
                             >Sign in</b-button
                         > -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,7 +85,7 @@
                 <div class="business-landing__container--40">
                     <img
                         class="business-landing-icon--sm"
-                        src="@/assets/img/icons/question-2-icon2.png"
+                        src="@/assets/img/icons/question-7-icon-rev.png"
                         alt="Interview image"
                     />
                 </div>
@@ -314,232 +316,229 @@
 </template>
 
 <script>
-    import { Carousel, Slide } from "vue-carousel";
+import { Carousel, Slide } from "vue-carousel";
 
-    export default {
-        name: "UnauthorizeLanding",
-        data() {
-            return {
-
-            };
-        },
-        components: {
-            Carousel,
-            Slide,
-        },
-        methods: {
-
-        },
-        created() {
-            
-        },
-    };
+export default {
+    name: "UnauthorizeLanding",
+    data() {
+        return {};
+    },
+    components: {
+        Carousel,
+        Slide,
+    },
+    methods: {},
+    created() {},
+};
 </script>
 
 <style lang="sass">
-    @import '../../../assets/styles/custom-variables.sass'
+@import '../../../assets/styles/custom-variables.sass'
 
-    h2, h3
-        margin: 0
-        padding: 1rem 0
+h2, h3
+    margin: 0
+    padding: 1rem 0
 
-    .subtitle
-        font-size: x-large !important
+.subtitle
+    font-size: x-large !important
 
-    //-----  Header Section  -----
-    .business-landing-top
-        margin-inline: auto
+//-----  Header Section  -----
+.business-landing-top
+    margin-inline: auto
 
-    .business-landing-header
-        display: flex
-        justify-content: space-between
+.business-landing-header
+    background-color: $blue-mbh-0
 
+.business-landing-header__container
+    display: flex
+    justify-content: space-between
+
+.business-landing-header__left
+    padding-top: 1rem
+    max-width: 60%
+
+.bl-header-text
+    font-size: large
+
+.business-landing-header__right
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+
+.float-ver
+    display: flex
+    justify-content: right
+    flex-wrap: wrap
+
+@media only screen and (max-width: $screen-max)
+    .business-landing-header__right
+        color: red !important
     .business-landing-header__left
-        padding-top: 1rem
-        max-width: 60%
+        padding-left: 1rem
 
+@media only screen and (max-width: $tablet-max)
+    h2
+        font-size: 1.5rem
     .bl-header-text
+        font-size: small
+    .nav-btn
+        font-size: small !important
+
+@media only screen and (max-width: $mobile-max)
+    h2
+        font-size: 1.2rem
+
+
+//----- Register ------
+.business-landing-register
+    background: $mbh-white
+.business-landing__container
+    display: flex
+.business-landing__container--60
+    margin-top: auto
+    margin-bottom: auto
+    padding: 2rem 1rem
+    width: 60%
+.business-landing__container--60.align-right
+    display: block
+    text-align: right
+
+.align-center
+    display: flex
+    justify-content: center
+.business-landing__container--40
+    padding: 2rem 1rem
+    width: 40%
+    display: flex
+    justify-content: center
+// .business-landing__container--40.display
+.business-landing__container--40.hidden
+    display: none
+.business-landing-icon
+    max-height: 270px
+    margin: auto
+.business-landing-icon--sm
+    max-height: 200px
+    margin: auto
+.business-landing-icon--xs
+    max-height: 150px
+    margin: auto
+.reg-btn
+    margin: 1rem 0
+    width: 200px
+@media only screen and (max-width: $laptop-max)
+    .business-landing-icon--xs
+        max-height: 120px
+@media only screen and (max-width: $tablet-max)
+    .business-landing__container--60
+        text-align: center
+        width: 100%
+    .business-landing__container--60.align-right
+        text-align: center
+    .business-landing__container--40
+        width: 100%
+        text-align: center
+    .business-landing__container--40.display
+        display: none
+    .business-landing__container--40.hidden
+        display: flex
+    .business-landing-icon
+        height: 270px
+    .business-landing-icon--sm
+        height: 170px
+    .business-landing-icon--xs
+        height: 100px
+    .business-landing__container
+        flex-wrap: wrap
+    .subtitle
+        font-size: large !important
+@media only screen and (max-width: $mobile-max)
+    .business-landing-icon
+        height: 200px
+    .reg-btn
+        width: 100% !important
+    .business-landing-icon--xs
+        height: 70px
+    .business-landing__container--60
+        padding: 1rem
+    .business-landing__container--40
+        padding: 1rem
+
+//----- Why join -----
+// .business-landing-why-join
+
+//----- ads -----
+.business-landing-ads
+    background: $mbh-white
+
+//------ best job ads ------
+
+
+//----- Video -----
+.business-landing-video
+    padding: 4rem
+    // background-color: $mbh-white
+
+.business-landing-video__container
+    text-align: center
+
+.bl-video__container
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+
+.bl-video-card
+    min-width: 250px
+    background-color: $mbh-white
+    width: 30%
+    padding: 0
+    margin-top: 1rem
+    margin-bottom: 1rem
+
+.bl-video-content
+    padding: 1rem
+
+.bl-video-image
+    width: 100%
+
+@media only screen and (max-width: $screen-max)
+    .bl-video-title
         font-size: large
 
-    .business-landing-header__right
-        display: flex
-        flex-direction: column
-        justify-content: space-around
-
-    .float-ver
-        display: flex
-        justify-content: right
-        flex-wrap: wrap
-
-    @media only screen and (max-width: $screen-max)
-        .business-landing-header__right
-            color: red !important
-        .business-landing-header__left
-            padding-left: 1rem
-
-    @media only screen and (max-width: $tablet-max)
-        h2
-            font-size: 1.5rem
-        .bl-header-text
-            font-size: small
-        .nav-btn
-            font-size: small !important
-
-    @media only screen and (max-width: $mobile-max)
-        h2
-            font-size: 1.2rem
-
-
-    //----- Register ------
-    .business-landing-register
-        background: $mbh-white
-    .business-landing__container
-        display: flex
-    .business-landing__container--60
-        margin-top: auto
-        margin-bottom: auto
-        padding: 2rem 1rem
-        width: 60%
-    .business-landing__container--60.align-right
-        display: block
-        text-align: right
-
-    .align-center
-        display: flex
-        justify-content: center
-    .business-landing__container--40
-        padding: 2rem 1rem
-        width: 40%
-        display: flex
-        justify-content: center
-    // .business-landing__container--40.display
-    .business-landing__container--40.hidden
-        display: none
-    .business-landing-icon
-        max-height: 270px
-        margin: auto
-    .business-landing-icon--sm
-        max-height: 200px
-        margin: auto
-    .business-landing-icon--xs
-        max-height: 150px
-        margin: auto
-    .reg-btn
-        margin: 1rem 0
-        width: 200px
-    @media only screen and (max-width: $laptop-max)
-        .business-landing-icon--xs
-            max-height: 120px
-    @media only screen and (max-width: $tablet-max)
-        .business-landing__container--60
-            text-align: center
-            width: 100%
-        .business-landing__container--60.align-right
-            text-align: center
-        .business-landing__container--40
-            width: 100%
-            text-align: center
-        .business-landing__container--40.display
-            display: none
-        .business-landing__container--40.hidden
-            display: flex
-        .business-landing-icon
-            height: 270px
-        .business-landing-icon--sm
-            height: 170px
-        .business-landing-icon--xs
-            height: 100px
-        .business-landing__container
-            flex-wrap: wrap
-        .subtitle
-            font-size: large !important
-    @media only screen and (max-width: $mobile-max)
-        .business-landing-icon
-            height: 200px
-        .reg-btn
-            width: 100% !important
-        .business-landing-icon--xs
-            height: 70px
-        .business-landing__container--60
-            padding: 1rem
-        .business-landing__container--40
-            padding: 1rem
-
-    //----- Why join -----
-    // .business-landing-why-join
-
-    //----- ads -----
-    .business-landing-ads
-        background: $mbh-white
-
-    //------ best job ads ------
-
-
-    //----- Video -----
-    .business-landing-video
-        padding: 4rem
-        // background-color: $mbh-white
-
-    .business-landing-video__container
-        text-align: center
-
+@media only screen and (max-width: 900px)
     .bl-video__container
-        display: flex
-        justify-content: space-between
-        flex-wrap: wrap
-
+        justify-content: space-around
+    .bl-video-title
+        font-size: large
     .bl-video-card
-        min-width: 250px
-        background-color: $mbh-white
-        width: 30%
-        padding: 0
-        margin-top: 1rem
-        margin-bottom: 1rem
+        width: 45%
 
-    .bl-video-content
-        padding: 1rem
 
-    .bl-video-image
+@media only screen and (max-width: 650px)
+    .bl-video-card
         width: 100%
+    .bl-video-title
+        font-size: medium
+    .bl-video-content p
+        font-size: small
 
-    @media only screen and (max-width: $screen-max)
-        .bl-video-title
-            font-size: large
+//----- Logo -----
+.business-landing-support
+    background-color: $mbh-white
+    text-align: center
+    padding: 2rem
 
-    @media only screen and (max-width: 900px)
-        .bl-video__container
-            justify-content: space-around
-        .bl-video-title
-            font-size: large
-        .bl-video-card
-            width: 45%
+.bl-support__container
+    padding: 1rem
+    display: flex
+    justify-content: space-evenly
+    flex-wrap: wrap
 
+.bl-support__logo
+    min-width: 250px
+    margin: auto 0
 
-    @media only screen and (max-width: 650px)
-        .bl-video-card
-            width: 100%
-        .bl-video-title
-            font-size: medium
-        .bl-video-content p
-            font-size: small
-
-    //----- Logo -----
-    .business-landing-support
-        background-color: $mbh-white
-        text-align: center
-        padding: 2rem
-
-    .bl-support__container
-        padding: 1rem
-        display: flex
-        justify-content: space-evenly
-        flex-wrap: wrap
-
+@media only screen and (max-width: $tablet-max)
     .bl-support__logo
-        min-width: 250px
-        margin: auto 0
-
-    @media only screen and (max-width: $tablet-max)
-        .bl-support__logo
-            min-width: 150px
+        min-width: 150px
 </style>

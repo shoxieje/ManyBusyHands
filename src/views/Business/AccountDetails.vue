@@ -1,5 +1,5 @@
 <template>
-    <div class="acc-details-top text-primary mw-60">
+    <div class="acc-details-top mw-60">
         <h1 class="title">Edit your account details</h1>
         <div class="acc-details__container mw-60">
             <!-- First -->
@@ -127,9 +127,7 @@
 
                 <b-row>
                     <b-col class="acc-details-label" sm="3">
-                        <label for="faxNumber"
-                            >Business Fax Number
-                        </label>
+                        <label for="faxNumber">Business Fax Number </label>
                     </b-col>
                     <b-col class="acc-details-text" sm="9">
                         <b-button
@@ -137,7 +135,7 @@
                             variant="light"
                             class="acc-details-text"
                             @click="toggleInputFaxNumber"
-                            >{{ this.landlineNumber }}</b-button
+                            >{{ this.faxNumber }}</b-button
                         >
                         <VuePhoneNumberInput
                             v-if="inputFaxNumber"
@@ -425,8 +423,10 @@
                         variant="primary"
                         class="text-white save-btn"
                         @click="saveData"
-                        >SAVE</b-button
-                    >
+                        >SAVE<img
+                            src="@/assets/img/icons/save-w-icon.png"
+                            class="save-icon"
+                    /></b-button>
                 </b-row>
             </b-container>
         </div>
@@ -434,355 +434,359 @@
 </template>
 
 <script>
-    import { config } from "../../utils/constant";
-    import Multiselect from "vue-multiselect";
-    import VueGoogleAutocomplete from "vue-google-autocomplete";
-    import VuePhoneNumberInput from "vue-phone-number-input";
-    import "vue-phone-number-input/dist/vue-phone-number-input.css";
-    import VueUploadMultipleImage from "vue-upload-multiple-image";
-    import { mapGetters } from 'vuex'
+import { config } from "../../utils/constant";
+import Multiselect from "vue-multiselect";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
+import VuePhoneNumberInput from "vue-phone-number-input";
+import "vue-phone-number-input/dist/vue-phone-number-input.css";
+import VueUploadMultipleImage from "vue-upload-multiple-image";
+import { mapGetters } from "vuex";
 
-    const businessData = config.mockData.businessDetails;
-    export default {
-        name: "AccountDetails",
+const businessData = config.mockData.businessDetails;
+export default {
+    name: "AccountDetails",
 
-        components: {
-            VueUploadMultipleImage,
-            VuePhoneNumberInput,
-            Multiselect,
-            VueGoogleAutocomplete,
+    components: {
+        VueUploadMultipleImage,
+        VuePhoneNumberInput,
+        Multiselect,
+        VueGoogleAutocomplete,
+    },
+
+    computed: {
+        ...mapGetters({
+            user: "getUserData",
+        }),
+    },
+
+    data() {
+        return {
+            inputFirstName: false,
+            firstName: "",
+            checkedFirstName: null,
+            errFirstName: "",
+            inputLastName: false,
+            lastName: "",
+            checkedLastName: null,
+            errLastName: "",
+            inputBusinessName: false,
+            inputAddress: false,
+            address: "",
+            checkedAddress: null,
+            inputBusinessWebsite: false,
+            businessWebsite: "",
+            checkedBusinessWebsite: null,
+            errBusinessWebsite: "",
+            inputLandlineNumber: false,
+            landlineNumber: "",
+            inputFaxNumber: false,
+            faxNumber: "",
+            inputPhoneNumber: false,
+            phoneNumber: "",
+            activities: ["Mr", "Mrs", "Miss", "Ms", "Dr", "Others"],
+            main_activity: "",
+            activity_1: "",
+            activity_2: "",
+            activity_3: "",
+            activity_4: "",
+            activity_5: "",
+            inputMainActivity: false,
+            inputActivity1: false,
+            inputActivity2: false,
+            inputActivity3: false,
+            inputActivity4: false,
+            inputActivity5: false,
+            images: [],
+            months: [],
+        };
+    },
+
+    methods: {
+        uploadImageSuccess(formData, index, fileList) {
+            console.log("data", formData, index, fileList);
+            // Upload image api
+            // axios.post('http://your-url-upload', formData).then(response => {
+            //   console.log(response)
+            // })
+        },
+        beforeRemove(index, done, fileList) {
+            console.log("index", index, fileList);
+            var r = confirm("remove image");
+            if (r == true) {
+                done();
+            } else {
+            }
+        },
+        editImage(formData, index, fileList) {
+            console.log("edit data", formData, index, fileList);
+        },
+        passMockData() {
+            this.firstName = this.user.first_name;
+            this.lastName = this.user.last_name;
+            this.businessName = this.user.businessName;
+            this.abn = this.user.abn;
+            this.address = this.user.address;
+            this.businessWebsite = this.user.website;
+            this.landlineNumber = this.user.landline_number;
+            this.phoneNumber = this.user.phone_number;
+            this.faxNumber = this.user.phone_number;
+            this.main_activity = this.user.main_activity;
+            this.activity_1 = this.user.activity_1;
+            this.activity_2 = this.user.activity_2;
+            this.activity_3 = this.user.activity_3;
+            this.activity_4 = this.user.activity_4;
+            this.activity_5 = this.user.activity_5;
+            this.images = this.user.images;
+            this.months = this.user.months;
+        },
+        //TITLE
+        toggleInputTitle() {
+            this.inputTitle = !this.inputTitle;
+        },
+        //FN
+        toggleInputFirstName() {
+            this.inputFirstName = !this.inputFirstName;
+        },
+        firstNameOnBlur() {
+            if (this.firstName.length === 0) {
+                this.checkedFirstName = false;
+                this.errFirstName = "First Name is required";
+            } else if (this.firstName.length === 1) {
+                this.checkedFirstName = false;
+                this.errFirstName = "Must be between 2 and 50 characters";
+            } else {
+                this.checkedFirstName = null;
+                this.toggleInputFirstName();
+            }
+        },
+        //LN
+        toggleInputLastName() {
+            this.inputLastName = !this.inputLastName;
+        },
+        lastNameOnBlur() {
+            if (this.lastName.length === 0) {
+                this.checkedLastName = false;
+                this.errLastName = "Last Name is required";
+            } else if (this.lastName.length === 1) {
+                this.checkedLastName = false;
+                this.errLastName = "Must be between 2 and 50 characters";
+            } else {
+                this.checkedLastName = null;
+                this.toggleInputLastName();
+            }
+        },
+        //BN
+        toggleInputBusinessName() {
+            this.inputBusinessName = !this.inputBusinessName;
+        },
+        businessNameOnBlur() {
+            if (this.businessName.length === 0) {
+                this.checkedBusinessName = false;
+                this.errBusinessName = "Business Name is required";
+            } else {
+                this.checkedBusinessName = null;
+                this.toggleInputBusinessName();
+            }
+        },
+        //ABN
+        toggleInputabn() {
+            this.inputabn = !this.inputabn;
+        },
+        abnOnBlur() {
+            if (this.abn.length === 0) {
+                this.checkedabn = false;
+                this.errabn = "ABN is required";
+            } else {
+                this.checkedabn = null;
+                this.toggleInputabn();
+            }
+        },
+        //Business Website
+        toggleInputBusinessWebsite() {
+            this.inputBusinessWebsite = !this.inputBusinessWebsite;
+        },
+        businessWebsiteOnBlur() {
+            this.toggleInputBusinessWebsite();
+        },
+        //Landline Number
+        toggleInputLandlineNumber() {
+            this.inputLandlineNumber = !this.inputLandlineNumber;
+        },
+        toggleInputFaxNumber() {
+            this.inputFaxNumber = !this.inputFaxNumber;
+        },
+        landlineNumberOnBlur() {
+            this.landlineNumber = "+61 " + this.landlineNumber;
+            this.toggleInputLandlineNumber();
+        },
+        faxNumberOnBlur() {
+            this.faxNumber = "+61" + this.faxNumber;
+            this.toggleInputFaxNumber();
+        },
+        //Landline Number
+        toggleInputPhoneNumber() {
+            this.inputPhoneNumber = !this.inputPhoneNumber;
+        },
+        phoneNumberOnBlur() {
+            this.phoneNumber = "+61 " + this.phoneNumber;
+            this.toggleInputPhoneNumber();
+        },
+        //Activities
+        toggleInputMainActivity() {
+            this.inputMainActivity = !this.inputMainActivity;
+        },
+        toggleInputActivity1() {
+            this.inputActivity1 = !this.inputActivity1;
+        },
+        toggleInputActivity2() {
+            this.inputActivity2 = !this.inputActivity2;
+        },
+        toggleInputActivity3() {
+            this.inputActivity3 = !this.inputActivity3;
+        },
+        toggleInputActivity4() {
+            this.inputActivity4 = !this.inputActivity4;
+        },
+        toggleInputActivity5() {
+            this.inputActivity5 = !this.inputActivity5;
+        },
+        toggleInputImages() {
+            this.inputImages = !this.inputImages;
+        },
+        printMonths() {
+            console.log(this.months);
+        },
+        // ----- address validation -----------
+        getAddressData(addressData, placeResultData, id) {
+            this.address = addressData;
+            console.log(this.address);
+            this.address =
+                addressData.street_number +
+                " " +
+                addressData.route +
+                ", " +
+                addressData.locality +
+                " " +
+                addressData.administrative_area_level_1 +
+                ", " +
+                addressData.country;
+        },
+        toggleInputAddress() {
+            this.inputAddress = !this.inputAddress;
+        },
+        addressOnBlur() {
+            if (this.checkEmpty(document.getElementById("addressId").value)) {
+                this.styleToRequiredField("radd", "addressId");
+            } else {
+                this.styleToNormal("radd", "addressId");
+                // this.inputAddress = !this.inputAddress;
+            }
+        },
+        emitAddress() {
+            if (this.checkEmpty(document.getElementById("address").value)) {
+                this.styleToRequiredField("radd", "address");
+            } else {
+                this.styleToNormal("radd", "address");
+                console.log("EMIT ADDRESS : " + this.address);
+            }
+        },
+        styleToRequiredField(rid, sid) {
+            document.getElementById(rid).style.display = "block";
+            document.getElementById(sid).style.border = "1px solid red";
+        },
+        styleToNormal(rid, sid) {
+            document.getElementById(rid).style.display = "none";
+            document.getElementById(sid).style.border = "1px solid #ced4da";
         },
 
-        computed: {
-            ...mapGetters({
-                user: 'getUserData'
-            })    
+        checkEmpty(value) {
+            return value.length === 0;
         },
-
-        data() {
-            return {
-                inputFirstName: false,
-                firstName: "",
-                checkedFirstName: null,
-                errFirstName: "",
-                inputLastName: false,
-                lastName: "",
-                checkedLastName: null,
-                errLastName: "",
-                inputBusinessName: false,
-                inputAddress: false,
-                address: "",
-                checkedAddress: null,
-                inputBusinessWebsite: false,
-                businessWebsite: "",
-                checkedBusinessWebsite: null,
-                errBusinessWebsite: "",
-                inputLandlineNumber: false,
-                landlineNumber: "",
-                inputFaxNumber: false,
-                faxNumber: "",
-                inputPhoneNumber: false,
-                phoneNumber: "",
-                activities: ["Mr", "Mrs", "Miss", "Ms", "Dr", "Others"],
-                main_activity: "",
-                activity_1: "",
-                activity_2: "",
-                activity_3: "",
-                activity_4: "",
-                activity_5: "",
-                inputMainActivity: false,
-                inputActivity1: false,
-                inputActivity2: false,
-                inputActivity3: false,
-                inputActivity4: false,
-                inputActivity5: false,
-                images: [],
-                months: [],
-            };
-        },
-
-        methods: {
-            uploadImageSuccess(formData, index, fileList) {
-                console.log("data", formData, index, fileList);
-                // Upload image api
-                // axios.post('http://your-url-upload', formData).then(response => {
-                //   console.log(response)
-                // })
-            },
-            beforeRemove(index, done, fileList) {
-                console.log("index", index, fileList);
-                var r = confirm("remove image");
-                if (r == true) {
-                    done();
-                } else {
-                }
-            },
-            editImage(formData, index, fileList) {
-                console.log("edit data", formData, index, fileList);
-            },
-            passMockData() {
-                this.firstName = this.user.first_name;
-                this.lastName = this.user.last_name;
-                this.businessName = this.user.businessName;
-                this.abn = this.user.abn;
-                this.address = this.user.address;
-                this.businessWebsite = this.user.website;
-                this.landlineNumber = this.user.landline_number;
-                this.phoneNumber = this.user.phone_number;
-                this.faxNumber = this.user.phone_number
-                this.main_activity = this.user.main_activity;
-                this.activity_1 = this.user.activity_1;
-                this.activity_2 = this.user.activity_2;
-                this.activity_3 = this.user.activity_3;
-                this.activity_4 = this.user.activity_4;
-                this.activity_5 = this.user.activity_5;
-                this.images = this.user.images;
-                this.months = this.user.months;
-            },
-            //TITLE
-            toggleInputTitle() {
-                this.inputTitle = !this.inputTitle;
-            },
-            //FN
-            toggleInputFirstName() {
-                this.inputFirstName = !this.inputFirstName;
-            },
-            firstNameOnBlur() {
-                if (this.firstName.length === 0) {
-                    this.checkedFirstName = false;
-                    this.errFirstName = "First Name is required";
-                } else if (this.firstName.length === 1) {
-                    this.checkedFirstName = false;
-                    this.errFirstName = "Must be between 2 and 50 characters";
-                } else {
-                    this.checkedFirstName = null;
-                    this.toggleInputFirstName();
-                }
-            },
-            //LN
-            toggleInputLastName() {
-                this.inputLastName = !this.inputLastName;
-            },
-            lastNameOnBlur() {
-                if (this.lastName.length === 0) {
-                    this.checkedLastName = false;
-                    this.errLastName = "Last Name is required";
-                } else if (this.lastName.length === 1) {
-                    this.checkedLastName = false;
-                    this.errLastName = "Must be between 2 and 50 characters";
-                } else {
-                    this.checkedLastName = null;
-                    this.toggleInputLastName();
-                }
-            },
-            //BN
-            toggleInputBusinessName() {
-                this.inputBusinessName = !this.inputBusinessName;
-            },
-            businessNameOnBlur() {
-                if (this.businessName.length === 0) {
-                    this.checkedBusinessName = false;
-                    this.errBusinessName = "Business Name is required";
-                } else {
-                    this.checkedBusinessName = null;
-                    this.toggleInputBusinessName();
-                }
-            },
-            //ABN
-            toggleInputabn() {
-                this.inputabn = !this.inputabn;
-            },
-            abnOnBlur() {
-                if (this.abn.length === 0) {
-                    this.checkedabn = false;
-                    this.errabn = "ABN is required";
-                } else {
-                    this.checkedabn = null;
-                    this.toggleInputabn();
-                }
-            },
-            //Business Website
-            toggleInputBusinessWebsite() {
-                this.inputBusinessWebsite = !this.inputBusinessWebsite;
-            },
-            businessWebsiteOnBlur() {
-                this.toggleInputBusinessWebsite();
-            },
-            //Landline Number
-            toggleInputLandlineNumber() {
-                this.inputLandlineNumber = !this.inputLandlineNumber;
-            },
-            toggleInputFaxNumber() {
-                this.inputFaxNumber = !this.inputFaxNumber
-            },
-            landlineNumberOnBlur() {
-                this.landlineNumber = "+61 " + this.landlineNumber;
-                this.toggleInputLandlineNumber();
-            },
-            faxNumberOnBlur() {
-                this.faxNumber = "+61" + this.faxNumber;
-            },
-            //Landline Number
-            toggleInputPhoneNumber() {
-                this.inputPhoneNumber = !this.inputPhoneNumber;
-            },
-            phoneNumberOnBlur() {
-                this.phoneNumber = "+61 " + this.phoneNumber;
-                this.toggleInputPhoneNumber();
-            },
-            //Activities
-            toggleInputMainActivity() {
-                this.inputMainActivity = !this.inputMainActivity;
-            },
-            toggleInputActivity1() {
-                this.inputActivity1 = !this.inputActivity1;
-            },
-            toggleInputActivity2() {
-                this.inputActivity2 = !this.inputActivity2;
-            },
-            toggleInputActivity3() {
-                this.inputActivity3 = !this.inputActivity3;
-            },
-            toggleInputActivity4() {
-                this.inputActivity4 = !this.inputActivity4;
-            },
-            toggleInputActivity5() {
-                this.inputActivity5 = !this.inputActivity5;
-            },
-            toggleInputImages() {
-                this.inputImages = !this.inputImages;
-            },
-            printMonths() {
-                console.log(this.months);
-            },
-            // ----- address validation -----------
-            getAddressData(addressData, placeResultData, id) {
-                this.address = addressData;
-                console.log(this.address);
-                this.address =
-                    addressData.street_number +
-                    " " +
-                    addressData.route +
-                    ", " +
-                    addressData.locality +
-                    " " +
-                    addressData.administrative_area_level_1 +
-                    ", " +
-                    addressData.country;
-            },
-            toggleInputAddress() {
-                this.inputAddress = !this.inputAddress;
-            },
-            addressOnBlur() {
-                if (this.checkEmpty(document.getElementById("addressId").value)) {
-                    this.styleToRequiredField("radd", "addressId");
-                } else {
-                    this.styleToNormal("radd", "addressId");
-                    // this.inputAddress = !this.inputAddress;
-                }
-            },
-            emitAddress() {
-                if (this.checkEmpty(document.getElementById("address").value)) {
-                    this.styleToRequiredField("radd", "address");
-                } else {
-                    this.styleToNormal("radd", "address");
-                    console.log("EMIT ADDRESS : " + this.address);
-                }
-            },
-            styleToRequiredField(rid, sid) {
-                document.getElementById(rid).style.display = "block";
-                document.getElementById(sid).style.border = "1px solid red";
-            },
-            styleToNormal(rid, sid) {
-                document.getElementById(rid).style.display = "none";
-                document.getElementById(sid).style.border = "1px solid #ced4da";
-            },
-
-            checkEmpty(value) {
-                return value.length === 0;
-            },
-            saveData() {
-                
-            },
-        },
-        created() {
-            this.businessData = businessData;
-            this.passMockData();
-        },
-    };
+        saveData() {},
+    },
+    created() {
+        this.businessData = businessData;
+        this.passMockData();
+    },
+};
 </script>
 
 <style lang="sass">
-    @import '../../assets/styles/custom-variables.sass'
-    .acc-details-top
-        text-align: left
-        padding: 2rem 1rem
+@import '../../assets/styles/custom-variables.sass'
+.acc-details-top
+    text-align: left
+    padding: 2rem 1rem
+.acc-details__container
+    text-align: left
+    background-color: $mbh-white-2
+    border-radius: 8px 8px 0 0
+    border-color: #b7b9be
+    border-style: solid
+    border-width: 1px
+    border-radius: 10px
+    padding: 1rem 2rem
+.acc-details-box
+    padding: 1rem 0
+.acc-details-label
+    font-size: large !important
+    font-weight: bold !important
+    color: $mbh-navy
+    margin: auto 0
+.acc-details-text
+    font-size: large !important
+    width: 100%
+    text-align: left
+.save-container
+    display: flex
+    justify-content: right
+.save-btn
+    margin-inline: 10px
+    min-width: 200px
+    font-size: large !important
+.save-icon
+    width: 20px
+    height: 20px
+    margin-inline: 10px
+@media only screen and (max-width: $tablet-max)
     .acc-details__container
-        text-align: left
-        background-color: $mbh-white-2
-        border-radius: 8px 8px 0 0
-        border-color: #b7b9be
-        border-style: solid
-        border-width: 1px
-        border-radius: 10px
-        padding: 1rem 2rem
-    .acc-details-box
-        padding: 1rem 0
+        padding: 1rem
+@media only screen and (max-width: 575px)
+    .acc-details-title
+        font-size: x-large !important
     .acc-details-label
-        font-size: large !important
-        font-weight: bold !important
-        color: $mbh-navy
-        margin: auto 0
+        font-size: medium !important
     .acc-details-text
-        font-size: large !important
-        width: 100%
-        text-align: left
+        font-size: medium !important
+    .acc-details-label
+        padding: 0 12px !important
+    .acc-details-text
+        padding: 0 12px !important
     .save-container
-        display: flex
-        justify-content: right
+        justify-content: center
     .save-btn
-        min-width: 200px
-        font-size: large !important
-    @media only screen and (max-width: $tablet-max)
-        .acc-details__container
-            padding: 1rem
-    @media only screen and (max-width: 575px)
-        .acc-details-title
-            font-size: x-large !important
-        .acc-details-label
-            font-size: medium !important
-        .acc-details-text
-            font-size: medium !important
-        .acc-details-label
-            padding: 0 12px !important
-        .acc-details-text
-            padding: 0 12px !important
-        .save-container
-            justify-content: center
-        .save-btn
-            width: 100%
-    /* Image uploader */
-    .text-small.mark-text-primary.cursor-pointer
-        display: none
-    .image-primary.display-flex.align-items-center
-        display: none
-    .image-icon-info
-        display: none
-    .image-icon-drag
-        margin-top: 2rem
-        width: 6rem !important
-        height: 6rem !important
-    .drag-text
-        display: none
-    .browse-text
-        display: none
-    /* Date Picker Edits*/
-    .v-btn__content
-        font-size: 1rem !important
-    .v-date-picker-header
-        display: none
-    .theme--dark.v-picker__body
-        background: $black-mbh-0 !important
+        width: 100%
+/* Image uploader */
+.text-small.mark-text-primary.cursor-pointer
+    display: none
+.image-primary.display-flex.align-items-center
+    display: none
+.image-icon-info
+    display: none
+.image-icon-drag
+    margin-top: 2rem
+    width: 6rem !important
+    height: 6rem !important
+.drag-text
+    display: none
+.browse-text
+    display: none
+/* Date Picker Edits*/
+.v-btn__content
+    font-size: 1rem !important
+.v-date-picker-header
+    display: none
+.theme--dark.v-picker__body
+    background: $black-mbh-0 !important
 </style>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

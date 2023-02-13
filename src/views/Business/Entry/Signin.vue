@@ -38,13 +38,23 @@
                                     </b-form-group>
 
                                     <b-form-group
-                                        label="Password"
                                         label-for="loginPassword"
-                                        class="login-label"
+                                        class="password-label-c"
                                         :state="validPassword"
                                         :valid="false"
                                         invalid-feedback="Password must be at least 6 characters"
                                     >
+                                        <div class="password-container">
+                                            <label class="login-label"
+                                                >Password
+                                            </label>
+                                            <router-link
+                                                class="text-right cr-account"
+                                                to="/business/forget-password"
+                                                >Forget your
+                                                password?</router-link
+                                            >
+                                        </div>
                                         <b-form-input
                                             type="password"
                                             name="loginPassword"
@@ -72,20 +82,12 @@
                                     <!-- REGISTRATION LINKS -->
                                     <div id="signup-list">
                                         <p>
-                                            <router-link
-                                                class="text-right cr-account"
-                                                to="/business/forget-password"
-                                                >Forget your
-                                                password?</router-link
-                                            >
-                                            <br />
                                             Don't have an account?
                                             <router-link
                                                 class="text-right cr-account"
                                                 to="/Business/Signup"
                                                 >Create an account</router-link
                                             >
-                                                                                        
                                         </p>
                                     </div>
                                 </b-form>
@@ -99,137 +101,150 @@
 </template>
 
 <script>
-    import axios from "axios";
-    import { config } from "../../../utils/constant";
-    import VueCookies  from 'vue-cookies'
-    // import { randomUUID } from "crypto";
-    const bcrypt = require("bcryptjs");
+import axios from "axios";
+import { config } from "../../../utils/constant";
+import VueCookies from "vue-cookies";
+// import { randomUUID } from "crypto";
+const bcrypt = require("bcryptjs");
 
+export default {
+    name: "Signin",
 
-    export default {
-        name: "Signin",
+    data() {
+        return {
+            // Login input variables
+            loginEmail: "",
+            loginPassword: "",
+            // Variable to store login error
+            firstTimeLogin: true,
+            loginError: "",
+            noLoginError: true,
+        };
+    },
 
-        data() {
-            return {
-                // Login input variables
-                loginEmail: "",
-                loginPassword: "",
-                // Variable to store login error
-                firstTimeLogin: true,
-                loginError: "",
-                noLoginError: true,
-            };
-        },
+    created() {},
 
-        created() {
-
-        },
-
-        computed: {
-            // Computed boolean variable returning whether the 'loginEmail' input is a valid email address by testing a regular expression
-            validLoginEmail() {
-                if (!this.firstTimeLogin)
-                    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+    computed: {
+        // Computed boolean variable returning whether the 'loginEmail' input is a valid email address by testing a regular expression
+        validLoginEmail() {
+            if (!this.firstTimeLogin)
+                if (
+                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
                         this.loginEmail
-                    )) return null;
-                    
-                    else return false;
-            },
-
-            // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars
-            validPassword() {
-                if (!this.firstTimeLogin)
-                    if (this.loginPassword.length >= 6) return null;
-                    else return false;
-            },
+                    )
+                )
+                    return null;
+                else return false;
         },
 
-        methods: {
-            // This method sends a request to the server, first building the necessary data object
-            // containing login email and password. (Currently set to mock JobSeeker login - 'USER' type)
-            login() {
-                this.firstTimeLogin = false;
-                
-                if (this.validLoginEmail == null && this.validPassword == null) {
-                    // find if email exist
-                    axios.get(
-                            `http://localhost:8081/user/searchByEmail/${this.loginEmail}`
-                        )
-                        .then((result) => {
-                            if (result.data.length == 0) {
+        // Computed boolean variable that returns whether the 'password' input is more than or equal to 5 chars
+        validPassword() {
+            if (!this.firstTimeLogin)
+                if (this.loginPassword.length >= 6) return null;
+                else return false;
+        },
+    },
+
+    methods: {
+        // This method sends a request to the server, first building the necessary data object
+        // containing login email and password. (Currently set to mock JobSeeker login - 'USER' type)
+        login() {
+            this.firstTimeLogin = false;
+
+            if (this.validLoginEmail == null && this.validPassword == null) {
+                // find if email exist
+                axios
+                    .get(
+                        `http://localhost:8081/user/searchByEmail/${this.loginEmail}`
+                    )
+                    .then((result) => {
+                        if (result.data.length == 0) {
+                            this.noLoginError = false;
+                            this.loginError = "Invalid Email or Password";
+                        } else {
+                            let userData = result.data[0];
+
+                            let matchedPassword = bcrypt.compareSync(
+                                this.loginPassword,
+                                userData.user_password
+                            );
+
+                            if (!matchedPassword) {
                                 this.noLoginError = false;
                                 this.loginError = "Invalid Email or Password";
                             } else {
-                                let userData = result.data[0];
+                                // generate cookie
+                                // 1000-01-01 00:00:00 || yyyy-mm-dd hh:mm:ss
+                                // token expires after an hour
 
-                                let matchedPassword = bcrypt.compareSync(
-                                    this.loginPassword,
-                                    userData.user_password
+                                let now = new Date();
+                                let d = new Date(+now + 3600 * 1000);
+
+                                let expiresAt =
+                                    d.getFullYear() +
+                                    "-" +
+                                    ("0" + (d.getMonth() + 1)).slice(-2) +
+                                    "-" +
+                                    ("0" + d.getDate()).slice(-2) +
+                                    " " +
+                                    ("0" + d.getHours()).slice(-2) +
+                                    ":" +
+                                    ("0" + d.getMinutes()).slice(-2) +
+                                    ":" +
+                                    ("0" + d.getSeconds()).slice(-2);
+
+                                const newSessionToken = crypto.randomUUID();
+
+                                VueCookies.set(
+                                    "mbh_session_token",
+                                    newSessionToken,
+                                    d
                                 );
 
-                                if (!matchedPassword) {
-                                    this.noLoginError = false;
-                                    this.loginError = "Invalid Email or Password";
-                                } else {
-                                    
-                                    // generate cookie
-                                    // 1000-01-01 00:00:00 || yyyy-mm-dd hh:mm:ss
-                                    // token expires after an hour
-
-                                    let now = new Date();
-                                    let d = new Date(+now + 3600 * 1000)
-
-                                    let expiresAt = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-"
-                                                    + ("0" + d.getDate()).slice(-2) + " " + ("0" + d.getHours()).slice(-2)
-                                                    + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
-                                    
-                                    
-                                    const newSessionToken = crypto.randomUUID();
-
-                                    VueCookies.set('mbh_session_token', newSessionToken, d)
-
-                                    axios.post(`http://localhost:8081/sessionToken/createToken`, new URLSearchParams({
-                                        session_token: newSessionToken,
-                                        userName: this.loginEmail,
-                                        expiresAt: expiresAt
-    
-                                    }), config.headers).then(
+                                axios
+                                    .post(
+                                        `http://localhost:8081/sessionToken/createToken`,
+                                        new URLSearchParams({
+                                            session_token: newSessionToken,
+                                            userName: this.loginEmail,
+                                            expiresAt: expiresAt,
+                                        }),
+                                        config.headers
+                                    )
+                                    .then(
                                         // set data for apps
 
-                                        this.$store.dispatch("setUserData", this.loginEmail).then(
-                                            this.$router.push('/')
-                                        ),
-                                        
-                                    )
-                                }
+                                        this.$store
+                                            .dispatch(
+                                                "setUserData",
+                                                this.loginEmail
+                                            )
+                                            .then(this.$router.push("/"))
+                                    );
                             }
-                        });
-                }
-            },
+                        }
+                    });
+            }
         },
-    };
+    },
+};
 </script>
 
-<style>
-    .login-label {
-        font-size: 20px;
-        /* $black-mbh-0 */
-        color: #29648a;
-    }
+<style lang="sass">
+@import '../../../assets/styles/custom-variables.sass'
 
-    .signin-label {
-        /* $mbh-navy */
-        color: #25274d;
-        font-size: 46px;
-    }
+.login-label
+    font-size: 20px
 
-    .signin-btn {
-        color: white !important;
-        font-weight: bold;
-    }
+.signin-label
+    font-size: 46px
 
-    .cr-account {
-        /* $blue-mbh-0 */
-        color: #2e9cca;
-    }
+.password-container
+    display: flex
+    justify-content: space-between
+
+.signin-btn
+    color: white !important
+    font-weight: bold
+// .cr-account
 </style>

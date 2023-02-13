@@ -1,6 +1,6 @@
 <template>
     <b-container class="container-job">
-        <b-form id="create-job-form3" class="text-primary">
+        <b-form id="create-job-form3" class="">
             <div class="create-job-box">
                 <br />
                 <h3 class="subtitle">Write your job description</h3>
@@ -90,105 +90,100 @@
 </template>
 
 <script>
-    const base64Encode = (data) =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(data);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-        });
+const base64Encode = (data) =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(data);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+    });
 
-    export default {
-        props: ["type", "data"],
-        components: {},
-        data() {
-            return {
-                headline: "",
-                jobDescription: "",
-                image: null,
-                imageSrc: null,
+export default {
+    props: ["type", "data"],
+    components: {},
+    data() {
+        return {
+            headline: "",
+            jobDescription: "",
+            image: null,
+            imageSrc: null,
 
-                errheadline: "",
-                errJobDescription: "",
+            errheadline: "",
+            errJobDescription: "",
 
-                checkedheadline: null,
-                checkedJobDescription: null,
-                checkedJobImage: null,
-            };
+            checkedheadline: null,
+            checkedJobDescription: null,
+            checkedJobImage: null,
+        };
+    },
+    computed: {
+        hasImage() {
+            return this.image;
         },
-        computed: {
-            hasImage() {
-                return this.image;
-            },
-        },
+    },
 
-        watch: {
-            image(newValue, oldValue) {
-                if (newValue !== oldValue) {
-                    if (newValue) {
-                        base64Encode(newValue)
-                            .then((value) => {
-                                this.imageSrc = value;
-                            })
-                            .catch(() => {
-                                this.imageSrc = null;
-                            });
-                    } else {
-                        this.imageSrc = null;
-                    }
-                }
-            },
-        },
-        methods: {
-            clearImage() {
-                this.image = null;
-            },
-
-            onSubmit() {
-                if (!this.image) {
-                    alert("Please select an image.");
-                    return;
-                }
-
-                alert("Form submitted!");
-            },
-
-            emitheadline() {
-                if (this.headline.length === 0) {
-                    this.checkedheadline = false;
-                    this.errheadline = "Job summary is required";
+    watch: {
+        image(newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if (newValue) {
+                    base64Encode(newValue)
+                        .then((value) => {
+                            this.imageSrc = value;
+                        })
+                        .catch(() => {
+                            this.imageSrc = null;
+                        });
                 } else {
-                    this.checkedheadline = null;
-                    this.$emit("headline", this.headline);
+                    this.imageSrc = null;
                 }
-            },
-
-            emitJobDescription() {
-                if (this.jobDescription.length === 0) {
-                    this.checkedJobDescription = false;
-                    this.errJobDescription = "Job description is required";
-                } else {
-                    this.checkedJobDescription = null;
-                    this.$emit("jobDescription", this.jobDescription);
-                }
-            },
-
-            emitJobImage() {
-
-                //What to do??
-                if (this.image != null && this.imageSrc != null) {
-                    // this.checkedJobImage = null;
-                    this.$emit("jobImage", [this.image, this.imageSrc]);
-                }
-            },
-
-
+            }
+        },
+    },
+    methods: {
+        clearImage() {
+            this.image = null;
         },
 
-        created() {
+        onSubmit() {
+            if (!this.image) {
+                alert("Please select an image.");
+                return;
+            }
 
+            alert("Form submitted!");
         },
-    };
+
+        emitheadline() {
+            if (this.headline.length === 0) {
+                this.checkedheadline = false;
+                this.errheadline = "Job summary is required";
+            } else {
+                this.checkedheadline = null;
+                this.$emit("headline", this.headline);
+            }
+        },
+
+        emitJobDescription() {
+            if (this.jobDescription.length === 0) {
+                this.checkedJobDescription = false;
+                this.errJobDescription = "Job description is required";
+            } else {
+                this.checkedJobDescription = null;
+                this.$emit("jobDescription", this.jobDescription);
+            }
+        },
+
+        emitJobImage() {
+            //What to do??
+            if (this.image != null && this.imageSrc != null) {
+                // this.checkedJobImage = null;
+                this.$emit("jobImage", [this.image, this.imageSrc]);
+            }
+        },
+    },
+
+    created() {},
+};
 </script>
 
 <style lang="sass">

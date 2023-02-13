@@ -1,6 +1,6 @@
 <template>
     <b-container class="container-job-ad">
-        <b-form id="create-job-form2" class="text-primary">
+        <b-form id="create-job-form2" class="">
             <!-- YOUR DETAILS -->
             <div class="create-job-box">
                 <br />
@@ -28,11 +28,17 @@
                         >
                         <div class="ad-style ad-text">
                             <ul>
-                                <li>30 days listing on our website and our Facebook page</li>
+                                <li>
+                                    30 days listing on our website and our
+                                    Facebook page
+                                </li>
                                 <li>One photograph displayed in ad</li>
                                 <li>Job headline on Instagram</li>
-                                <li>Your job ad is searchable and visible to subscribers</li>
-                                <li>Great for short teem workers </li>
+                                <li>
+                                    Your job ad is searchable and visible to
+                                    subscribers
+                                </li>
+                                <li>Great for short teem workers</li>
                             </ul>
                         </div>
                     </b-button>
@@ -56,11 +62,16 @@
                         >
                         <div class="ad-style ad-text">
                             <ul>
-                                <li>30 days listing on website and our facebook page</li>
+                                <li>
+                                    30 days listing on website and our facebook
+                                    page
+                                </li>
                                 <li>Up to three photographs displayed in ad</li>
                                 <li>Posts to social media groups</li>
                                 <li>Priority listing</li>
-                                <li>Your job is notified to relevant candidates</li>
+                                <li>
+                                    Your job is notified to relevant candidates
+                                </li>
                                 <li>Get workers faster</li>
                             </ul>
                         </div>
@@ -86,10 +97,17 @@
                         <div class="ad-style ad-text">
                             <ul>
                                 <li>Up to five photographs displayed in ad</li>
-                                <li>45 days listing on our website and our Facebook page</li>
+                                <li>
+                                    45 days listing on our website and our
+                                    Facebook page
+                                </li>
                                 <li>Job headline on Instagram</li>
-                                <li>Posts to social media groups plus boosts</li>
-                                <li>Your  job is notified to relevant candidates</li>
+                                <li>
+                                    Posts to social media groups plus boosts
+                                </li>
+                                <li>
+                                    Your job is notified to relevant candidates
+                                </li>
                                 <li>Priority listing</li>
                                 <li>More longer term workers to select</li>
                             </ul>
@@ -97,35 +115,40 @@
                     </b-button>
 
                     <b-button
-                            id="ad-custom"
+                        id="ad-custom"
+                        variant="light"
+                        :class="adCustomClass"
+                        @click="selectCustom"
+                    >
+                        <div class="ad-style ad-type">Custom</div>
+                        <div class="ad-style ad-price"></div>
+                        <br /><br />
+                        <div class="ad-style ad-text sub">
+                            Create your customized ad service!
+                        </div>
+                        <b-button
+                            id="ad-custom-btn"
+                            :class="adCustomBtnClass"
                             variant="light"
-                            :class="adCustomClass"
                             @click="selectCustom"
+                            >Select</b-button
                         >
-                            <div class="ad-style ad-type">Custom</div>
-                            <div class="ad-style ad-price"></div>
-                            <br><br>
-                            <div class="ad-style ad-text sub">
-                                Create your customized ad service!
-                            </div>
-                            <b-button
-                                id="ad-custom-btn"
-                                :class="adCustomBtnClass"
-                                variant="light"
-                                @click="selectCustom"
-                                >Select</b-button
-                            >
-                            <div class="ad-style ad-text point">
-                                <ul>
-                                    <li>Customized ad service according to your need</li>
-                                    <li>Suitable for multiple locations</li>
-                                    <li>Multiple roles at your locations</li>
-                                    <li>Regular publications on our website - regular display ads</li>
-                                    <li>Regular posts to social media groups</li>
-                                    <li>Negotiable pricing to meet requirements </li>
-                                </ul>
-                            </div>
-                        </b-button>
+                        <div class="ad-style ad-text point">
+                            <ul>
+                                <li>
+                                    Customized ad service according to your need
+                                </li>
+                                <li>Suitable for multiple locations</li>
+                                <li>Multiple roles at your locations</li>
+                                <li>
+                                    Regular publications on our website -
+                                    regular display ads
+                                </li>
+                                <li>Regular posts to social media groups</li>
+                                <li>Negotiable pricing to meet requirements</li>
+                            </ul>
+                        </div>
+                    </b-button>
                 </div>
 
                 <br />
@@ -135,153 +158,154 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                adType: "",
-                adBasicClass: "ad-type-box",
-                adBasicBtnClass: "ad-style ad-btn",
-                adPremiumClass: "ad-type-box",
-                adPremiumBtnClass: "ad-style ad-btn",
-                adUltraClass: "ad-type-box",
-                adUltraBtnClass: "ad-style ad-btn",
-                adCustomClass: "ad-type-box",
-                adCustomBtnClass: "ad-style ad-btn",
-            };
+export default {
+    data() {
+        return {
+            adType: "",
+            adBasicClass: "ad-type-box",
+            adBasicBtnClass: "ad-style ad-btn",
+            adPremiumClass: "ad-type-box",
+            adPremiumBtnClass: "ad-style ad-btn",
+            adUltraClass: "ad-type-box",
+            adUltraBtnClass: "ad-style ad-btn",
+            adCustomClass: "ad-type-box",
+            adCustomBtnClass: "ad-style ad-btn",
+        };
+    },
+    props: ["type", "data"],
+    components: {},
+    methods: {
+        emitAdType() {
+            if (this.adType.length != 0) {
+                this.$emit("adType", this.adType);
+            }
         },
-        props: ["type", "data"],
-        components: {},
-        methods: {
-            emitAdType() {
-                if (this.adType.length != 0) {
-                    this.$emit("adType", this.adType);
+
+        selectBasic() {
+            var basic = document.getElementById("ad-basic");
+            var basicBtn = document.getElementById("ad-basic-btn");
+            var premium = document.getElementById("ad-premium");
+            var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
+            basic.classList.add("selected");
+            basicBtn.classList.add("selected");
+            premium.classList.remove("selected");
+            premiumBtn.classList.remove("selected");
+            ultra.classList.remove("selected");
+            ultraBtn.classList.remove("selected");
+            custom.classList.remove("selected");
+            customBtn.classList.remove("selected");
+            this.adType = "basic";
+            this.emitAdType();
+        },
+
+        selectPremium() {
+            var basic = document.getElementById("ad-basic");
+            var basicBtn = document.getElementById("ad-basic-btn");
+            var premium = document.getElementById("ad-premium");
+            var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
+            basic.classList.remove("selected");
+            basicBtn.classList.remove("selected");
+            premium.classList.add("selected");
+            premiumBtn.classList.add("selected");
+            ultra.classList.remove("selected");
+            ultraBtn.classList.remove("selected");
+            custom.classList.remove("selected");
+            customBtn.classList.remove("selected");
+            this.adType = "premium";
+            this.emitAdType();
+        },
+
+        selectUltra() {
+            var basic = document.getElementById("ad-basic");
+            var basicBtn = document.getElementById("ad-basic-btn");
+            var premium = document.getElementById("ad-premium");
+            var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
+            basic.classList.remove("selected");
+            basicBtn.classList.remove("selected");
+            premium.classList.remove("selected");
+            premiumBtn.classList.remove("selected");
+            ultra.classList.add("selected");
+            ultraBtn.classList.add("selected");
+            custom.classList.remove("selected");
+            customBtn.classList.remove("selected");
+            this.adType = "ultra";
+            this.emitAdType();
+        },
+
+        selectCustom() {
+            var basic = document.getElementById("ad-basic");
+            var basicBtn = document.getElementById("ad-basic-btn");
+            var premium = document.getElementById("ad-premium");
+            var premiumBtn = document.getElementById("ad-premium-btn");
+            var ultra = document.getElementById("ad-ultra");
+            var ultraBtn = document.getElementById("ad-ultra-btn");
+            var custom = document.getElementById("ad-custom");
+            var customBtn = document.getElementById("ad-custom-btn");
+            basic.classList.remove("selected");
+            basicBtn.classList.remove("selected");
+            premium.classList.remove("selected");
+            premiumBtn.classList.remove("selected");
+            ultra.classList.remove("selected");
+            ultraBtn.classList.remove("selected");
+            custom.classList.add("selected");
+            customBtn.classList.add("selected");
+            this.adType = "custom";
+            this.emitAdType();
+        },
+
+        fillData() {
+            if (this.type === "edit") {
+                if (this.data.adType === "basic") {
+                    this.adBasicClass += " selected";
+                    this.adBasicBtnClass += " selected";
                 }
-            },
-
-            
-            selectBasic() {
-                var basic = document.getElementById("ad-basic");
-                var basicBtn = document.getElementById("ad-basic-btn");
-                var premium = document.getElementById("ad-premium");
-                var premiumBtn = document.getElementById("ad-premium-btn");
-                var ultra = document.getElementById("ad-ultra");
-                var ultraBtn = document.getElementById("ad-ultra-btn");
-                var custom = document.getElementById("ad-custom");
-                var customBtn = document.getElementById("ad-custom-btn");
-                basic.classList.add("selected");
-                basicBtn.classList.add("selected");
-                premium.classList.remove("selected");
-                premiumBtn.classList.remove("selected");
-                ultra.classList.remove("selected");
-                ultraBtn.classList.remove("selected");
-                custom.classList.remove("selected");
-                customBtn.classList.remove("selected");
-                this.adType = "basic";
-                this.emitAdType();
-            },
-
-            selectPremium() {
-                var basic = document.getElementById("ad-basic");
-                var basicBtn = document.getElementById("ad-basic-btn");
-                var premium = document.getElementById("ad-premium");
-                var premiumBtn = document.getElementById("ad-premium-btn");
-                var ultra = document.getElementById("ad-ultra");
-                var ultraBtn = document.getElementById("ad-ultra-btn");
-                var custom = document.getElementById("ad-custom");
-                var customBtn = document.getElementById("ad-custom-btn");
-                basic.classList.remove("selected");
-                basicBtn.classList.remove("selected");
-                premium.classList.add("selected");
-                premiumBtn.classList.add("selected");
-                ultra.classList.remove("selected");
-                ultraBtn.classList.remove("selected");
-                custom.classList.remove("selected");
-                customBtn.classList.remove("selected");
-                this.adType = "premium";
-                this.emitAdType();
-            },
-
-            selectUltra() {
-                var basic = document.getElementById("ad-basic");
-                var basicBtn = document.getElementById("ad-basic-btn");
-                var premium = document.getElementById("ad-premium");
-                var premiumBtn = document.getElementById("ad-premium-btn");
-                var ultra = document.getElementById("ad-ultra");
-                var ultraBtn = document.getElementById("ad-ultra-btn");
-                var custom = document.getElementById("ad-custom");
-                var customBtn = document.getElementById("ad-custom-btn");
-                basic.classList.remove("selected");
-                basicBtn.classList.remove("selected");
-                premium.classList.remove("selected");
-                premiumBtn.classList.remove("selected");
-                ultra.classList.add("selected");
-                ultraBtn.classList.add("selected");
-                custom.classList.remove("selected");
-                customBtn.classList.remove("selected");
-                this.adType = "ultra";
-                this.emitAdType();
-            },
-
-            selectCustom() {
-                var basic = document.getElementById("ad-basic");
-                var basicBtn = document.getElementById("ad-basic-btn");
-                var premium = document.getElementById("ad-premium");
-                var premiumBtn = document.getElementById("ad-premium-btn");
-                var ultra = document.getElementById("ad-ultra");
-                var ultraBtn = document.getElementById("ad-ultra-btn");
-                var custom = document.getElementById("ad-custom");
-                var customBtn = document.getElementById("ad-custom-btn");
-                basic.classList.remove("selected");
-                basicBtn.classList.remove("selected");
-                premium.classList.remove("selected");
-                premiumBtn.classList.remove("selected");
-                ultra.classList.remove("selected");
-                ultraBtn.classList.remove("selected");
-                custom.classList.add("selected");
-                customBtn.classList.add("selected");
-                this.adType = "custom";
-                this.emitAdType();
-            },
-
-            fillData() {
-                if (this.type === "edit") {
-                    if (this.data.adType === "basic") {
-                        this.adBasicClass += " selected";
-                        this.adBasicBtnClass += " selected";
-                    }
-                    if (this.data.adType === "premium") {
-                        this.adPremiumClass += " selected";
-                        this.adPremiumBtnClass += " selected";
-                    }
-                    if (this.data.adType === "ultra") {
-                        this.adUltraClass += " selected";
-                        this.adUltraBtnClass += " selected";
-                    }
+                if (this.data.adType === "premium") {
+                    this.adPremiumClass += " selected";
+                    this.adPremiumBtnClass += " selected";
                 }
-            },
+                if (this.data.adType === "ultra") {
+                    this.adUltraClass += " selected";
+                    this.adUltraBtnClass += " selected";
+                }
+            }
         },
-        created() {
-
-            this.fillData();
-        },
-    };
+    },
+    created() {
+        this.fillData();
+    },
+};
 </script>
 
 <style lang="sass">
 @import '../../../../assets/styles/custom-variables.sass'
 
-ul
+.ad-style.ad-text.point
 	margin-left: 1.5rem
-
 .ad-type-box__container
 	display: flex
-	justify-content: space-between
-
+	justify-content: space-around
+	padding: 1rem 0
+.ad-type-box__container2
+	display: flex
+	justify-content: space-around
+.container-job-ad
+	max-width: unset !important
 .ad-type-box
 	background-color: $mbh-white
-	// background-color: pink
-	width: 32%
-	// min-height: 400px
+	width: 24%
+	min-width: 220px
 	padding: 2.5rem 3%
 	border-style: solid
 	border-color: $mbh-gray-0
@@ -289,22 +313,17 @@ ul
 	box-shadow: 1px 2px #888888
 	display: flex
 	flex-direction: column
-
 .ad-style.ad-text.sub
-	min-height: 75px
-
+	min-height: 50px
 .ad-style
 	font-weight: bold
 	text-align: left
 	margin: 0.5rem 0
 	width: 100%
-
 .ad-type
 	font-size: large
-
 .ad-price
 	font-size: xx-large
-
 .ad-btn
 	// margin: 1rem 0
 	font-size: large
@@ -312,24 +331,27 @@ ul
 	border-style: solid
 	border-color: $black-mbh-0
 	border-width: 3px
-
 .ad-text
-	font-size: medium
+	font-size: small
 	font-weight: 300
-
 .ad-type-box.selected
-	background-color: $mbh-white-3
+	background-color: $blue-mbh-0
 	border-color: $blue-mbh-0
 	border-width: 3px
-
-.ad-btn.selected
-	background-color: $black-mbh-0
 	color: $mbh-white
-
-@media only screen and (max-width: $tablet-max)
+.ad-btn.selected
+	background-color: $mbh-white
+	color: $black-mbh-0
+@media only screen and (max-width: 1100px)
 	.ad-type-box__container
-		display: flex
-		flex-wrap: wrap
+		display: block
+	.ad-type-box
+		width: 50%
+	.ad-style.ad-text.sub
+		min-height: 30px
+@media only screen and (max-width: $tablet-max)
+	.ad-type-box__container2
+		display: block
 	.ad-type-box
 		width: 100%
 		padding: 1rem 1.5rem

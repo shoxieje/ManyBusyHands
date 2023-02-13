@@ -1,6 +1,6 @@
 <template>
     <section class="signup-top">
-        <b-form class="text-primary">
+        <b-form class="">
             <b-container class="container-signup">
                 <!-- <h2 class="title-signup">Register your business account</h2> -->
                 <!-- MORE ABOUT BUSINESS -->
@@ -8,7 +8,7 @@
                     <h3 class="subtitle-signup">
                         We would like to hear more about your business
                     </h3>
-                    <b-form id="business-signup-form3" class="text-primary">
+                    <b-form id="business-signup-form3" class="">
                         <!-- INPUTS -->
                         <b-row class="my-1">
                             <b-col sm="3">
@@ -41,7 +41,7 @@
                                     @input="emitActivity2"
                                 >
                                 </multiselect>
-                                
+
                                 <multiselect
                                     style="border: 1px solid #ced4da"
                                     id="activity_3"
@@ -137,169 +137,173 @@
 </template>
 
 <script>
+import "vue-phone-number-input/dist/vue-phone-number-input.css";
+import axios from "axios";
+// import { config } from "../../../utils/constant";
+import VueUploadMultipleImage from "vue-upload-multiple-image";
+const bcrypt = require("bcryptjs");
+import Multiselect from "vue-multiselect";
+import { mapGetters } from "vuex";
 
-    import "vue-phone-number-input/dist/vue-phone-number-input.css";
-    import axios from "axios";
-    // import { config } from "../../../utils/constant";
-    import VueUploadMultipleImage from "vue-upload-multiple-image";
-    const bcrypt = require("bcryptjs");
-    import Multiselect from "vue-multiselect";
-    import { mapGetters } from 'vuex'
+export default {
+    components: {
+        VueUploadMultipleImage,
+        Multiselect,
+    },
+    data() {
+        return {
+            images: [],
+            upload_images: [],
+            activityDescription: "",
+            activityPlaceholder: `E.g it could be 'Flour Miller' another could be Angus cattle, merino sheep, wool, grains and mention if you are a stud stock producer. Write about your business in 500 words.`,
+            activity_1: "",
+            activity_2: "",
+            activity_3: "",
+            activity_4: "",
+            activity_5: "",
+            months: [],
+        };
+    },
 
-    export default {
-        components: { 
-            VueUploadMultipleImage,
-            Multiselect
+    computed: {
+        ...mapGetters({
+            activities: "getActivityData",
+        }),
+    },
+
+    methods: {
+        addDateToFileName(x) {
+            var regExFileName = /([\w\d_-]*)\.?[^\\\/]*$/i,
+                regExFileNameExtension = /\.[0-9a-z]{1,5}$/i,
+                fileNameBase = x.match(regExFileName)[1],
+                fileNameExtension = x.match(regExFileNameExtension)[0];
+            //build a dynamic file name using Date.now()
+            return fileNameBase + "_" + Date.now() + fileNameExtension;
         },
-        data() {
-            return {
-                images: [],
-                upload_images: [],
-                activityDescription: "",
-                activityPlaceholder:
-                    `E.g it could be 'Flour Miller' another could be Angus cattle, merino sheep, wool, grains and mention if you are a stud stock producer. Write about your business in 500 words.`,
-                activity_1: "",
-                activity_2: "",
-                activity_3: "",
-                activity_4: "",
-                activity_5: "",
-                months: [],
 
-            };
+        uploadImageSuccess(formData, index, fileList) {
+            let fileName = this.addDateToFileName(fileList[index].name);
+
+            formData.append("filename", fileName);
+            this.upload_images.push(formData);
+            this.emitImages();
         },
 
-        computed: {
+        beforeRemove(index, done, fileList) {
+            this.upload_images.splice(index, 1);
 
-            ...mapGetters({
-                activities: 'getActivityData',
-            }),
-
+            done();
         },
 
-        methods: {
+        editImage(formData, index, fileList) {
+            formData.append("filename", fileList[index].name);
+            this.upload_images.push(formData);
 
-            addDateToFileName(x) {
-                var regExFileName = /([\w\d_-]*)\.?[^\\\/]*$/i,
-                    regExFileNameExtension =/\.[0-9a-z]{1,5}$/i,
-                    fileNameBase = x.match(regExFileName)[1],
-                    fileNameExtension = x.match(regExFileNameExtension)[0];
-                    //build a dynamic file name using Date.now()
-                return fileNameBase + '_' + Date.now() + fileNameExtension;
-            },
+            this.emitImages();
+        },
 
-            uploadImageSuccess(formData, index, fileList) {
-
-                let fileName = this.addDateToFileName(fileList[index].name)
-
-                formData.append('filename', fileName)
-                this.upload_images.push(formData)
-                this.emitImages();
-                
-            },
-
-            beforeRemove(index, done, fileList) {
-                this.upload_images.splice(index, 1)
-
-                done()
-            },
-
-            editImage(formData, index, fileList) {
-                formData.append('filename', fileList[index].name)
-                this.upload_images.push(formData)
-
-                this.emitImages();
-            },
-
-            emitActivity1() {
-                if(this.activity_1 == null || this.activity_1 == "") {
-                    this.$emit('activity_1', 0);
-                } else {
-                    this.$emit('activity_1', this.activities.indexOf(this.activity_1) + 1);
-                }
-                
-            },
-
-            emitActivity2() {
-                if(this.activity_2 == null || this.activity_2 == "") {
-                    this.$emit('activity_2', 0);
-                } else {
-                    this.$emit('activity_2', this.activities.indexOf(this.activity_2) + 1);
-                }
-                
-            },
-
-            emitActivity3() {
-                if(this.activity_3 == null || this.activity_3 == "") {
-                    this.$emit('activity_3', 0);
-                } else {
-                    this.$emit('activity_3', this.activities.indexOf(this.activity_3) + 1);
-                }
-            },
-
-            emitActivity4() {
-                if(this.activity_4 == null || this.activity_4 == "") {
-                    this.$emit('activity_4', 0);
-                } else {
-                    this.$emit('activity_4', this.activities.indexOf(this.activity_4) + 1);
-                }
-            },
-
-            emitActivity5() {
-                if(this.activity_5 == null || this.activity_5 == "") {
-                    this.$emit('activity_5', 0);
-                } else {
-                    this.$emit('activity_5', this.activities.indexOf(this.activity_5) + 1);
-                }
-            },
-
-            emitActivityDescription() {
-                this.$emit('activity_description', this.activityDescription)
-            },
-
-            emitImages() {
-                this.$emit('images', this.upload_images)
-            },
-
-            emitMonths() {
-                this.$emit('busiest_months', this.months)
+        emitActivity1() {
+            if (this.activity_1 == null || this.activity_1 == "") {
+                this.$emit("activity_1", 0);
+            } else {
+                this.$emit(
+                    "activity_1",
+                    this.activities.indexOf(this.activity_1) + 1
+                );
             }
-
         },
-    };
+
+        emitActivity2() {
+            if (this.activity_2 == null || this.activity_2 == "") {
+                this.$emit("activity_2", 0);
+            } else {
+                this.$emit(
+                    "activity_2",
+                    this.activities.indexOf(this.activity_2) + 1
+                );
+            }
+        },
+
+        emitActivity3() {
+            if (this.activity_3 == null || this.activity_3 == "") {
+                this.$emit("activity_3", 0);
+            } else {
+                this.$emit(
+                    "activity_3",
+                    this.activities.indexOf(this.activity_3) + 1
+                );
+            }
+        },
+
+        emitActivity4() {
+            if (this.activity_4 == null || this.activity_4 == "") {
+                this.$emit("activity_4", 0);
+            } else {
+                this.$emit(
+                    "activity_4",
+                    this.activities.indexOf(this.activity_4) + 1
+                );
+            }
+        },
+
+        emitActivity5() {
+            if (this.activity_5 == null || this.activity_5 == "") {
+                this.$emit("activity_5", 0);
+            } else {
+                this.$emit(
+                    "activity_5",
+                    this.activities.indexOf(this.activity_5) + 1
+                );
+            }
+        },
+
+        emitActivityDescription() {
+            this.$emit("activity_description", this.activityDescription);
+        },
+
+        emitImages() {
+            this.$emit("images", this.upload_images);
+        },
+
+        emitMonths() {
+            this.$emit("busiest_months", this.months);
+        },
+    },
+};
 </script>
 
 <style>
-    /* Image uploader */
-    .text-small.mark-text-primary.cursor-pointer {
-        display: none;
-    }
-    .image-primary.display-flex.align-items-center {
-        display: none;
-    }
-    .image-icon-info {
-        display: none;
-    }
-    .image-icon-drag {
-        margin-top: 2rem;
-        width: 6rem !important;
-        height: 6rem !important;
-    }
-    .drag-text {
-        display: none;
-    }
-    .browse-text {
-        display: none;
-    }
-    /* Date Picker Edits*/
-    .v-btn__content {
-        font-size: 1rem !important;
-    }
-    .v-date-picker-header {
-        display: none;
-    }
-    .theme--dark.v-picker__body {
-        /* blue mbh-blue-2 */
-        background: #29648a !important;
-    }
+/* Image uploader */
+.text-small.mark-text-primary.cursor-pointer {
+    display: none;
+}
+.image-primary.display-flex.align-items-center {
+    display: none;
+}
+.image-icon-info {
+    display: none;
+}
+.image-icon-drag {
+    margin-top: 2rem;
+    width: 6rem !important;
+    height: 6rem !important;
+}
+.drag-text {
+    display: none;
+}
+.browse-text {
+    display: none;
+}
+/* Date Picker Edits*/
+.v-btn__content {
+    font-size: 1rem !important;
+}
+.v-date-picker-header {
+    display: none;
+}
+.theme--dark.v-picker__body {
+    /* blue mbh-blue-2 */
+    background: #29648a !important;
+}
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
