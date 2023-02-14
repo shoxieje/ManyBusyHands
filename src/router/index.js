@@ -4,8 +4,17 @@ import store from "../store/store";
 
 Vue.use(VueRouter);
 
-
 const routes = [
+    {
+        path: "/business/about-us",
+        name: "AboutUs",
+        component: () => import("../views/Business/AboutUs.vue"),
+    },
+    {
+        path: "/business/terms-and-condition",
+        name: "TermsAndConditions",
+        component: () => import("../views/Business/T&C.vue"),
+    },
     {
         path: "/business/signin",
         name: "Signin",
@@ -24,9 +33,9 @@ const routes = [
     {
         path: "/jobs/manage/create",
         name: "CreateJob",
-        component: () => import('../views/Business/Jobs/CreateJob.vue'),
+        component: () => import("../views/Business/Jobs/CreateJob.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
     },
     {
@@ -34,7 +43,7 @@ const routes = [
         name: "ManageJob",
         component: () => import("../views/Business/Jobs/ManageJob.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
     },
     {
@@ -42,7 +51,7 @@ const routes = [
         name: "ManageCandidate",
         component: () => import("../views/Business/Jobs/ManageCandidate.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
     },
     {
@@ -50,7 +59,7 @@ const routes = [
         name: "EditJob",
         component: () => import("../views/Business/Jobs/EditJob.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
     },
     {
@@ -58,7 +67,7 @@ const routes = [
         name: "BusinessForgetPassword",
         component: () => import("../views/Business/Entry/ForgetPassword.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
     },
     {
@@ -66,7 +75,7 @@ const routes = [
         name: "BusinessResetPassword",
         component: () => import("../views/Business/Entry/ResetPassword.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
     },
     {
@@ -74,7 +83,7 @@ const routes = [
         name: "Invoices",
         component: () => import("../views/Business/Details/Invoices.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
     },
     {
@@ -82,13 +91,13 @@ const routes = [
         name: "AccountDetails",
         component: () => import("../views/Business/AccountDetails.vue"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
         },
-    }
+    },
 ];
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes,
     // Make sure browser resets to top position every page change
     scrollBehavior(to, from, savedPosition) {
@@ -96,20 +105,20 @@ const router = new VueRouter({
     },
 });
 
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
 
-    if(to.matched.some(record => record.meta.requiresAuth)) {
-        
-        if(!store.getters.authUser) {
-            next({ name: 'Signin' })
+//     if(to.matched.some(record => record.meta.requiresAuth)) {
 
-        } else {
-            next()
-        }
-    } else {
-        next()
-    }
+//         if(!store.getters.authUser) {
+//             next({ name: 'Signin' })
 
-})
+//         } else {
+//             next()
+//         }
+//     } else {
+//         next()
+//     }
+
+// })
 
 export default router;
