@@ -7,12 +7,12 @@
                     <h5 class="text-uppercase font-weight-bold mb-4">About</h5>
                     <ul class="list-unstyled mb-0">
                         <li class="mb-2">
-                            <router-link to="/About-Us" class="text-white"
+                            <router-link to="/about-us" class="text-white"
                                 >About Us</router-link
                             >
                         </li>
                         <li class="mb-2">
-                            <router-link to="/Contact-Us" class="text-white"
+                            <router-link to="/contact-Us" class="text-white"
                                 >Contact Us</router-link
                             >
                         </li>
@@ -29,7 +29,7 @@
                     <ul class="list-unstyled mb-0">
                         <li class="mb-2">
                             <router-link
-                                to="/Terms-and-Conditions"
+                                to="/terms-and-condition"
                                 class="text-white"
                                 >Terms & Conditions</router-link
                             >
@@ -88,8 +88,6 @@ import { mapGetters } from "vuex";
 export default {
     name: "Footer",
 
-    computed: {
-
-    },
+    computed: {},
 };
 </script>
