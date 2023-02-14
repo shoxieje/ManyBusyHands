@@ -128,7 +128,7 @@ p
     background-color: $mbh-white-2
 .tnc__container
     margin: 0 auto
-    padding: 2rem
+    padding: 2rem 4rem
     background-color: $mbh-white
 @media only screen and (max-width: $tablet-max)
     .tnc-title
