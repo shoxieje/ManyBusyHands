@@ -272,7 +272,7 @@
             min-width: 80px
             color: $mbh-white !important
         .btn-secondary
-            color: $mbh-navy !important
+            color: $black-mbh-0 !important
             background-color: $mbh-white-2 !important
 
 
